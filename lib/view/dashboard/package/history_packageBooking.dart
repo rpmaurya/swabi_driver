@@ -17,10 +17,10 @@ class _HistoryPackagebookingState extends State<HistoryPackagebooking> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<DriverPackageViewModel>(context, listen: false)
-          .getPackageBookingHistoryList(context: context);
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   Provider.of<DriverPackageViewModel>(context, listen: false)
+    //       .getPackageBookingHistoryList(context: context);
+    // });
   }
 
   @override
@@ -46,7 +46,7 @@ class _HistoryPackagebookingState extends State<HistoryPackagebooking> {
               return Custompackageviewpage(
                 driverAssignId: package.driverAssignedId.toString(),
                 date: package.date.toString(),
-                pickUpLocation: package.pickupLocation.toString(),
+                pickUpLocation: package.pickupLocation ?? 'N/A',
                 activityName: activity.join(','),
                 daySatus: package.dayStatus.toString(),
                 pickupTime: package.pickupTime ?? 'N/A',

@@ -33,17 +33,28 @@ class DriverGetBookingListViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future fetchDriverGetBookingListViewModel(data, BuildContext context) async {
-    setDataList(ApiResponse.loading());
-    _myRepo.driverBookingListRepositoryApi(data).then((value) {
-      setDataList(ApiResponse.completed(value));
+  Future<DriverBookingModel?> fetchDriverGetBookingListViewModel(
+      data, BuildContext context) async {
+    try {
+      setDataList(ApiResponse.loading());
+      var resp = await _myRepo.driverBookingListRepositoryApi(data);
+      setDataList(ApiResponse.completed(resp));
       print("Driver Booking List Success");
-      // Utils.toastMessage("Driver Booking ALL List Successfull");
-    }).onError((error, stackTrace) {
+      return resp;
+    } catch (error) {
       setDataList(ApiResponse.error(error.toString()));
       print(error.toString());
-      // Utils.flushBarErrorMessage(error.toString(),context);
-    });
+    }
+    return null;
+    // _myRepo.driverBookingListRepositoryApi(data).then((value) {
+    //   setDataList(ApiResponse.completed(value));
+    //   print("Driver Booking List Success");
+    //   // Utils.toastMessage("Driver Booking ALL List Successfull");
+    // }).onError((error, stackTrace) {
+    //   setDataList(ApiResponse.error(error.toString()));
+    //   print(error.toString());
+    //   // Utils.flushBarErrorMessage(error.toString(),context);
+    // });
   }
 
   Future fetchDriverGetBookingListViewModel1(data, BuildContext context) async {

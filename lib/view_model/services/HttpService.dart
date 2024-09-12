@@ -206,17 +206,20 @@ class HttpService<T> {
     bool isLogin = false,
   }) {
     String? message;
-    // if (error != null && tryParse) {
-    //   try {
-    //     print({"error.response?.data": error.response?.data});
-    //     message =
-    //         '${error.response?.data["message"] ?? error.response?.data["errors"][0]["msg"]}';
-    //   } catch (error) {
-    //     message = null;
-    //   }
-    // }
-    message = errorResponse?.status?.message;
-    responseStatusCode = int.parse(errorResponse?.status?.httpCode ?? '');
+    if (error != null && tryParse) {
+      try {
+        debugPrint(
+            "error.response?.data.............................${error.response?.data}");
+        message = '${error.response?.data["status"]["message"]}';
+
+        responseStatusCode =
+            int.tryParse(error.response?.data["status"]["httpCode"]);
+      } catch (error) {
+        message = null;
+      }
+    }
+    // message = errorResponse?.status?.message;
+    // responseStatusCode = int.parse(errorResponse?.status?.httpCode ?? '');
     switch (this.responseStatusCode) {
       case 200:
         // Fluttertoast.showToast(msg: kStringSomethingWentWrong);

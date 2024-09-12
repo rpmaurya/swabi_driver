@@ -1,12 +1,15 @@
 // routes.dart
 
 import 'package:flutter/material.dart';
+import 'package:flutter_driver/res/custom_rideIssue_page.dart';
 import 'package:flutter_driver/view/dashboard/account_Pages/cardPage.dart';
 import 'package:flutter_driver/view/dashboard/account_Pages/changePassword.dart';
 import 'package:flutter_driver/view/dashboard/account_Pages/contact.dart';
 import 'package:flutter_driver/view/dashboard/account_Pages/faqPage.dart';
+import 'package:flutter_driver/view/dashboard/account_Pages/help&support.dart';
 import 'package:flutter_driver/view/dashboard/account_Pages/notification.dart';
 import 'package:flutter_driver/view/dashboard/account_Pages/profilePage.dart';
+import 'package:flutter_driver/view/dashboard/account_Pages/raiseIssueDetails.dart';
 import 'package:flutter_driver/view/dashboard/account_Pages/term_condition.dart';
 import 'package:flutter_driver/view/dashboard/account_Pages/transaction.dart';
 import 'package:flutter_driver/view/dashboard/account_Pages/verifyPassword.dart';
@@ -17,6 +20,7 @@ import 'package:flutter_driver/view/dashboard/package/packageBookingList.dart';
 import 'package:flutter_driver/view/dashboard/package/packageDetailPage.dart';
 import 'package:flutter_driver/view/dashboard/package/package_management_screen.dart';
 import 'package:flutter_driver/view/dashboard/package/pageViewDetails.dart';
+import 'package:flutter_driver/view/dashboard/raiseIssue_pages/issueViewDetails.dart';
 import 'package:flutter_driver/view/dashboard/rental/bookingPage.dart';
 import 'package:flutter_driver/view/dashboard/rental/detailsOfBookings.dart';
 import 'package:flutter_driver/view/dashboard/rental/history/rentalHistoryManagment.dart';
@@ -259,6 +263,38 @@ final GoRouter myRouter = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
       builder: (BuildContext context, GoRouterState state) {
         return const ContactPage();
+      },
+    ),
+    GoRoute(
+      path: '/help&support',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (BuildContext context, GoRouterState state) {
+        return const HelpAndSupport();
+      },
+    ),
+    GoRoute(
+      path: '/rideIssue',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (BuildContext context, GoRouterState state) {
+        var dataValue = state.extra as Map<String, dynamic>;
+        return CustomRideissuePage(
+          bookingId: dataValue['bookingId'],
+          bookingType: dataValue['bookingType'],
+        );
+      },
+    ),
+    GoRoute(
+      path: '/getRaiseIssue',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (BuildContext context, GoRouterState state) {
+        return const Raiseissuedetails();
+      },
+    ),
+    GoRoute(
+      path: '/issueDetailsbyId',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (BuildContext context, GoRouterState state) {
+        return const Issueviewdetails();
       },
     ),
     GoRoute(

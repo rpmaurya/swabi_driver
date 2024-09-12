@@ -9,6 +9,7 @@ import 'package:flutter_driver/view_model/driverBooking_view_model.dart';
 import 'package:flutter_driver/view_model/driverPackage_view_model.dart';
 import 'package:flutter_driver/view_model/driverProfile_view_model.dart';
 import 'package:flutter_driver/view_model/driver_package_view_model.dart';
+import 'package:flutter_driver/view_model/raiseIssue_view_model.dart';
 import 'package:flutter_driver/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -51,6 +52,7 @@ Future<void> main() async {
         ChangeNotifierProvider(
             create: (context) => DriverPackageBookingHistoryListViewModel()),
         ChangeNotifierProvider(create: (context) => DriverPackageViewModel()),
+        ChangeNotifierProvider(create: (context) => RaiseissueViewModel()),
       ],
       child: const MyApp(),
     ));

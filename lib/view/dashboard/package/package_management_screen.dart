@@ -3,6 +3,8 @@ import 'package:flutter_driver/res/Custom%20Page%20Layout/custom_pageLayout.dart
 import 'package:flutter_driver/utils/color.dart';
 import 'package:flutter_driver/view/dashboard/package/history_packageBooking.dart';
 import 'package:flutter_driver/view/dashboard/package/upcomming_packageBooking.dart';
+import 'package:flutter_driver/view_model/driver_package_view_model.dart';
+import 'package:provider/provider.dart';
 
 class PackageManagementScreen extends StatefulWidget {
   const PackageManagementScreen({super.key});
@@ -22,12 +24,29 @@ class _PackageManagementScreenState extends State<PackageManagementScreen>
     // TODO: implement initState
     super.initState();
     _tabcontroller = TabController(length: 2, vsync: this);
+    getPackageList();
     _tabcontroller?.addListener(() {
-      setState(() {
-        intialIndex = _tabcontroller?.index ?? 0;
-      });
+      intialIndex = _tabcontroller?.index ?? 0;
+
+      getPackageList();
       print({'gfgfgfgh': _tabcontroller?.index});
     });
+  }
+
+  Future<void> getPackageList() async {
+    if (intialIndex == 0) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Provider.of<DriverPackageViewModel>(context, listen: false)
+            .getPackageBookingList(
+          context: context,
+        );
+      });
+    } else if (intialIndex == 1) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Provider.of<DriverPackageViewModel>(context, listen: false)
+            .getPackageBookingHistoryList(context: context);
+      });
+    }
   }
 
   @override
@@ -39,22 +58,13 @@ class _PackageManagementScreenState extends State<PackageManagementScreen>
 
   @override
   Widget build(BuildContext context) {
-    // return Scaffold(
-    //   backgroundColor: bgGreyColor,
-    //   appBar: AppBar(
-    //     backgroundColor: background,
-    //     title: Text('Package '),
-    //     centerTitle: true,
-    //   ),
-    //   body:
-    // );
     return CustomPagelayout(
       appBarTitle: 'Package',
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.all(5),
-            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding: const EdgeInsets.all(5),
+            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             decoration: BoxDecoration(
                 border: Border.all(color: btnColor),
                 color: Colors.white,
@@ -65,6 +75,7 @@ class _PackageManagementScreenState extends State<PackageManagementScreen>
                 setState(() {
                   intialIndex = value;
                 });
+                getPackageList();
                 print({"valueIndex": intialIndex});
               },
               indicator: const BoxDecoration(
@@ -80,38 +91,6 @@ class _PackageManagementScreenState extends State<PackageManagementScreen>
               dividerColor: Colors.transparent,
               indicatorPadding: EdgeInsets.only(left: 10, right: 10),
               indicatorSize: TabBarIndicatorSize.tab,
-              // tabs: List.generate(2, (index) {
-              //   return MouseRegion(
-              //     onEnter: (_) {
-              //       setState(() {
-              //         hoveredIndex = index;
-              //       });
-              //     },
-              //     onExit: (_) {
-              //       setState(() {
-              //         hoveredIndex = -1;
-              //       });
-              //     },
-              //     child: Tab(
-              //       child: Container(
-              //         decoration: BoxDecoration(
-              //           border: Border(
-              //             bottom: BorderSide(
-              //               width: 5,
-              //               color: hoveredIndex == index
-              //                   ? Colors.red // Change to desired hover color
-              //                   : Colors.transparent,
-              //             ),
-              //           ),
-              //         ),
-              //         child: Center(
-              //           child: Text(index == 0 ? "UP COMMING" : "HISTORY"),
-              //         ),
-              //       ),
-              //     ),
-              //   );
-              // }),
-
               tabs: [Tab(text: "UP COMMING"), Tab(text: "HISTORY")],
             ),
           ),

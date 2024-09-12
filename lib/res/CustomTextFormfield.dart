@@ -8,7 +8,7 @@ class Customtextformfield extends StatefulWidget {
   final Widget? prefixIcon;
   final String? img;
   final TextInputType? textInputType;
-
+  final int? maxLines;
   final void Function(String)? onChanged;
   final String? Function(String?)? validator;
   const Customtextformfield(
@@ -19,6 +19,7 @@ class Customtextformfield extends StatefulWidget {
       this.prefixiconvisible,
       this.prefixIcon,
       this.img,
+      this.maxLines,
       this.textInputType,
       this.onChanged,
       this.validator});
@@ -31,6 +32,7 @@ class _CustomtextformfieldState extends State<Customtextformfield> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: widget.maxLines ?? 1,
       focusNode: widget.focusNode,
       controller: widget.controller,
       keyboardType: widget.textInputType,

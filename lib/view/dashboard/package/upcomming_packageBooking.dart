@@ -21,12 +21,12 @@ class _UpcommingPackagebookingState extends State<UpcommingPackagebooking> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<DriverPackageViewModel>(context, listen: false)
-          .getPackageBookingList(
-        context: context,
-      );
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   Provider.of<DriverPackageViewModel>(context, listen: false)
+    //       .getPackageBookingList(
+    //     context: context,
+    //   );
+    // });
   }
 
   @override
@@ -47,15 +47,16 @@ class _UpcommingPackagebookingState extends State<UpcommingPackagebooking> {
           ));
         } else {
           return ListView.builder(
-            itemCount: viewData.driverPackageBookingListModel!.data.length,
+            itemCount: viewData.driverPackageBookingListModel?.data.length,
             itemBuilder: (context, index) {
               var package = viewData.driverPackageBookingListModel!.data[index];
               var activity =
                   package.activityList.map((e) => e.activityName).toList();
+              print('activityname...${package.activityList.length}');
               return Custompackageviewpage(
                 driverAssignId: package.driverAssignedId.toString(),
                 date: package.date.toString(),
-                pickUpLocation: package.pickupLocation.toString(),
+                pickUpLocation: package.pickupLocation ?? 'N/A',
                 activityName: activity.join(','),
                 daySatus: package.dayStatus.toString(),
                 pickupTime: package.pickupTime ?? 'N/A',

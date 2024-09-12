@@ -126,15 +126,20 @@ class _MenuListState extends State<MenuList> {
             //     },
             //   ),
             // ),
-            Custom_ListTile(
-              img: tnc,
-              heading: "Term & Condition",
-              onTap: () => context.push("/termCondition"),
-            ),
+            // Custom_ListTile(
+            //   img: tnc,
+            //   heading: "Term & Condition",
+            //   onTap: () => context.push("/termCondition"),
+            // ),
+            // Custom_ListTile(
+            //   img: contact,
+            //   heading: "Contact",
+            //   onTap: () => context.push("/contact"),
+            // ),
             Custom_ListTile(
               img: contact,
-              heading: "Contact",
-              onTap: () => context.push("/contact"),
+              heading: "Help & Support",
+              onTap: () => context.push("/help&support"),
             ),
             Custom_ListTile(
               img: faq,

@@ -45,10 +45,10 @@ class NetworkApiService extends BaseApiServices {
 
   @override
   Future<dynamic> uploadImageHTTP2(
-      String url,
-      dynamic file,
-      String userId,
-      ) async {
+    String url,
+    dynamic file,
+    String userId,
+  ) async {
     dynamic responseJson;
 
     try {
@@ -57,7 +57,8 @@ class NetworkApiService extends BaseApiServices {
       debugPrint(token);
       var formData = dio.FormData.fromMap({
         'userId': userId,
-        'image': await dio.MultipartFile.fromFile(file, filename:'image.jpg'), // Using MultipartFile from dio
+        'image': await dio.MultipartFile.fromFile(file,
+            filename: 'image.jpg'), // Using MultipartFile from dio
       });
 
       var dioClient = dio.Dio();
@@ -67,7 +68,8 @@ class NetworkApiService extends BaseApiServices {
         data: formData,
         options: dio.Options(
           headers: {
-            'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
+            'Content-Type':
+                'multipart/form-data; boundary=<calculated when request is sent>',
             'Content-Length': '<calculated when request is sent>',
             'Host': '<calculated when request is sent>',
             'User-Agent': 'PostmanRuntime/7.37.3',
@@ -94,7 +96,6 @@ class NetworkApiService extends BaseApiServices {
 
     return responseJson;
   }
-
 
   @override
   Future getGetApiResponse(String url) async {
@@ -247,7 +248,6 @@ class NetworkApiService extends BaseApiServices {
     return responseJson;
   }
 
-
   //getstarted
   @override
   Future getPostWithoutApiResponse(
@@ -280,15 +280,19 @@ class NetworkApiService extends BaseApiServices {
           return responseJson;
         }
       case 400:
-        throw BadRequestException(jsonDecode(response.body)['msg']);
-        case 413:
+        throw BadRequestException(
+            jsonDecode(response.body)['status']['message']);
+      case 413:
         throw BadRequestException('Request Entity Too Large');
       case 500:
-        throw BadRequestException(jsonDecode(response.body)['msg']);
+        throw BadRequestException(
+            jsonDecode(response.body)['status']['message']);
       case 404:
-        throw UnauthorisedException(jsonDecode(response.body)['msg']);
+        throw UnauthorisedException(
+            jsonDecode(response.body)['status']['message']);
       case 401:
-        throw InvalidPermissionException(jsonDecode(response.body)['msg']);
+        throw InvalidPermissionException(
+            jsonDecode(response.body)['status']['message']);
       default:
         throw FetchDataException(
             'Error occurred while communicating with server with status code ${response.statusCode}');

@@ -27,7 +27,7 @@ class HistoryDetailsContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 0),
       child: Material(
         borderRadius: BorderRadius.circular(10),
         color: background,

@@ -4,6 +4,7 @@ import 'package:flutter_driver/res/Custom%20Page%20Layout/custom_pageLayout.dart
 import 'package:flutter_driver/res/customTextWidget.dart';
 import 'package:flutter_driver/utils/color.dart';
 import 'package:flutter_driver/utils/text_styles.dart';
+import 'package:flutter_driver/utils/utils.dart';
 import 'package:flutter_driver/view_model/driver_package_view_model.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:go_router/go_router.dart';
@@ -63,7 +64,7 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
           return const Center(child: Text('No packages available'));
         } else {
           var package = viewData.driverPackageDetailModel?.data;
-          print('daystatus......${package?.dayStatus}');
+          print('daystatus......${package?.pickupLocation}');
           return Padding(
             padding: const EdgeInsets.all(10.0),
             child: SingleChildScrollView(
@@ -88,7 +89,9 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Image.network(
-                              package?.vehicle?.images?[0] ?? '',
+                              (package?.vehicle?.images ?? []).isEmpty
+                                  ? 'https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small/no-image-available-icon-vector.jpg'
+                                  : package?.vehicle?.images?[0] ?? '',
                               fit: BoxFit.fill,
                             ),
                           ),
@@ -96,63 +99,76 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                         const SizedBox(
                           width: 10,
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                package?.vehicle?.carName ?? '',
-                                style: pageHeadingTextStyle,
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                    '${package?.vehicle?.brandName} / ${package?.vehicle?.carType}'),
-                                const SizedBox(
-                                    height: 15, child: VerticalDivider()),
-                                Text(package?.vehicle?.fuelType ?? '')
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  '${package?.vehicle?.vehicleNumber}',
-                                  style: textStyle,
-                                ),
-                                const SizedBox(
-                                    height: 15,
-                                    child: VerticalDivider(
-                                      color: Colors.black,
-                                      thickness: 1.5,
-                                    )),
-                                Text(
-                                  '${package?.vehicle?.seats} Seats',
-                                  style: textStyle,
-                                )
-                              ],
-                            )
-                          ],
-                        ),
                         Expanded(
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "⭐ 4.8",
-                                style: GoogleFonts.lato(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w700),
+                              Expanded(
+                                child: Text(
+                                  package?.vehicle?.carName ?? '',
+                                  style: pageHeadingTextStyle,
+                                ),
                               ),
-                              Text(
-                                ' ',
-                                style: titleTextStyle,
+                              Row(
+                                children: [
+                                  Flexible(
+                                    flex: 2,
+                                    child: Text(
+                                      '${package?.vehicle?.brandName} / ${package?.vehicle?.carType}',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                      height: 15,
+                                      child: VerticalDivider(
+                                        width: 5,
+                                      )),
+                                  Expanded(
+                                    child: Text(
+                                      package?.vehicle?.fuelType ?? '',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    '${package?.vehicle?.vehicleNumber}',
+                                    style: textStyle,
+                                  ),
+                                  const SizedBox(
+                                      height: 15,
+                                      child: VerticalDivider(
+                                        color: Colors.black,
+                                        thickness: 1.5,
+                                      )),
+                                  Text(
+                                    '${package?.vehicle?.seats} Seats',
+                                    style: textStyle,
+                                  )
+                                ],
                               )
                             ],
                           ),
-                        )
+                        ),
+                        // Expanded(
+                        //   child: Column(
+                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //     crossAxisAlignment: CrossAxisAlignment.end,
+                        //     children: [
+                        //       Text(
+                        //         "⭐4.8",
+                        //         style: GoogleFonts.lato(
+                        //             color: Colors.black,
+                        //             fontSize: 14,
+                        //             fontWeight: FontWeight.w600),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // )
                       ],
                     ),
                   ),
@@ -229,7 +245,7 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                                       ),
                                       Flexible(
                                         child: Text(
-                                          '${package?.pickupLocation}',
+                                          '${package?.pickupLocation ?? 'N/A'}',
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 1,
                                           style: textTextStyle1,
@@ -360,7 +376,7 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                                         value: '${activity?.startTime}'),
                                     InfoRow(
                                         label: 'Closing Time',
-                                        value: ' ${activity?.endTime}'),
+                                        value: '${activity?.endTime}'),
                                   ],
                                 ),
                                 InfoRow(
@@ -379,6 +395,19 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        package?.dayStatus == 'COMPLETED'
+                            ? Container()
+                            : CustomButtonSmall(
+                                height: 40,
+                                width: 120,
+                                btnHeading: 'Raise help',
+                                onTap: () {
+                                  context.push('/rideIssue', extra: {
+                                    'bookingId':
+                                        package?.packageBookingId ?? '',
+                                    'bookingType': 'PACKAGE_BOOKING'
+                                  });
+                                }),
                         package?.dayStatus == 'PENDING'
                             ? CustomButtonSmall(
                                 width: 170,
@@ -390,61 +419,67 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                                 onTap: btn != true
                                     ? null
                                     : () {
-                                        setState(() {
-                                          viewData.isLoading = true;
-                                        });
-                                        viewData.activityStart(
-                                            context: context,
-                                            packageBookingId:
-                                                package?.packageBookingId,
-                                            date: package?.date,
-                                            zoneId: _timeZone);
-                                        setState(() {
-                                          viewData.isLoading = false;
-                                        });
-                                        if (!viewData.isLoading) {
-                                          Provider.of<DriverPackageViewModel>(
-                                                  context,
-                                                  listen: false)
-                                              .updateDayStatus('ONGOING');
+                                        if (package?.pickupLocation == null) {
+                                          Utils.flushBarErrorMessage(
+                                              'Pickup location is empty',
+                                              context);
+                                        } else {
+                                          setState(() {
+                                            viewData.isLoading = true;
+                                          });
+                                          viewData.activityStart(
+                                              context: context,
+                                              packageBookingId:
+                                                  package?.packageBookingId,
+                                              date: package?.date,
+                                              zoneId: _timeZone);
+                                          setState(() {
+                                            viewData.isLoading = false;
+                                          });
+                                          if (!viewData.isLoading) {
+                                            Provider.of<DriverPackageViewModel>(
+                                                    context,
+                                                    listen: false)
+                                                .updateDayStatus('ONGOING');
+                                          }
                                         }
                                       })
-                            : Container(),
-                        package?.dayStatus == 'ONGOING'
-                            ? CustomButtonSmall(
-                                width: 170,
-                                height: 40,
-                                btnHeading: 'Activity Complete',
-                                isEnabled: formattedTodayDate == package?.date
-                                    ? btn = true
-                                    : false,
-                                onTap: btn != true
-                                    ? null
-                                    : () {
-                                        setState(() {
-                                          viewData.isLoading = true;
-                                        });
-                                        Provider.of<DriverPackageViewModel>(
-                                                context,
-                                                listen: false)
-                                            .activityComplete(
-                                                context: context,
-                                                packageBookingId:
-                                                    package?.packageBookingId,
-                                                date: package?.date,
-                                                zoneId: _timeZone);
-                                        setState(() {
-                                          viewData.isLoading = false;
-                                        });
-                                        if (!viewData.isLoading) {
-                                          Provider.of<DriverPackageViewModel>(
-                                                  context,
-                                                  listen: false)
-                                              .updateDayStatus('COMPLETED');
-                                          context.pop('update');
-                                        }
-                                      })
-                            : Container()
+                            : package?.dayStatus == 'ONGOING'
+                                ? CustomButtonSmall(
+                                    width: 170,
+                                    height: 40,
+                                    btnHeading: 'Activity Complete',
+                                    isEnabled:
+                                        formattedTodayDate == package?.date
+                                            ? btn = true
+                                            : false,
+                                    onTap: btn != true
+                                        ? null
+                                        : () {
+                                            setState(() {
+                                              viewData.isLoading = true;
+                                            });
+                                            Provider.of<DriverPackageViewModel>(
+                                                    context,
+                                                    listen: false)
+                                                .activityComplete(
+                                                    context: context,
+                                                    packageBookingId: package
+                                                        ?.packageBookingId,
+                                                    date: package?.date,
+                                                    zoneId: _timeZone);
+                                            setState(() {
+                                              viewData.isLoading = false;
+                                            });
+                                            if (!viewData.isLoading) {
+                                              Provider.of<DriverPackageViewModel>(
+                                                      context,
+                                                      listen: false)
+                                                  .updateDayStatus('COMPLETED');
+                                              context.pop('update');
+                                            }
+                                          })
+                                : Container()
                       ],
                     ),
                   )
@@ -516,6 +551,7 @@ class InfoRow extends StatelessWidget {
           child: Text(
             value,
             style: const TextStyle(
+              letterSpacing: 0.5,
               fontWeight: FontWeight.bold,
             ),
           ),

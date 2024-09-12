@@ -56,7 +56,7 @@ class Datum {
         driverAssignedId: json["driverAssignedId"]?.toString() ?? "",
         date: json["date"]?.toString() ?? "",
         driverId: json["driverId"]?.toString() ?? "",
-        pickupLocation: json["pickupLocation"]?.toString() ?? "",
+        pickupLocation: json["pickupLocation"],
         vehicle: Vehicle.fromJson(json["vehicle"] ?? {}),
         activityList: List<ActivityList>.from(
             json["activityList"].map((x) => ActivityList.fromJson(x))),
@@ -565,9 +565,9 @@ class Data {
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         driverAssignedId: json["driverAssignedId"]?.toString() ?? "",
-        date: json["date"]?.toString() ?? "",
+        date: json["date"],
         driverId: json["driverId"]?.toString() ?? "",
-        pickupLocation: json["pickupLocation"]?.toString() ?? "",
+        pickupLocation: json["pickupLocation"],
         vehicle: PackageDetailVehicle.fromJson(json["vehicle"] ?? {}),
         activityList: List<PackageDetailActivityList>.from(json["activityList"]
             .map((x) => PackageDetailActivityList.fromJson(x))),
@@ -575,7 +575,7 @@ class Data {
         user: User.fromJson(json['user']),
         packageBookingId: json['packageBookingId']?.toString() ?? "",
         dayStatus: json['dayStatus']?.toString() ?? "",
-        pickupTime: json['pickupTime']?.toString() ?? "",
+        pickupTime: json['pickupTime'],
         startTimestamp: json['startTimestamp']?.toString() ?? "",
         endTimestamp: json['endTimestamp']?.toString() ?? "",
       );

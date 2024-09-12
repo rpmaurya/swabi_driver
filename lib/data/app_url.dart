@@ -24,4 +24,7 @@ class AppUrl {
   static var driverPackageHistoryUrl =
       "/package_booking/get_package_booking_history_by_driver_id";
   static var driverProfileUpdateEndUrl = "/driver/update_driver_details";
+  static var raiseIssueUrl = "/booking_issue/raise_issue";
+  static var getIssueUrl = "/booking_issue/get_issue_raised_by";
+  static var getIssueDetailsUrl = "/booking_issue/get_issue_detail";
 }

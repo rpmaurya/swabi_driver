@@ -24,14 +24,16 @@ class DriverpackageserviceRepository {
 
       var resp = DriverPackageBookingListModel.fromJson(response?.data);
       return resp;
-    } on DioException catch (error) {
-      BaseResponseModel baseResponseModel =
-          BaseResponseModel.fromJson(error.response?.data);
-      print(baseResponseModel.status?.message);
+    } catch (error) {
+      // BaseResponseModel baseResponseModel =
+      //     BaseResponseModel.fromJson(error.response?.data);
+      // print(baseResponseModel.status?.message);
 
       print({'error..': error});
       http.handleErrorResponse(
-          context: context, error: error, errorResponse: baseResponseModel);
+        context: context,
+        error: error,
+      );
     }
     return null;
   }
@@ -53,14 +55,16 @@ class DriverpackageserviceRepository {
 
       var resp = DriverPackageDetailModel.fromJson(response?.data);
       return resp;
-    } on DioException catch (error) {
-      BaseResponseModel baseResponseModel =
-          BaseResponseModel.fromJson(error.response?.data);
-      print(baseResponseModel.status?.message);
+    } catch (error) {
+      // BaseResponseModel baseResponseModel =
+      //     BaseResponseModel.fromJson(error.response?.data);
+      // print(baseResponseModel.status?.message);
 
       print({'error..': error});
       http.handleErrorResponse(
-          context: context, error: error, errorResponse: baseResponseModel);
+        context: context,
+        error: error,
+      );
     }
     return null;
   }
@@ -83,14 +87,16 @@ class DriverpackageserviceRepository {
 
       var resp = DriverActivityStartModel.fromJson(response?.data ?? {});
       return resp;
-    } on DioException catch (error) {
-      BaseResponseModel baseResponseModel =
-          BaseResponseModel.fromJson(error.response?.data);
-      print(baseResponseModel.status?.message);
+    } catch (error) {
+      // BaseResponseModel baseResponseModel =
+      //     BaseResponseModel.fromJson(error.response?.data);
+      // print(baseResponseModel.status?.message);
 
       print({'error..': error});
       http.handleErrorResponse(
-          context: context, error: error, errorResponse: baseResponseModel);
+        context: context,
+        error: error,
+      );
     }
     return null;
   }
@@ -112,14 +118,13 @@ class DriverpackageserviceRepository {
 
       var resp = DriverActivityCompleteModel.fromJson(response?.data);
       return resp;
-    } on DioException catch (error) {
-      BaseResponseModel baseResponseModel =
-          BaseResponseModel.fromJson(error.response?.data);
-      print(baseResponseModel.status?.message);
+    } catch (error) {
+      // BaseResponseModel baseResponseModel =
+      //     BaseResponseModel.fromJson(error.response?.data);
+      // print(baseResponseModel.status?.message);
 
       print({'error..': error});
-      http.handleErrorResponse(
-          context: context, error: error, errorResponse: baseResponseModel);
+      http.handleErrorResponse(context: context, error: error);
     }
     return null;
   }
@@ -141,14 +146,13 @@ class DriverpackageserviceRepository {
 
       var resp = DriverPackageBookingListModel.fromJson(response?.data);
       return resp;
-    } on DioException catch (error) {
-      BaseResponseModel baseResponseModel =
-          BaseResponseModel.fromJson(error.response?.data);
-      print(baseResponseModel.status?.message);
+    } catch (error) {
+      // BaseResponseModel baseResponseModel =
+      //     BaseResponseModel.fromJson(error.response?.data);
+      // print(baseResponseModel.status?.message);
 
-      print({'error..': error});
-      http.handleErrorResponse(
-          context: context, error: error, errorResponse: baseResponseModel);
+      // print({'error..': error});
+      http.handleErrorResponse(context: context, error: error);
     }
     return null;
   }
