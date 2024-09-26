@@ -101,10 +101,11 @@ class _EditProfiePageState extends State<EditProfiePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Text("First Name", style: titleTextStyle),
-                ),
+                Text.rich(TextSpan(children: [
+                  TextSpan(text: 'First Name', style: titleTextStyle),
+                  const TextSpan(text: ' *', style: TextStyle(color: redColor))
+                ])),
+                const SizedBox(height: 5),
                 Customtextformfield(
                   focusNode: focusNode1,
                   controller: firstNameController,
@@ -113,15 +114,19 @@ class _EditProfiePageState extends State<EditProfiePage> {
                   hintText: 'First Name',
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'required first name';
+                      return 'Required first name';
                     }
                     return null;
                   },
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Text("Last Name", style: titleTextStyle),
-                ),
+                const SizedBox(height: 5),
+
+                Text.rich(TextSpan(children: [
+                  TextSpan(text: 'Last Name', style: titleTextStyle),
+                  const TextSpan(text: ' *', style: TextStyle(color: redColor))
+                ])),
+                const SizedBox(height: 5),
+
                 Customtextformfield(
                   focusNode: focusNode2,
                   controller: lastNameController,
@@ -130,15 +135,19 @@ class _EditProfiePageState extends State<EditProfiePage> {
                   hintText: 'Last Name',
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'required last name';
+                      return 'Required last name';
                     }
                     return null;
                   },
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Text("Gender", style: titleTextStyle),
-                ),
+                const SizedBox(height: 5),
+
+                Text.rich(TextSpan(children: [
+                  TextSpan(text: 'Gender', style: titleTextStyle),
+                  const TextSpan(text: ' *', style: TextStyle(color: redColor))
+                ])),
+                const SizedBox(height: 5),
+
                 CustomDropdown(
                     controller: genderController,
                     selectedBorderColor: btnColor,
@@ -148,10 +157,14 @@ class _EditProfiePageState extends State<EditProfiePage> {
                     hintText: 'Select Gender',
                     items: ['Male', 'Female'],
                     onChanged: (value) {}),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Text("Address", style: titleTextStyle),
-                ),
+                const SizedBox(height: 5),
+
+                Text.rich(TextSpan(children: [
+                  TextSpan(text: 'Address', style: titleTextStyle),
+                  const TextSpan(text: ' *', style: TextStyle(color: redColor))
+                ])),
+                const SizedBox(height: 5),
+
                 SizedBox(
                   child: GooglePlacesAutoCompleteTextFormField(
                       focusNode: focusNode4,

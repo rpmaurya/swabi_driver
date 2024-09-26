@@ -29,6 +29,7 @@ class _UpcommingPackagebookingState extends State<UpcommingPackagebooking> {
     // });
   }
 
+  int indexValue = -1;
   @override
   Widget build(BuildContext context) {
     return Consumer<DriverPackageViewModel>(
@@ -60,22 +61,23 @@ class _UpcommingPackagebookingState extends State<UpcommingPackagebooking> {
                 activityName: activity.join(','),
                 daySatus: package.dayStatus.toString(),
                 pickupTime: package.pickupTime ?? 'N/A',
-                loader: viewData.isLoading,
+                loader: viewData.isLoading1 && indexValue == index,
                 onTap: viewData.isLoading
                     ? null
                     : () {
                         setState(() {
-                          viewData.isLoading = true;
+                          // viewData.isLoading = true;
+                          indexValue = index;
                         });
                         Provider.of<DriverPackageViewModel>(context,
                                 listen: false)
                             .getPackageDetailList(
                                 context: context,
                                 driverAssignId: package.driverAssignedId);
-                        setState(() {
-                          viewData.isLoading = false;
-                        });
-                        if (!viewData.isLoading) {
+                        // setState(() {
+                        //   viewData.isLoading = false;
+                        // });
+                        if (viewData.isLoading1) {
                           context.push('/packageDetailPage').then((onValue) {
                             print('object.........updated');
                             WidgetsBinding.instance.addPostFrameCallback((_) {

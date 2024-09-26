@@ -25,7 +25,10 @@ import 'package:flutter_driver/view/dashboard/rental/bookingPage.dart';
 import 'package:flutter_driver/view/dashboard/rental/detailsOfBookings.dart';
 import 'package:flutter_driver/view/dashboard/rental/history/rentalHistoryManagment.dart';
 import 'package:flutter_driver/view/dashboard/rental/onRunning_DetailsPage.dart';
+import 'package:flutter_driver/view/registration/forgot_screen.dart';
 import 'package:flutter_driver/view/registration/login_screen.dart';
+import 'package:flutter_driver/view/registration/otp_verification_screen.dart';
+import 'package:flutter_driver/view/registration/reset_password_screen.dart';
 import 'package:flutter_driver/view/registration/splash_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -242,6 +245,35 @@ final GoRouter myRouter = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
       builder: (BuildContext context, GoRouterState state) {
         return const VerifyPassword();
+      },
+    ),
+
+    GoRoute(
+      path: '/forgotPassword',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (BuildContext context, GoRouterState state) {
+        return const ForgotPassword();
+      },
+    ),
+    GoRoute(
+      path: '/verifyOtp',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (BuildContext context, GoRouterState state) {
+        var data = state.extra as Map<String, dynamic>;
+        return OtpVerificationScreen(
+          email: data["email"],
+        );
+      },
+    ),
+    GoRoute(
+      path: '/resetPassword',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (BuildContext context, GoRouterState state) {
+        var data = state.extra as Map<String, dynamic>;
+
+        return ResetPasswordScreen(
+          email: data["email"],
+        );
       },
     ),
     GoRoute(

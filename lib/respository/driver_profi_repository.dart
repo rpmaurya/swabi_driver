@@ -4,6 +4,7 @@ import 'package:flutter_driver/data/app_url.dart';
 import 'package:flutter_driver/data/network/base_apiservices.dart';
 import 'package:flutter_driver/data/network/network_apiservice.dart';
 import 'package:flutter_driver/data/response/baseResponse.dart';
+import 'package:flutter_driver/model/common_model.dart';
 import 'package:flutter_driver/model/driver_profile_model.dart';
 import 'package:flutter_driver/view_model/services/HttpService.dart';
 
@@ -70,4 +71,70 @@ class DriverProfileUpdateRepository {
   //     rethrow;
   //   }
   // }
+
+  Future<CommonModel?> sendOtpApi(
+      {required BuildContext context,
+      required Map<String, dynamic> query}) async {
+    var http = HttpService(
+        isAuthorizeRequest: false,
+        baseURL: AppUrl.baseUrl,
+        endURL: AppUrl.sendOtpsUrl,
+        methodType: HttpMethodType.POST,
+        bodyType: HttpBodyType.JSON,
+        queryParameters: query);
+    try {
+      Response<dynamic>? response = await http.request<dynamic>();
+      print({"passord change response": response?.data});
+      var resp = CommonModel.fromJson(response?.data);
+      return resp;
+    } catch (error) {
+      print({'error..': error});
+      http.handleErrorResponse(context: context, error: error);
+    }
+    return null;
+  }
+
+  Future<CommonModel?> verifyOtpApi(
+      {required BuildContext context,
+      required Map<String, dynamic> query}) async {
+    var http = HttpService(
+        isAuthorizeRequest: false,
+        baseURL: AppUrl.baseUrl,
+        endURL: AppUrl.verifyOtpUrl,
+        methodType: HttpMethodType.POST,
+        bodyType: HttpBodyType.JSON,
+        queryParameters: query);
+    try {
+      Response<dynamic>? response = await http.request<dynamic>();
+      print({"passord change response": response?.data});
+      var resp = CommonModel.fromJson(response?.data);
+      return resp;
+    } catch (error) {
+      print({'error..': error});
+      http.handleErrorResponse(context: context, error: error);
+    }
+    return null;
+  }
+
+  Future<CommonModel?> resetPasswordApi(
+      {required BuildContext context,
+      required Map<String, dynamic> query}) async {
+    var http = HttpService(
+        isAuthorizeRequest: false,
+        baseURL: AppUrl.baseUrl,
+        endURL: AppUrl.resetPassordUrl,
+        methodType: HttpMethodType.PUT,
+        bodyType: HttpBodyType.JSON,
+        queryParameters: query);
+    try {
+      Response<dynamic>? response = await http.request<dynamic>();
+      print({"passord change response": response?.data});
+      var resp = CommonModel.fromJson(response?.data);
+      return resp;
+    } catch (error) {
+      print({'error..': error});
+      http.handleErrorResponse(context: context, error: error);
+    }
+    return null;
+  }
 }

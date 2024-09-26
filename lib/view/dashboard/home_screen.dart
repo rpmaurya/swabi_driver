@@ -3,13 +3,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_driver/model/user_model.dart';
 import 'package:flutter_driver/res/Custom%20%20Button/custom_btn.dart';
-import 'package:flutter_driver/res/customAppBar.dart';
 import 'package:flutter_driver/res/customTextWidget.dart';
 import 'package:flutter_driver/utils/assets.dart';
 import 'package:flutter_driver/utils/color.dart';
 import 'package:flutter_driver/utils/dimensions.dart';
 import 'package:flutter_driver/utils/text_styles.dart';
-import 'package:flutter_driver/view_model/driverPackage_view_model.dart';
 import 'package:flutter_driver/view_model/driverProfile_view_model.dart';
 import 'package:flutter_driver/view_model/user_view_model.dart';
 import 'package:go_router/go_router.dart';
@@ -71,7 +69,7 @@ class _home_screenState extends State<home_screen> {
   }
 
   getUser() async {
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 2), () {
       Provider.of<DriverProfileViewModel>(context, listen: false)
           .fetchDriverDetailViewModelApi(
               context, {"driverId": uId}, uId.toString());
@@ -149,7 +147,7 @@ class _home_screenState extends State<home_screen> {
                       leading: Container(
                         height: 50,
                         width: 50,
-                        decoration: BoxDecoration(shape: BoxShape.circle),
+                        decoration: const BoxDecoration(shape: BoxShape.circle),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(50),
                           child: Image.network(
@@ -160,11 +158,11 @@ class _home_screenState extends State<home_screen> {
                       ),
                       title: Text(
                         '${userName} ${userLastName}',
-                        style: TextStyle(color: background, fontSize: 24),
+                        style: const TextStyle(color: background, fontSize: 24),
                       ),
                       subtitle: Text(
                         email,
-                        style: TextStyle(color: background, fontSize: 14),
+                        style: const TextStyle(color: background, fontSize: 14),
                       ),
                     ),
                     // Padding(
@@ -185,9 +183,9 @@ class _home_screenState extends State<home_screen> {
                       height: 10,
                     ),
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 2),
                       decoration: BoxDecoration(
                           color: background,
                           borderRadius: BorderRadius.circular(10)),
@@ -200,7 +198,8 @@ class _home_screenState extends State<home_screen> {
                           Expanded(
                             child: Text(
                               driverAddress,
-                              style: TextStyle(color: btnColor, fontSize: 16),
+                              style: const TextStyle(
+                                  color: btnColor, fontSize: 16),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -234,7 +233,7 @@ class _home_screenState extends State<home_screen> {
                 height: 30,
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 10),
+                margin: const EdgeInsets.symmetric(horizontal: 10),
                 child: const TextField(
                   readOnly: true,
                   decoration: InputDecoration(
@@ -248,7 +247,7 @@ class _home_screenState extends State<home_screen> {
                 height: 20,
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 10),
+                margin: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -284,7 +283,7 @@ class _home_screenState extends State<home_screen> {
                 height: 20,
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 10),
+                margin: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   // borderRadius: BorderRadius.circular(5),
@@ -337,7 +336,7 @@ class _home_screenState extends State<home_screen> {
                 height: 5,
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 10),
+                margin: const EdgeInsets.symmetric(horizontal: 10),
                 height: 100,
                 child: ListView.builder(
                     itemCount: images.length,
@@ -375,163 +374,6 @@ class _home_screenState extends State<home_screen> {
           ),
         ),
       ),
-      // child: Scaffold(
-      //   backgroundColor: bgGreyColor,
-      //   resizeToAvoidBottomInset: false,
-      //   appBar: CustomAppBar(
-      //     heading: "My Booking",
-      //     leadingIcon: true,
-      //     appLeadingImage: menu,
-      //     onTap: () => context.push("/menuPage", extra: {'id': uId}),
-      //     trailingIcon: true,
-      //     rightIconImage: appLogo1,
-      //   ),
-      //   body: Container(
-      //     width: double.infinity,
-      //     height: double.infinity,
-      //     decoration: BoxDecoration(
-      //         image: DecorationImage(
-      //       colorFilter: ColorFilter.mode(
-      //         Colors.white.withOpacity(0.6),
-      //         BlendMode.modulate,
-      //       ),
-      //       fit: BoxFit.fill,
-      //       image: const AssetImage(
-      //         image1,
-      //       ),
-      //     )),
-      //     child: Column(
-      //       children: [
-      //         Container(
-      //           padding: EdgeInsets.all(10),
-      //           margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-      //           height: 120,
-      //           // width: double.infinity,
-      //           decoration: BoxDecoration(
-      //             color: background,
-      //             borderRadius: BorderRadius.circular(5),
-      //           ),
-      //           child: Row(
-      //             crossAxisAlignment: CrossAxisAlignment.start,
-      //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //             children: [
-      //               Expanded(
-      //                 child: Column(
-      //                   crossAxisAlignment: CrossAxisAlignment.start,
-      //                   children: [
-      //                     const Text(
-      //                       'Welcome,',
-      //                       style: TextStyle(color: btnColor),
-      //                     ),
-      //                     Text(
-      //                       '$userName$userLastName',
-      //                       style: appbarTextStyle,
-      //                     ),
-      //                     Text(email)
-      //                   ],
-      //                 ),
-      //               ),
-      //               CircleAvatar(
-      //                 radius: 30,
-      //                 backgroundImage: NetworkImage(
-      //                   'https://tse1.mm.bing.net/th?id=OIP.kgD1sf9q75e3KYAajA8FBwHaHa&pid=Api&P=0&h=220',
-      //                 ),
-      //                 onBackgroundImageError: (exception, stackTrace) {
-      //                   // Handle the error when the image fails to load
-      //                 },
-      //                 child: userimage == null ? Icon(Icons.person) : null,
-      //               )
-      //             ],
-      //           ),
-      //         ),
-      //         // Container(
-      //         //   // margin: EdgeInsets.symmetric(horizontal: 10),
-      //         //   decoration: BoxDecoration(
-      //         //     color: Colors.white,
-      //         //     // borderRadius: BorderRadius.circular(5),
-      //         //   ),
-      //         //   height: 160,
-      //         //   width: double.infinity,
-      //         //   child: Flexible(
-      //         //     child: CarouselSlider(
-      //         //         items: [
-      //         //           ClipRRect(
-      //         //             borderRadius: BorderRadius.circular(5),
-      //         //             child: Image.network(
-      //         //               'https://tse2.mm.bing.net/th?id=OIP.HtR6jppBjgj5w7EkOXKz-AHaD4&pid=Api&P=0&h=220',
-      //         //               width: double.infinity,
-      //         //               fit: BoxFit.cover,
-      //         //             ),
-      //         //           ),
-      //         //           ClipRRect(
-      //         //             borderRadius: BorderRadius.circular(5),
-      //         //             child: Image.network(
-      //         //               'https://tse4.mm.bing.net/th?id=OIP.mEJ8Qbmr7zQr9qi17Ia_ZwHaE8&pid=Api&P=0&h=220',
-      //         //               width: double.infinity,
-      //         //               fit: BoxFit.cover,
-      //         //             ),
-      //         //           )
-      //         //         ],
-      //         //         options: CarouselOptions(
-      //         //             autoPlay: true,
-      //         //             aspectRatio: 16 / 9,
-      //         //             viewportFraction: 1)),
-      //         //   ),
-      //         // ),
-      //         const SizedBox(
-      //           height: 20,
-      //         ),
-      //         Container(
-      //           margin: EdgeInsets.symmetric(horizontal: 10),
-      //           height: 120,
-      //           width: double.infinity,
-      //           decoration: BoxDecoration(
-      //               borderRadius: BorderRadius.circular(5),
-      //               image: DecorationImage(
-      //                   image: AssetImage(imagecenter), fit: BoxFit.cover)),
-      //           child: Row(
-      //             crossAxisAlignment: CrossAxisAlignment.center,
-      //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      //             children: [
-      //               CustomButtonSmall(
-      //                 width: 100,
-      //                 textColor: Colors.black,
-      //                 btncolor: background,
-      //                 btnHeading: "Rental",
-      //                 onTap: () => context
-      //                     .push("/historyManagement", extra: {"myID": uId}),
-      //                 // context.push(
-      //                 //     '/homePageBookingList',
-      //                 //     extra: {"userID": uId}),
-      //               ),
-      //               CustomButtonSmall(
-      //                 width: 100,
-      //                 textColor: Colors.black,
-      //                 btncolor: background,
-      //                 btnHeading: "Package",
-      //                 onTap: () {
-      //                   // WidgetsBinding.instance
-      //                   //     .addPostFrameCallback((timeStamp) {
-      //                   //   Provider.of<DriverPackageBookingListViewModel>(
-      //                   //           context,
-      //                   //           listen: false)
-      //                   //       .fetchDriverPackageBookingListViewModel(
-      //                   //           {"driverId": uId},
-      //                   //           context,
-      //                   //           uId.toString(),
-      //                   //           'list');
-      //                   // });
-      //                   context.push('/packageBookingManagement');
-      //                 },
-      //               ),
-      //             ],
-      //           ),
-      //         )
-      //       ],
-      //     ),
-      //   ),
-
-      // ),
     );
   }
 

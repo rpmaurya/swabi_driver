@@ -48,46 +48,48 @@ class IssueContainer extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Text(
-                        'Status',
-                        style: titleTextStyle,
-                      ),
-                      const SizedBox(width: 5),
-                      Text(':'),
-                      const SizedBox(width: 5),
-                      Container(
-                        height: 30,
-                        // width: 120,
-                        padding: EdgeInsets.only(left: 10, right: 10),
-                        decoration: BoxDecoration(
-                            color: status == 'OPEN' ? redColor : Colors.green,
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Center(
-                            child: Text(
-                          status,
-                          style: TextStyle(color: background),
-                        )),
-                      )
-                    ],
-                  ),
-                  itemtile(lable: 'User Id', vale: userId)
+                  itemtile(lable: 'User Id', vale: userId),
+                  itemtile(lable: 'Issue Date', vale: issueDate),
                 ],
               ),
             ],
           ),
-          itemText(lable: 'Issue Date', value: issueDate),
           itemText(lable: 'Booking Type', value: bookingType),
           const SizedBox(height: 10),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: CustomButtonSmall(
-                loading: loader,
-                height: 40,
-                width: 80,
-                btnHeading: 'View',
-                onTap: onTap),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    'Status',
+                    style: titleTextStyle,
+                  ),
+                  const SizedBox(width: 5),
+                  Text(':'),
+                  const SizedBox(width: 5),
+                  Container(
+                    height: 30,
+                    // width: 120,
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                    decoration: BoxDecoration(
+                        color: status == 'OPEN' ? redColor : Colors.green,
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Center(
+                        child: Text(
+                      status == 'IN_PROGRESS' ? 'INPROGRESS' : status,
+                      style: TextStyle(color: background),
+                    )),
+                  )
+                ],
+              ),
+              CustomButtonSmall(
+                  loading: loader,
+                  height: 40,
+                  width: 80,
+                  btnHeading: 'View',
+                  onTap: onTap),
+            ],
           )
         ],
       ),
@@ -97,12 +99,9 @@ class IssueContainer extends StatelessWidget {
   itemText({required String lable, required String value}) {
     return Row(
       children: [
-        Expanded(
-          flex: 2,
-          child: Text(
-            lable,
-            style: titleTextStyle,
-          ),
+        Text(
+          lable,
+          style: titleTextStyle,
         ),
         const SizedBox(width: 5),
         Text(':'),

@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_driver/model/driverBookingModel.dart';
 import 'package:flutter_driver/res/Custom%20%20Button/custom_btn.dart';
 import 'package:flutter_driver/res/Custom%20Page%20Layout/custom_pageLayout.dart';
-import 'package:flutter_driver/res/Custom%20Page%20Layout/pageLayout_curve.dart';
 import 'package:flutter_driver/res/customTextWidget.dart';
-import 'package:flutter_driver/utils/assets.dart';
 import 'package:flutter_driver/utils/color.dart';
 import 'package:flutter_driver/utils/dimensions.dart';
 import 'package:flutter_driver/utils/text_styles.dart';
-import 'package:flutter_driver/utils/utils.dart';
 import 'package:flutter_driver/view_model/driverBooking_view_model.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:go_router/go_router.dart';
@@ -55,14 +52,14 @@ class _BookingDetailsOfDriverState extends State<BookingDetailsOfDriver> {
 
     try {
       timezone = await FlutterTimezone.getLocalTimezone();
-      print('hgjhjhj.............$timezone');
+      debugPrint('hgjhjhj.............$timezone');
       if (!mounted) return;
 
       setState(() {
         _timeZone = timezone;
       });
     } catch (e) {
-      print('Could not get the local timezone');
+      debugPrint('Could not get the local timezone');
     }
   }
 
@@ -105,8 +102,8 @@ class _BookingDetailsOfDriverState extends State<BookingDetailsOfDriver> {
             decoration: BoxDecoration(
                 border: Border.all(color: Colors.black26),
                 borderRadius: BorderRadius.circular(10)),
-            padding: EdgeInsets.all(10),
-            margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
             child: Row(
               children: [
                 Container(
@@ -179,7 +176,7 @@ class _BookingDetailsOfDriverState extends State<BookingDetailsOfDriver> {
                       ),
                       Text(
                         'AED ${bookingDetails?.rentalCharge ?? ''}',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 12, fontWeight: FontWeight.w600),
                       )
                     ],
@@ -249,7 +246,7 @@ class _BookingDetailsOfDriverState extends State<BookingDetailsOfDriver> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Icon(Icons.location_on_outlined),
+                              const Icon(Icons.location_on_outlined),
                               const SizedBox(
                                 height: 5,
                               ),
@@ -318,7 +315,8 @@ class _BookingDetailsOfDriverState extends State<BookingDetailsOfDriver> {
                   ),
                   InfoRow(
                       label: 'Contact No',
-                      value: '${bookingDetails?.user.mobile}'),
+                      value:
+                          '+${bookingDetails?.user.countryCode} ${bookingDetails?.user.mobile}'),
                   const SizedBox(
                     height: 5,
                   ),
@@ -326,7 +324,7 @@ class _BookingDetailsOfDriverState extends State<BookingDetailsOfDriver> {
                       label: 'Email', value: '${bookingDetails?.user.email}'),
                 ],
               )),
-          Spacer(),
+          const Spacer(),
           Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -385,7 +383,6 @@ class _BookingDetailsOfDriverState extends State<BookingDetailsOfDriver> {
                                               bookingDetails?.id.toString() ??
                                                   '',
                                               widget.driverId).then((onValue) {
-                                        print('jjhjhjjjjkjkjkkj');
                                         Provider.of<DriverGetBookingDetailsViewModel>(
                                                 context,
                                                 listen: false)

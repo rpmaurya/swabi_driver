@@ -11,6 +11,7 @@ class DriverPackageViewModel with ChangeNotifier {
   DriverPackageDetailModel? driverPackageDetailModel;
   DriverPackageBookingHistoryListModel? driverPackageBookingHistoryListModel;
   bool isLoading = false;
+  bool isLoading1 = false;
   bool get loading => isLoading;
   setLoading(bool value) {
     isLoading = value;
@@ -63,25 +64,27 @@ class DriverPackageViewModel with ChangeNotifier {
   }) async {
     Map<String, dynamic> query = {"driverAssignedId": driverAssignId};
     try {
-      isLoading = true;
+      isLoading1 = true;
       notifyListeners();
-
+      // setLoading(true);
       var value = await driverpackageserviceRepository.getPackageDetailListApi(
           query: query, context: context);
 
       if (value?.status.httpCode == '200') {
         driverPackageDetailModel = value;
+        isLoading1 = false;
+        notifyListeners();
         print("Driver Booking Details Success");
       } else {
         print("Failed to fetch booking details");
       }
-
-      isLoading = false;
-      notifyListeners();
     } catch (e) {
-      isLoading = false;
+      isLoading1 = false;
       notifyListeners();
       print('error: $e');
+    } finally {
+      isLoading1 = false;
+      notifyListeners();
     }
     return null;
   }

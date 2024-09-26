@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_driver/res/Custom%20%20Button/custom_btn.dart';
+import 'package:flutter_driver/utils/color.dart';
+import 'package:flutter_driver/utils/text_styles.dart';
 import 'package:flutter_driver/view/registration/login_screen.dart';
+import 'package:flutter_driver/view_model/driverProfile_view_model.dart';
+import 'package:go_router/go_router.dart';
 
 // ignore: depend_on_referenced_packages
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
@@ -17,43 +23,45 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   TextEditingController forgetPassController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromRGBO(234, 233, 226, 1),
-      body: SingleChildScrollView(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 100),
-            child:
-                Center(child: Image.asset('assets/images/Asset 233000 1.png')),
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          const Text(
-            'Forgot Password',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          const Text('Enter your email to reset your password'),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-            child: Form(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Enter your Email',
-                      style: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.5)),
-                    ),
-                    const SizedBox(
-                      height: 4,
-                    ),
-                    Container(
-                      child: TextFormField(
+    return Consumer<ResetPasswordViewModel>(
+        builder: (context, viewModel, child) {
+      return Scaffold(
+        backgroundColor: bgGreyColor,
+        body: SingleChildScrollView(
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 100),
+              child: Center(
+                  child: Image.asset('assets/images/Asset 233000 1.png')),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            const Text(
+              'Forgot Password',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const Text('Enter your email to reset your password'),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
+              child: Form(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text.rich(TextSpan(children: [
+                        TextSpan(
+                            text: 'Enter your Email', style: titleTextStyle),
+                        TextSpan(text: ' *', style: TextStyle(color: redColor))
+                      ])),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      TextFormField(
                         controller: email,
                         decoration: InputDecoration(
-                            // hintText: 'Enter your phone',
+                            hintText: 'xyz@gmail.com',
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 10.0, horizontal: 10.0),
                             filled: true,
@@ -80,62 +88,55 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           return null;
                         },
                       ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: 56,
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor: const MaterialStatePropertyAll(
-                                Color.fromRGBO(123, 30, 52, 1)),
-                            shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(11)))),
-                        onPressed: () {
-                          // if (_formKey.currentState!.validate()) {
-                          //   ScaffoldMessenger.of(context).showSnackBar(
-                          //       const SnackBar(content: Text('Otp sent your email')));
-                          //   Navigator.push(
-                          //       context,
-                          //       MaterialPageRoute(
-                          //           builder: (context) =>
-                          //               const OtpVerificationScreen()));
-                          // }
-                        },
-                        child: const Text(
-                          'Submit',
-                          style: TextStyle(color: Colors.white, fontSize: 16),
-                        ),
+                      const SizedBox(
+                        height: 20,
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text('Remember your password?'),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const LoginScreen()));
-                            },
-                            child: Text(
-                              'Login',
-                              style: GoogleFonts.lato(
-                                  fontWeight: FontWeight.w700,
-                                  color: const Color.fromRGBO(69, 30, 243, 1)),
-                            ))
-                      ],
-                    )
-                  ],
-                )),
-          ),
-        ]),
-      ),
-    );
+                      CustomButtonSmall(
+                          width: double.infinity,
+                          loading: viewModel.isLoading,
+                          height: 50,
+                          btnHeading: 'Submit',
+                          onTap: () {
+                            if (_formKey.currentState!.validate()) {
+                              viewModel
+                                  .sendOtp(context: context, email: email.text)
+                                  .then((onValue) {
+                                if (onValue?.status?.httpCode == '200') {
+                                  // Utils.flushBarSuccessMessage(
+                                  //     onValue?.status?.message, context);
+                                  context.push('/verifyOtp',
+                                      extra: {"email": email.text});
+                                }
+                              });
+                            }
+                          }),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text('Remember your password?'),
+                          TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const LoginScreen()));
+                              },
+                              child: Text(
+                                'Login',
+                                style: GoogleFonts.lato(
+                                    fontWeight: FontWeight.w700,
+                                    color:
+                                        const Color.fromRGBO(69, 30, 243, 1)),
+                              ))
+                        ],
+                      )
+                    ],
+                  )),
+            ),
+          ]),
+        ),
+      );
+    });
   }
 }

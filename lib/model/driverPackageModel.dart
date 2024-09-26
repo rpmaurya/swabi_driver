@@ -544,6 +544,10 @@ class Data {
   User? user;
   String? packageBookingId;
   String? dayStatus;
+  String? countryCode;
+  String? mobile;
+  String? alternateMobileCountryCode;
+  String? alternateMobile;
   String? pickupTime;
   String? startTimestamp;
   String? endTimestamp;
@@ -559,6 +563,10 @@ class Data {
       this.user,
       this.packageBookingId,
       this.dayStatus,
+      this.countryCode,
+      this.mobile,
+      this.alternateMobileCountryCode,
+      this.alternateMobile,
       this.pickupTime,
       this.startTimestamp,
       this.endTimestamp});
@@ -575,6 +583,10 @@ class Data {
         user: User.fromJson(json['user']),
         packageBookingId: json['packageBookingId']?.toString() ?? "",
         dayStatus: json['dayStatus']?.toString() ?? "",
+        countryCode: json["countryCode"] ?? '',
+        mobile: json["mobile"] ?? '',
+        alternateMobileCountryCode: json["alternateMobileCountryCode"] ?? '',
+        alternateMobile: json["alternateMobile"] ?? '',
         pickupTime: json['pickupTime'],
         startTimestamp: json['startTimestamp']?.toString() ?? "",
         endTimestamp: json['endTimestamp']?.toString() ?? "",
@@ -592,6 +604,10 @@ class Data {
         "user": user,
         "packageBookingId": packageBookingId,
         "dayStatus": dayStatus,
+        "countryCode": countryCode,
+        "mobile": mobile,
+        "alternateMobile": alternateMobile,
+        "alternateMobileCountryCode": alternateMobileCountryCode,
         "pickupTime": pickupTime,
         "startTimestamp": startTimestamp,
         "endTimestamp": endTimestamp,

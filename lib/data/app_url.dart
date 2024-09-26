@@ -27,4 +27,7 @@ class AppUrl {
   static var raiseIssueUrl = "/booking_issue/raise_issue";
   static var getIssueUrl = "/booking_issue/get_issue_raised_by";
   static var getIssueDetailsUrl = "/booking_issue/get_issue_detail";
+  static var sendOtpsUrl = "/otp_send";
+  static var verifyOtpUrl = "/otp_verify";
+  static var resetPassordUrl = "/password_update";
 }

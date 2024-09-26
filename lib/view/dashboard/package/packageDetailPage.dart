@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_driver/res/Custom%20%20Button/custom_btn.dart';
 import 'package:flutter_driver/res/Custom%20Page%20Layout/custom_pageLayout.dart';
-import 'package:flutter_driver/res/customTextWidget.dart';
 import 'package:flutter_driver/utils/color.dart';
 import 'package:flutter_driver/utils/text_styles.dart';
 import 'package:flutter_driver/utils/utils.dart';
 import 'package:flutter_driver/view_model/driver_package_view_model.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -76,8 +74,9 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                     decoration: BoxDecoration(
                         border: Border.all(color: Colors.black26),
                         borderRadius: BorderRadius.circular(10)),
-                    padding: EdgeInsets.all(12),
-                    margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                    padding: const EdgeInsets.all(12),
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 10),
                     child: Row(
                       children: [
                         Container(
@@ -291,7 +290,7 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                     padding:
                         const EdgeInsets.only(left: 10, bottom: 10, top: 10),
                     child: Text(
-                      'Passenger Details',
+                      'User Details',
                       style: titleTextStyle,
                     ),
                   ),
@@ -309,7 +308,8 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                           ),
                           InfoRow(
                               label: 'Contact No',
-                              value: '${package?.user?.mobile}'),
+                              value:
+                                  '+${package?.user?.countryCode} ${package?.user?.mobile}'),
                           const SizedBox(
                             height: 5,
                           ),
@@ -321,12 +321,38 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                     padding:
                         const EdgeInsets.only(left: 10, bottom: 10, top: 10),
                     child: Text(
+                      'Passenger Details',
+                      style: titleTextStyle,
+                    ),
+                  ),
+                  containerItem(
+                      context,
+                      null,
+                      Column(
+                        children: [
+                          InfoRow(
+                              label: 'Primary Contact',
+                              value:
+                                  '+${package?.countryCode} ${package?.mobile}'),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          InfoRow(
+                              label: 'Secondary Contact',
+                              value:
+                                  '+${package?.alternateMobileCountryCode} ${package?.alternateMobile}'),
+                        ],
+                      )),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 10, bottom: 10, top: 10),
+                    child: Text(
                       'Activity Details',
                       style: titleTextStyle,
                     ),
                   ),
                   ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: package?.activityList?.length,
                       itemBuilder: (context, index) {
@@ -510,8 +536,8 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
     return Container(
       width: double.infinity,
       height: height,
-      padding: EdgeInsets.all(12),
-      margin: EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.all(12),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
           color: bgGreyColor, borderRadius: BorderRadius.circular(10)),
       child: child,

@@ -1407,6 +1407,7 @@ class DriverGetBookingDetailsDriver {
 class DriverGetBookingDetailsGuest {
   String guestId;
   String guestName;
+  String countryCode;
   String guestMobile;
   String gender;
   String userId;
@@ -1417,6 +1418,7 @@ class DriverGetBookingDetailsGuest {
   DriverGetBookingDetailsGuest({
     required this.guestId,
     required this.guestName,
+    required this.countryCode,
     required this.guestMobile,
     required this.gender,
     required this.userId,
@@ -1429,6 +1431,7 @@ class DriverGetBookingDetailsGuest {
       DriverGetBookingDetailsGuest(
         guestId: json["guestId"].toString(),
         guestName: json["guestName"] ?? "",
+        countryCode: json["countryCode"] ?? "",
         guestMobile: json["guestMobile"] ?? "",
         gender: json["gender"] ?? "",
         userId: json["userId"].toString(),
@@ -1440,6 +1443,7 @@ class DriverGetBookingDetailsGuest {
   Map<String, dynamic> toJson() => {
         "guestId": guestId,
         "guestName": guestName,
+        "countryCode": countryCode,
         "guestMobile": guestMobile,
         "gender": gender,
         "userId": userId,
@@ -1453,6 +1457,7 @@ class User {
   String userId;
   String firstName;
   String lastName;
+  String countryCode;
   String mobile;
   String address;
   String email;
@@ -1469,6 +1474,7 @@ class User {
     required this.userId,
     required this.firstName,
     required this.lastName,
+    required this.countryCode,
     required this.mobile,
     required this.address,
     required this.email,
@@ -1486,6 +1492,7 @@ class User {
         userId: json["userId"].toString(),
         firstName: json["firstName"] ?? '',
         lastName: json["lastName"] ?? '',
+        countryCode: json["countryCode"] ?? '',
         mobile: json["mobile"] ?? '',
         address: json["address"] ?? '',
         email: json["email"] ?? '',
@@ -1503,6 +1510,7 @@ class User {
         "userId": userId,
         "firstName": firstName,
         "lastName": lastName,
+        "countryCode": countryCode,
         "mobile": mobile,
         "address": address,
         "email": email,

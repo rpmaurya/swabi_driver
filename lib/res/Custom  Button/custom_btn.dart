@@ -25,7 +25,7 @@ class CustomButtonBig extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
         onTap: onTap,
         child: SizedBox(
-          height: 55,
+          height: 50,
           width: widht ?? AppDimension.getWidth(context) * .95,
           child: Center(
               child: loading

@@ -1,11 +1,14 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_driver/res/Custom%20%20Button/custom_btn.dart';
+import 'package:flutter_driver/res/customTextWidget.dart';
 import 'package:flutter_driver/res/login/login_customTextFeild.dart';
 import 'package:flutter_driver/utils/assets.dart';
 import 'package:flutter_driver/utils/color.dart';
 import 'package:flutter_driver/utils/utils.dart';
+import 'package:flutter_driver/view/registration/forgot_screen.dart';
 import 'package:flutter_driver/view_model/auth_view_model.dart';
+import 'package:go_router/go_router.dart';
 
 // ignore: depend_on_referenced_packages
 import 'package:google_fonts/google_fonts.dart';
@@ -23,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String usr = '';
   String pass = '';
   bool value = false;
+  bool _rememberMe = false;
   String? notificationToken = '';
   List<TextEditingController> controller =
       List.generate(2, (index) => TextEditingController());
@@ -66,9 +70,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   savecredential() async {
     final prefsData = await SharedPreferences.getInstance();
-    List<String>? items = prefsData.getStringList('saveCredential');
+    List<String> items = prefsData.getStringList('saveCredential') ?? [];
     setState(() {
-      usr = items![0].toString();
+      usr = items[0].toString();
       pass = items[1].toString();
     });
   }
@@ -91,7 +95,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Center(child: Image.asset(appLogo1)),
                 // child: Center(child: Image.asset(appLogo1)),
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 10),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: CustomTextWidget(
+                    content: "WELCOME!\nPlease sign in to your account",
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    maxline: 2,
+                    textColor: textColor),
+              ),
+              const SizedBox(height: 4),
               LoginTextFeild(
                 headingReq: true,
                 hint: "xyz@gmail.com",
@@ -111,20 +125,34 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               // const SizedBox(height: 20),
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
+                  Checkbox(
+                    value: _rememberMe,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        _rememberMe = value ?? false;
+                      });
+                    },
+                  ),
+                  Expanded(
+                      child: Text('Remember Me',
+                          style: GoogleFonts.lato(
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black))),
+                  Container(
                     child: TextButton(
                       onPressed: () {
+                        context.push('/forgotPassword');
                         // Navigator.push(
                         //     context,
                         //     MaterialPageRoute(
                         //         builder: (context) => ForgotPassword()));
                       },
-                      child: Text('Forgot Password',
+                      child: Text('Forgot your password?',
                           style: GoogleFonts.lato(
                               fontWeight: FontWeight.w700,
-                              color: const Color.fromRGBO(0, 0, 0, 0.5))),
+                              color: Colors.green)),
                     ),
                   ),
                 ],

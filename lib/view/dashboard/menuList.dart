@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_driver/res/Custom%20%20Button/custom_btn.dart';
 import 'package:flutter_driver/res/Custom%20Page%20Layout/custom_pageLayout.dart';
-import 'package:flutter_driver/res/Custom%20Page%20Layout/pageLayout_curve.dart';
 import 'package:flutter_driver/res/custom_ListTile.dart';
 import 'package:flutter_driver/utils/assets.dart';
-import 'package:flutter_driver/utils/color.dart';
-import 'package:flutter_driver/view_model/driverPackage_view_model.dart';
 import 'package:flutter_driver/view_model/driverProfile_view_model.dart';
 import 'package:flutter_driver/view_model/user_view_model.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';

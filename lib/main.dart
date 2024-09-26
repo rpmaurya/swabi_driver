@@ -53,6 +53,7 @@ Future<void> main() async {
             create: (context) => DriverPackageBookingHistoryListViewModel()),
         ChangeNotifierProvider(create: (context) => DriverPackageViewModel()),
         ChangeNotifierProvider(create: (context) => RaiseissueViewModel()),
+        ChangeNotifierProvider(create: (context) => ResetPasswordViewModel()),
       ],
       child: const MyApp(),
     ));

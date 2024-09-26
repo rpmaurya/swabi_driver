@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_driver/model/IssueDetailModel.dart';
 import 'package:flutter_driver/res/Custom%20Page%20Layout/custom_pageLayout.dart';
-
-import 'package:flutter_driver/res/customAppBar.dart';
 import 'package:flutter_driver/utils/color.dart';
 import 'package:flutter_driver/utils/text_styles.dart';
 import 'package:flutter_driver/view_model/raiseIssue_view_model.dart';
@@ -26,8 +24,8 @@ class _IssueviewdetailsState extends State<Issueviewdetails> {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.all(10),
-            margin: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
             width: double.infinity,
             decoration: BoxDecoration(
                 color: background,
@@ -60,12 +58,16 @@ class _IssueviewdetailsState extends State<Issueviewdetails> {
                               style: titleTextStyle,
                             ),
                             const SizedBox(width: 5),
-                            Text(':'),
+                            Text(
+                              ':',
+                              style: textTextStyle,
+                            ),
                             const SizedBox(width: 5),
                             Container(
                               height: 30,
                               // width: 120,
-                              padding: EdgeInsets.only(left: 10, right: 10),
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
                               decoration: BoxDecoration(
                                   color: issueData?.issueStatus == 'OPEN'
                                       ? redColor
@@ -73,8 +75,11 @@ class _IssueviewdetailsState extends State<Issueviewdetails> {
                                   borderRadius: BorderRadius.circular(5)),
                               child: Center(
                                   child: Text(
-                                issueData?.issueStatus.toString() ?? '',
-                                style: TextStyle(color: background),
+                                issueData?.issueStatus.toString() ==
+                                        'IN_PROGRESS'
+                                    ? 'INPROGRESS'
+                                    : issueData?.issueStatus ?? '',
+                                style: const TextStyle(color: background),
                               )),
                             )
                           ],
@@ -127,7 +132,10 @@ class _IssueviewdetailsState extends State<Issueviewdetails> {
           ),
         ),
         const SizedBox(width: 5),
-        Text(':'),
+        Text(
+          ':',
+          style: titleTextStyle,
+        ),
         const SizedBox(width: 5),
         Expanded(
           flex: 3,
@@ -147,7 +155,10 @@ class _IssueviewdetailsState extends State<Issueviewdetails> {
         style: titleTextStyle,
       ),
       const SizedBox(width: 5),
-      Text(':'),
+      Text(
+        ':',
+        style: titleTextStyle,
+      ),
       const SizedBox(width: 5),
       Text(
         vale,
