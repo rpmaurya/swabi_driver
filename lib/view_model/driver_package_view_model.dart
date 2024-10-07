@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_driver/model/driverPackageModel.dart';
 import 'package:flutter_driver/model/driverpackageHistoryModel.dart';
 import 'package:flutter_driver/respository/driverPackageService_repository.dart';
+import 'package:flutter_driver/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DriverPackageViewModel with ChangeNotifier {
@@ -108,9 +109,11 @@ class DriverPackageViewModel with ChangeNotifier {
 
       if (value?.status.httpCode == '200') {
         // driverPackageDetailModel = value;
-        print("Driver activity started");
+        // ignore: use_build_context_synchronously
+        Utils.toastSuccessMessage('Activity Started');
+        debugPrint("Driver activity started");
       } else {
-        print("Failed to fetch booking details");
+        debugPrint("Failed to fetch booking details");
       }
 
       isLoading = false;
@@ -142,9 +145,13 @@ class DriverPackageViewModel with ChangeNotifier {
 
       if (value?.status.httpCode == '200') {
         // driverPackageDetailModel = value;
-        print("Driver Activity completed");
+        updateDayStatus('COMPLETED');
+        // ignore: use_build_context_synchronously
+        Utils.toastSuccessMessage('Activity Completed');
+
+        debugPrint("Driver Activity completed");
       } else {
-        print("Failed to fetch booking details");
+        debugPrint("Failed to fetch booking details");
       }
 
       isLoading = false;
@@ -152,7 +159,7 @@ class DriverPackageViewModel with ChangeNotifier {
     } catch (e) {
       isLoading = false;
       notifyListeners();
-      print('error: $e');
+      debugPrint('error: $e');
     }
     return null;
   }

@@ -90,6 +90,7 @@ class LoginTextFeild extends StatefulWidget {
   final bool readOnly;
   final bool number;
   final String hint;
+  final FocusNode? focusNode;
   LoginTextFeild(
       {this.heading = "",
       this.img = "",
@@ -101,6 +102,7 @@ class LoginTextFeild extends StatefulWidget {
       this.number = false,
       this.obscure = false,
       this.readOnly = false,
+      this.focusNode,
       super.key});
 
   @override
@@ -135,6 +137,7 @@ class _LoginTextFeildState extends State<LoginTextFeild> {
                 color: widget.readOnly ? curvePageColor : background),
             child: TextFormField(
               obscuringCharacter: '*',
+              focusNode: widget.focusNode,
               readOnly: widget.readOnly,
               style: titleTextStyle,
               keyboardType: widget.number ? TextInputType.number : null,

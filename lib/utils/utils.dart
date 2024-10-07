@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_driver/utils/color.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-
 class Utils {
   static double averageRating(List<int> rating) {
     var avgRating = 0;
@@ -55,7 +54,7 @@ class Utils {
       //   )..show(context),
       // );
       DelightToastBar(
-        position: DelightSnackbarPosition.top,
+        position: DelightSnackbarPosition.bottom,
         builder: (context) => ToastCard(
           color: const Color(0xff23974B),
           leading: const Icon(
@@ -66,9 +65,7 @@ class Utils {
           title: Text(
             message,
             style: const TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 14,
-                color: Colors.white),
+                fontWeight: FontWeight.w700, fontSize: 14, color: Colors.white),
           ),
           trailing: const IconButton(
               onPressed: DelightToastBar.removeAll,
@@ -108,7 +105,7 @@ class Utils {
     //   )..show(context),
     // );
     DelightToastBar(
-      position: DelightSnackbarPosition.top,
+      position: DelightSnackbarPosition.bottom,
       builder: (context) => ToastCard(
         color: Colors.red,
         leading: const Icon(
@@ -119,9 +116,7 @@ class Utils {
         title: Text(
           message,
           style: const TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-              color: Colors.white),
+              fontWeight: FontWeight.w700, fontSize: 12, color: Colors.white),
         ),
         trailing: const IconButton(
             onPressed: DelightToastBar.removeAll,
@@ -170,17 +165,13 @@ class Utils {
           child: const Text(
             "!",
             style: TextStyle(
-                fontWeight: FontWeight.w800,
-                fontSize: 24,
-                color: Colors.white),
+                fontWeight: FontWeight.w800, fontSize: 24, color: Colors.white),
           ),
         ),
         title: Text(
           message,
           style: const TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 14,
-              color: Colors.white),
+              fontWeight: FontWeight.w700, fontSize: 14, color: Colors.white),
         ),
         trailing: const IconButton(
             onPressed: DelightToastBar.removeAll,

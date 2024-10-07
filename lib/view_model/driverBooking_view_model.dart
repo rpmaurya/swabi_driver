@@ -173,13 +173,13 @@ class DriverOnRunningViewModel with ChangeNotifier {
       // context.replace('/bookingDetails',extra: {'bookId': bookId,'myDriverId':drvID});
       // context.replace('/onRunning_DetailsPage',
       //     extra: {'bookId': bookId, 'driverID': drvID});
-      Utils.flushBarSuccessMessage("Driver Ongoing Successful", context);
+      Utils.toastSuccessMessage("Driver Ongoing Successful");
     }).onError((error, stackTrace) {
       setLoading(false);
       setDataList(ApiResponse.error(error.toString()));
       print("Driver On Running field");
       print(error.toString());
-      Utils.flushBarErrorMessage(error.toString(), context);
+      Utils.toastMessage(error.toString());
     });
   }
 }
@@ -217,8 +217,7 @@ class DriverCompletedBookingViewModel with ChangeNotifier {
         "bookingStatus": "BOOKED"
       }, context);
       context.go('/');
-      Utils.flushBarSuccessMessage(
-          "Booking has been Completed Successfully", context);
+      Utils.toastSuccessMessage("Booking has been Completed Successfully");
     }).onError((error, stackTrace) {
       setLoading(false);
       setDataList(ApiResponse.error(error.toString()));

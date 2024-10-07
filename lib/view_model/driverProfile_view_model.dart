@@ -84,7 +84,7 @@ class DriverProfileUpdateViewModel with ChangeNotifier {
         setDataList(ApiResponse.completed(value));
         print('Updated successfull');
         context.pop(context);
-        Utils.flushBarSuccessMessage("Profile Updated Successfully", context);
+        Utils.toastSuccessMessage("Profile Updated Successfully");
       });
     } catch (e) {
       print('error$e');
@@ -123,7 +123,7 @@ class ResetPasswordViewModel with ChangeNotifier {
       notifyListeners();
       var resp = await _myRepo.sendOtpApi(context: context, query: query);
       if (resp?.status?.httpCode == '200') {
-        Utils.flushBarSuccessMessage(resp?.status?.message, context);
+        Utils.toastSuccessMessage(resp?.status?.message ?? '');
         isLoading = false;
         notifyListeners();
       }
@@ -150,7 +150,7 @@ class ResetPasswordViewModel with ChangeNotifier {
       notifyListeners();
       await _myRepo.verifyOtpApi(context: context, query: query).then((resp) {
         if (resp?.status?.httpCode == '200') {
-          Utils.flushBarSuccessMessage(resp?.status?.message, context);
+          Utils.toastSuccessMessage(resp?.status?.message ?? '');
           context.push('/resetPassword', extra: {"email": email});
           isLoading = false;
           notifyListeners();
@@ -176,7 +176,7 @@ class ResetPasswordViewModel with ChangeNotifier {
       notifyListeners();
       var resp = await _myRepo.resetPasswordApi(context: context, query: query);
       if (resp?.status?.httpCode == '200') {
-        Utils.flushBarSuccessMessage(resp?.status?.message, context);
+        Utils.toastSuccessMessage(resp?.status?.message ?? '');
         context.push('/login');
         isLoading2 = false;
         notifyListeners();

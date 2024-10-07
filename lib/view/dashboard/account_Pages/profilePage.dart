@@ -107,7 +107,7 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             const SizedBox(height: 10),
             CommonTextFeild(
-              heading: "My Id No.",
+              heading: "Driver Id",
               headingReq: true,
               controller: TextEditingController(text: dataUser),
               prefixIcon: true,
@@ -116,7 +116,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: 10),
             CommonTextFeild(
-              heading: "Name",
+              heading: "Full Name",
               headingReq: true,
               controller:
                   TextEditingController(text: "$userName $userLastName"),

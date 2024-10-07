@@ -50,7 +50,7 @@ class RaiseissueViewModel with ChangeNotifier {
           .then((onValue) {
         _raiseIssueModel = onValue;
         notifyListeners();
-        Utils.flushBarSuccessMessage('Raise requested Successfully', context);
+        Utils.toastSuccessMessage('Raise requested Successfully');
       }).onError((error, StackTrace) {
         // ErrorHandler().hanErrorResponse(errorResponse: error);
         ErrorHandler.handleError(error.toString());

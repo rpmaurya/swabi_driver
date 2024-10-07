@@ -21,12 +21,12 @@ class _UpcommingPackagebookingState extends State<UpcommingPackagebooking> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   Provider.of<DriverPackageViewModel>(context, listen: false)
-    //       .getPackageBookingList(
-    //     context: context,
-    //   );
-    // });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<DriverPackageViewModel>(context, listen: false)
+          .getPackageBookingList(
+        context: context,
+      );
+    });
   }
 
   int indexValue = -1;

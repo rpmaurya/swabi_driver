@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_driver/view_model/user_view_model.dart';
@@ -55,14 +53,25 @@ class AuthViewModel with ChangeNotifier {
   //   });
   // }
 
-  Future<void> loginApi(dynamic data, BuildContext context) async {
+  Future<void> loginApi(
+      {required BuildContext context,
+      required String email,
+      required String password,
+      required String notificationToken,
+      required bool rememberMe}) async {
+    Map<String, String> data = {
+      'email': email,
+      'password': password,
+      'notificationToken': notificationToken,
+      'userType': 'DRIVER'
+    };
     setLoading(true);
     {
       _myRepo.loginApi(data).then((value) async {
         print(value);
-        setLoading(false);
-        final userPreference = Provider.of<UserViewModel>(
-            context, listen: false);
+
+        final userPreference =
+            Provider.of<UserViewModel>(context, listen: false);
         print("save token");
         // userPreference.saveEmail(value['user']);
         print(value['data']['userId'].toString());
@@ -70,19 +79,22 @@ class AuthViewModel with ChangeNotifier {
         String token1 = value['data']['token'].toString();
         userPreference.saveToken(UserModel(token: token1));
         userPreference.saveUserId(UserModel(userId: userID));
+        rememberMe
+            ? userPreference.saveRememberMe(email, password, rememberMe)
+            : userPreference.clearRememberMe();
         print('userId: $userID');
         print('token: ${token1.toString()}');
-        Utils.flushBarSuccessMessage("Login Successfully",context);
+        Utils.toastSuccessMessage("Login Successfully");
         context.go('/');
+        setLoading(false);
       }).onError((error, stackTrace) {
         setLoading(false);
-          Utils.flushBarErrorMessage(error.toString(), context);
+        Utils.toastMessage(error.toString());
+        FocusScope.of(context).unfocus();
         if (kDebugMode) {
           print(error.toString());
         }
       });
     }
   }
-
-
 }

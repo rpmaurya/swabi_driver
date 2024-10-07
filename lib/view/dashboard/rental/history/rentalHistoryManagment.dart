@@ -105,7 +105,7 @@ class _DriverHistoryManagmentState extends State<DriverHistoryManagment>
   // List<Content> onRunningData = [];
   // List<Content> completedData = [];
   // List<Content> cancelledData = [];
-
+  int selectedIndex = -1;
   @override
   Widget build(BuildContext context) {
     return CustomPagelayout(
@@ -151,7 +151,13 @@ class _DriverHistoryManagmentState extends State<DriverHistoryManagment>
                         }
                         final item = bookedHistory[index];
                         return HistoryDetailsContainer(
+                          loader:
+                              response.status.toString() == "Status.loading" &&
+                                  selectedIndex == index,
                           onTapContainer: () {
+                            setState(() {
+                              selectedIndex == index;
+                            });
                             Provider.of<DriverGetBookingDetailsViewModel>(
                                     context,
                                     listen: false)
@@ -194,6 +200,7 @@ class _DriverHistoryManagmentState extends State<DriverHistoryManagment>
             }
             final item = data[index];
             return HistoryDetailsContainer(
+              loader: status == "Status.loading",
               onTapContainer: () {
                 Provider.of<DriverGetBookingDetailsViewModel>(context,
                         listen: false)

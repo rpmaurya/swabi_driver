@@ -290,7 +290,7 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                     padding:
                         const EdgeInsets.only(left: 10, bottom: 10, top: 10),
                     child: Text(
-                      'User Details',
+                      'Customer Details',
                       style: titleTextStyle,
                     ),
                   ),
@@ -446,9 +446,8 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                                     ? null
                                     : () {
                                         if (package?.pickupLocation == null) {
-                                          Utils.flushBarErrorMessage(
-                                              'Pickup location is empty',
-                                              context);
+                                          Utils.toastMessage(
+                                              'Pickup location is empty');
                                         } else {
                                           setState(() {
                                             viewData.isLoading = true;

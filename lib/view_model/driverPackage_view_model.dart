@@ -139,7 +139,7 @@ class DriverActivityStartViewModel with ChangeNotifier {
       setDataList(ApiResponse.completed(value));
       // context.push('/pageViewDetails', );
       debugPrint("Driver Booking Details Success");
-      Utils.flushBarSuccessMessage("Journey started", context);
+      Utils.toastSuccessMessage("Journey started");
       print('jhjhjkkjkllkl${value.status.httpCode}');
     }).onError((error, stackTrace) {
       setDataList(ApiResponse.error(error.toString()));
@@ -169,7 +169,7 @@ class DriverActivityCompleteViewModel with ChangeNotifier {
       //     .fetchDriverPackageDetailViewModel(data,BuildContext context,);
       // context.push('/pageViewDetails', extra: {"driverAss": driverAssID});
       debugPrint("Driver Booking Details Success");
-      Utils.flushBarSuccessMessage("Journey completed", context);
+      Utils.toastSuccessMessage("Journey completed");
       print('jhjhjkkjkllkl${value.status.httpCode}');
     }).onError((error, stackTrace) {
       setDataList(ApiResponse.error(error.toString()));

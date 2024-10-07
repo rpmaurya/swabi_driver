@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_driver/res/Custom%20%20Button/custom_btn.dart';
 import 'package:flutter_driver/utils/assets.dart';
 import 'package:flutter_driver/utils/color.dart';
 import 'package:flutter_driver/utils/dimensions.dart';
@@ -13,6 +14,7 @@ class HistoryDetailsContainer extends StatelessWidget {
   final String fuelType;
   final String seat;
   final VoidCallback? onTapContainer;
+  final bool loader;
   const HistoryDetailsContainer(
       {super.key,
       this.onTapContainer,
@@ -22,6 +24,7 @@ class HistoryDetailsContainer extends StatelessWidget {
       this.carImage = '',
       required this.status,
       required this.fuelType,
+      required this.loader,
       required this.seat});
 
   @override
@@ -33,7 +36,7 @@ class HistoryDetailsContainer extends StatelessWidget {
         color: background,
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
-          onTap: onTapContainer,
+          // onTap: onTapContainer,
           child: Container(
             // height: AppDimension.getHeight(context)*.23,
             width: AppDimension.getWidth(context) * .9,
@@ -190,28 +193,41 @@ class HistoryDetailsContainer extends StatelessWidget {
                 ),
 
                 ///Second Line Design
-                Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                        color: status == "CANCELLED"
-                            ? redColor.withOpacity(.1)
-                            : greenColor.withOpacity(.1),
-                        borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10))),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          status,
-                          style: GoogleFonts.lato(
-                              color:
-                                  status == "CANCELLED" ? redColor : greenColor,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ],
-                    )),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              color: status == "CANCELLED"
+                                  ? redColor.withOpacity(.1)
+                                  : greenColor.withOpacity(.1),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                status,
+                                style: GoogleFonts.lato(
+                                    color: status == "CANCELLED"
+                                        ? redColor
+                                        : greenColor,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ],
+                          )),
+                      CustomButtonSmall(
+                          loading: loader,
+                          height: 40,
+                          width: 80,
+                          btnHeading: 'View',
+                          onTap: onTapContainer)
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

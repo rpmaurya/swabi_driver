@@ -17,10 +17,10 @@ class _HistoryPackagebookingState extends State<HistoryPackagebooking> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   Provider.of<DriverPackageViewModel>(context, listen: false)
-    //       .getPackageBookingHistoryList(context: context);
-    // });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<DriverPackageViewModel>(context, listen: false)
+          .getPackageBookingHistoryList(context: context);
+    });
   }
 
   int selectIndex = -1;

@@ -324,7 +324,7 @@ class _EditProfiePageState extends State<EditProfiePage> {
                 ),
                 CustomButtonBig(
                     loading: status == 'Status.loading' && loader,
-                    btnHeading: "Save",
+                    btnHeading: "UPDATE",
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
                         Provider.of<DriverProfileUpdateViewModel>(context,

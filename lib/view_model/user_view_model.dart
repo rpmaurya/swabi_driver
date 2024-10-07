@@ -29,6 +29,25 @@ class UserViewModel with ChangeNotifier {
     return true;
   }
 
+  Future<bool> saveRememberMe(
+      String email, String pass, bool rememberMe) async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    await sp.setString('email', email);
+    await sp.setString('password', pass);
+    await sp.setBool('remember', rememberMe);
+
+    notifyListeners();
+    return true;
+  }
+
+  Future<void> clearRememberMe() async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    await sp.remove('email');
+    await sp.remove('password');
+    await sp.remove('remember');
+    notifyListeners();
+  }
+
   Future<UserModel> getUser() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('token');
@@ -58,9 +77,8 @@ class UserViewModel with ChangeNotifier {
     sp.remove('token');
     sp.remove('userId');
     sp.remove('baseUrl');
-    sp.clear();
+    // sp.clear();
     print("token dismis");
-    Utils.flushBarSuccessMessage("Logout Successful", context);
+    Utils.toastSuccessMessage("Logout Successful");
   }
-
 }

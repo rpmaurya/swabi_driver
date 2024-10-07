@@ -1,10 +1,13 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_driver/data/validatorclass.dart';
 import 'package:flutter_driver/res/Custom%20%20Button/custom_btn.dart';
+import 'package:flutter_driver/res/CustomTextFormfield.dart';
 import 'package:flutter_driver/res/customTextWidget.dart';
 import 'package:flutter_driver/res/login/login_customTextFeild.dart';
 import 'package:flutter_driver/utils/assets.dart';
 import 'package:flutter_driver/utils/color.dart';
+import 'package:flutter_driver/utils/text_styles.dart';
 import 'package:flutter_driver/utils/utils.dart';
 import 'package:flutter_driver/view/registration/forgot_screen.dart';
 import 'package:flutter_driver/view_model/auth_view_model.dart';
@@ -27,9 +30,16 @@ class _LoginScreenState extends State<LoginScreen> {
   String pass = '';
   bool value = false;
   bool _rememberMe = false;
+  bool obsucePassword = true;
+  final _formKey = GlobalKey<FormState>();
   String? notificationToken = '';
-  List<TextEditingController> controller =
-      List.generate(2, (index) => TextEditingController());
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  // List<TextEditingController> controller =
+  //     List.generate(2, (index) => TextEditingController());
+  final FocusNode focusNode1 = FocusNode();
+  final FocusNode focusNode2 = FocusNode();
 
   @override
   void initState() {
@@ -70,10 +80,21 @@ class _LoginScreenState extends State<LoginScreen> {
 
   savecredential() async {
     final prefsData = await SharedPreferences.getInstance();
-    List<String> items = prefsData.getStringList('saveCredential') ?? [];
+    // List<String>? items = prefsData.getStringList('saveCredential');
+    // if (items != null && items.length >= 2) {
+    //   setState(() {
+    //     usr = items[0].toString();
+    //     pass = items[1].toString();
+    //   });
+    // } else {
+    //   // Handle the case where 'saveCredential' is not set or doesn't have enough data
+    //   print("No credentials found or incomplete data");
+    // }
     setState(() {
-      usr = items[0].toString();
-      pass = items[1].toString();
+      emailController.text = prefsData.getString('email') ?? '';
+      passwordController.text = prefsData.getString('password') ?? '';
+      _rememberMe = prefsData.getBool('remember') ?? false;
+      debugPrint('email id ${emailController.text}');
     });
   }
 
@@ -81,110 +102,151 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final authViewMode = Provider.of<AuthViewModel>(context);
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       backgroundColor: bgGreyColor,
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 100),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 50),
-                child: Center(child: Image.asset(appLogo1)),
-                // child: Center(child: Image.asset(appLogo1)),
-              ),
-              const SizedBox(height: 10),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: CustomTextWidget(
-                    content: "WELCOME!\nPlease sign in to your account",
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    maxline: 2,
-                    textColor: textColor),
-              ),
-              const SizedBox(height: 4),
-              LoginTextFeild(
-                headingReq: true,
-                hint: "xyz@gmail.com",
-                controller: controller[0]..text = usr.toString(),
-                img: email,
-                heading: "Enter your Email",
-              ),
-              const SizedBox(height: 8),
-              LoginTextFeild(
-                headingReq: true,
-                controller: controller[1]..text = pass.toString(),
-                obscure: true,
-                suffixIcon: true,
-                img: email,
-                hint: "XXXXXXXXXXX",
-                heading: "Enter your Password",
-              ),
-              // const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Checkbox(
-                    value: _rememberMe,
-                    onChanged: (bool? value) {
+        child: Form(
+          key: _formKey,
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 100),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 50),
+                  child: Center(child: Image.asset(appLogo1)),
+                  // child: Center(child: Image.asset(appLogo1)),
+                ),
+                const SizedBox(height: 10),
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: CustomTextWidget(
+                      content: "WELCOME!\nPlease sign in to your account",
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      maxline: 2,
+                      textColor: textColor),
+                ),
+                const SizedBox(height: 4),
+                Padding(
+                  padding: const EdgeInsets.only(top: 5, bottom: 5),
+                  child: Text.rich(TextSpan(children: [
+                    TextSpan(text: 'Enter your email', style: titleTextStyle),
+                    const TextSpan(
+                        text: ' *', style: TextStyle(color: redColor))
+                  ])),
+                ),
+                Customtextformfield(
+                  focusNode: focusNode1,
+                  fillColor: background,
+                  controller: emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  hintText: 'Enter your email',
+                  validator: (value) {
+                    return Validatorclass.validateEmail(value);
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 5, bottom: 5),
+                  child: Text.rich(TextSpan(children: [
+                    TextSpan(
+                        text: 'Enter your password', style: titleTextStyle),
+                    const TextSpan(
+                        text: ' *', style: TextStyle(color: redColor))
+                  ])),
+                ),
+                Customtextformfield(
+                  focusNode: focusNode2,
+                  controller: passwordController,
+                  obscureText: obsucePassword,
+                  fillColor: background,
+                  hintText: 'Enter your password',
+                  suffixIcons: IconButton(
+                    icon: Icon(
+                      obsucePassword ? Icons.visibility_off : Icons.visibility,
+                    ),
+                    onPressed: () {
                       setState(() {
-                        _rememberMe = value ?? false;
+                        obsucePassword = !obsucePassword;
                       });
                     },
                   ),
-                  Expanded(
-                      child: Text('Remember Me',
-                          style: GoogleFonts.lato(
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black))),
-                  Container(
-                    child: TextButton(
-                      onPressed: () {
-                        context.push('/forgotPassword');
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => ForgotPassword()));
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Enter your password';
+                    } else {
+                      return Validatorclass.validatePassword(value);
+                    }
+                  },
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Checkbox(
+                      activeColor: btnColor,
+                      value: _rememberMe,
+                      onChanged: (bool? value1) {
+                        FocusScope.of(context).unfocus();
+                        focusNode1.unfocus();
+                        focusNode2.unfocus();
+
+                        setState(() {
+                          _rememberMe = !_rememberMe;
+                          print('rememberme...$_rememberMe');
+                        });
                       },
-                      child: Text('Forgot your password?',
-                          style: GoogleFonts.lato(
-                              fontWeight: FontWeight.w700,
-                              color: Colors.green)),
                     ),
-                  ),
-                ],
-              ),
-              CustomButtonBig(
-                btnHeading: "LOGIN",
-                loading: authViewMode.loading,
-                onTap: () {
-                  if (controller[0].text.isEmpty) {
-                    Utils.flushBarErrorMessage(
-                        "Enter your valid Email Id", context);
-                  } else if (controller[1].text.isEmpty) {
-                    Utils.flushBarErrorMessage(
-                        "Enter your valid Password", context);
-                  } else {
-                    Map<String, String> data = {
-                      'email': controller[0].text.toString(),
-                      'password': controller[1].text.toString(),
-                      'notificationToken': notificationToken ?? '',
-                      'userType': 'DRIVER'
-                    };
-                    authViewMode.loginApi(data, context);
-                  }
-                  // context.push('/');
-                  // controller[0].clear();
-                  // controller[1].clear();
-                },
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-            ]),
+                    Expanded(
+                        child: Text('Remember Me',
+                            style: GoogleFonts.lato(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black))),
+                    Container(
+                      child: TextButton(
+                        onPressed: () {
+                          context.push('/forgotPassword');
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => ForgotPassword()));
+                        },
+                        child: Text('Forgot your password?',
+                            style: GoogleFonts.lato(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.green)),
+                      ),
+                    ),
+                  ],
+                ),
+                CustomButtonBig(
+                  btnHeading: "LOGIN",
+                  loading: authViewMode.loading,
+                  onTap: () {
+                    if (_formKey.currentState!.validate()) {
+                      // Map<String, String> data = {
+                      //   'email': emailController.text,
+                      //   'password': passwordController.text,
+                      //   'notificationToken': notificationToken ?? '',
+                      //   'userType': 'DRIVER'
+                      // };
+                      authViewMode.loginApi(
+                          context: context,
+                          email: emailController.text,
+                          password: passwordController.text,
+                          notificationToken: notificationToken ?? '',
+                          rememberMe: _rememberMe);
+                    }
+                    // context.push('/');
+                    // controller[0].clear();
+                    // controller[1].clear();
+                  },
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+              ]),
+        ),
       ),
     );
   }

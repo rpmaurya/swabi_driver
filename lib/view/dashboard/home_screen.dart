@@ -142,29 +142,71 @@ class _home_screenState extends State<home_screen> {
                         ),
                       ],
                     ),
-                    ListTile(
-                      dense: false,
-                      leading: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: const BoxDecoration(shape: BoxShape.circle),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: Image.network(
-                            '${'https://tse1.mm.bing.net/th?id=OIP.kgD1sf9q75e3KYAajA8FBwHaHa&pid=Api&P=0&h=220'}',
-                            fit: BoxFit.fill,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10, bottom: 5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        // crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            children: [
+                              Container(
+                                height: 45,
+                                width: 45,
+                                decoration:
+                                    const BoxDecoration(shape: BoxShape.circle),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(50),
+                                  child: Image.network(
+                                    'https://tse1.mm.bing.net/th?id=OIP.kgD1sf9q75e3KYAajA8FBwHaHa&pid=Api&P=0&h=220',
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ),
-                      title: Text(
-                        '${userName} ${userLastName}',
-                        style: const TextStyle(color: background, fontSize: 24),
-                      ),
-                      subtitle: Text(
-                        email,
-                        style: const TextStyle(color: background, fontSize: 14),
+                          const SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '$userName $userLastName',
+                                style: const TextStyle(
+                                    color: background, fontSize: 24),
+                              ),
+                              Text(
+                                email,
+                                style: const TextStyle(
+                                    color: background, fontSize: 14),
+                              ),
+                            ],
+                          )
+                        ],
                       ),
                     ),
+                    // ListTile(
+                    //   dense: false,
+                    //   leading: Container(
+                    //     height: 50,
+                    //     width: 50,
+                    //     decoration: const BoxDecoration(shape: BoxShape.circle),
+                    //     child: ClipRRect(
+                    //       borderRadius: BorderRadius.circular(50),
+                    //       child: Image.network(
+                    //         '${'https://tse1.mm.bing.net/th?id=OIP.kgD1sf9q75e3KYAajA8FBwHaHa&pid=Api&P=0&h=220'}',
+                    //         fit: BoxFit.fill,
+                    //       ),
+                    //     ),
+                    //   ),
+                    //   title: Text(
+                    //     '${userName} ${userLastName}',
+                    //     style: const TextStyle(color: background, fontSize: 24),
+                    //   ),
+                    //   subtitle: Text(
+                    //     email,
+                    //     style: const TextStyle(color: background, fontSize: 14),
+                    //   ),
+                    // ),
                     // Padding(
                     //   padding: const EdgeInsets.only(left: 10),
                     //   child: Text(
@@ -232,17 +274,17 @@ class _home_screenState extends State<home_screen> {
               const SizedBox(
                 height: 30,
               ),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 10),
-                child: const TextField(
-                  readOnly: true,
-                  decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.search),
-                      hintText: 'Search',
-                      border: OutlineInputBorder(),
-                      contentPadding: EdgeInsets.symmetric(vertical: 8)),
-                ),
-              ),
+              // Container(
+              //   margin: const EdgeInsets.symmetric(horizontal: 10),
+              //   child: const TextField(
+              //     readOnly: true,
+              //     decoration: InputDecoration(
+              //         prefixIcon: Icon(Icons.search),
+              //         hintText: 'Search',
+              //         border: OutlineInputBorder(),
+              //         contentPadding: EdgeInsets.symmetric(vertical: 8)),
+              //   ),
+              // ),
               const SizedBox(
                 height: 20,
               ),

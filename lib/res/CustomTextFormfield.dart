@@ -60,6 +60,7 @@ class _CustomtextformfieldState extends State<Customtextformfield> {
       height: widget.hieght,
       width: widget.width,
       child: TextFormField(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         focusNode: widget.focusNode,
         obscureText: widget.obscureText ?? false,
         obscuringCharacter: widget.obscuringCharacter ?? '•',

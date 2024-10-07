@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_driver/data/validatorclass.dart';
 import 'package:flutter_driver/res/Custom%20%20Button/custom_btn.dart';
 import 'package:flutter_driver/res/CustomTextFormfield.dart';
 import 'package:flutter_driver/utils/color.dart';
@@ -49,7 +50,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Form(
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    // autovalidateMode: AutovalidateMode.onUserInteraction,
                     key: _formKey,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -85,9 +86,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Enter your Confirm password';
+                              return 'Enter your new password';
+                            } else {
+                              return Validatorclass.validatePassword(value);
                             }
-                            return null;
                           },
                         ),
                         const SizedBox(
@@ -127,8 +129,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                               return 'Enter your Confirm password';
                             } else if (value != password.text) {
                               return "password not matched";
+                            } else {
+                              return Validatorclass.validatePassword(value);
                             }
-                            return null;
                           },
                         ),
                         const SizedBox(
@@ -163,8 +166,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                   'Login',
                                   style: GoogleFonts.lato(
                                       fontWeight: FontWeight.w700,
-                                      color:
-                                          const Color.fromRGBO(69, 30, 243, 1)),
+                                      color: greenColor),
                                 ))
                           ],
                         )
