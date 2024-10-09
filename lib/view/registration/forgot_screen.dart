@@ -95,26 +95,32 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                               });
                             }
                           }),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text('Remember your password?'),
-                          TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const LoginScreen()));
-                              },
-                              child: Text(
-                                'Login',
-                                style: GoogleFonts.lato(
-                                    fontWeight: FontWeight.w700,
-                                    color: greenColor),
-                              ))
-                        ],
-                      )
+                      const SizedBox(height: 10),
+                      Login_SignUpBtn(
+                        onTap: () => context.push("/login"),
+                        btnHeading: 'Login',
+                        sideHeading: 'Remember your password?',
+                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     const Text('Remember your password?'),
+                      //     TextButton(
+                      //         onPressed: () {
+                      //           Navigator.push(
+                      //               context,
+                      //               MaterialPageRoute(
+                      //                   builder: (context) =>
+                      //                       const LoginScreen()));
+                      //         },
+                      //         child: Text(
+                      //           'Login',
+                      //           style: GoogleFonts.lato(
+                      //               fontWeight: FontWeight.w700,
+                      //               color: greenColor),
+                      //         ))
+                      //   ],
+                      // )
                     ],
                   )),
             ),
