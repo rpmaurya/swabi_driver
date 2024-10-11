@@ -220,7 +220,12 @@ final GoRouter myRouter = GoRouter(
       path: '/packageDetailPage',
       // parentNavigatorKey: _rootNavigatorKey,
       builder: (BuildContext context, GoRouterState state) {
-        return const Packagedetailpage();
+        var bookingId = state.extra as Map<String, dynamic>;
+        var driverId = state.extra as Map<String, dynamic>;
+        return Packagedetailpage(
+          bookingId: bookingId["bookingId"],
+          driverId: driverId["driverId"],
+        );
       },
     ),
     GoRoute(

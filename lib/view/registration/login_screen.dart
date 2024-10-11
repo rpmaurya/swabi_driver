@@ -4,12 +4,11 @@ import 'package:flutter_driver/data/validatorclass.dart';
 import 'package:flutter_driver/res/Custom%20%20Button/custom_btn.dart';
 import 'package:flutter_driver/res/CustomTextFormfield.dart';
 import 'package:flutter_driver/res/customTextWidget.dart';
-import 'package:flutter_driver/res/login/login_customTextFeild.dart';
+
 import 'package:flutter_driver/utils/assets.dart';
 import 'package:flutter_driver/utils/color.dart';
 import 'package:flutter_driver/utils/text_styles.dart';
-import 'package:flutter_driver/utils/utils.dart';
-import 'package:flutter_driver/view/registration/forgot_screen.dart';
+
 import 'package:flutter_driver/view_model/auth_view_model.dart';
 import 'package:go_router/go_router.dart';
 
@@ -62,12 +61,12 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print('User granted permission');
+      debugPrint('User granted permission');
     } else if (settings.authorizationStatus ==
         AuthorizationStatus.provisional) {
-      print('User granted provisional permission');
+      debugPrint('User granted provisional permission');
     } else {
-      print('User declined or has not accepted permission');
+      debugPrint('User declined or has not accepted permission');
     }
   }
 
@@ -80,16 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   savecredential() async {
     final prefsData = await SharedPreferences.getInstance();
-    // List<String>? items = prefsData.getStringList('saveCredential');
-    // if (items != null && items.length >= 2) {
-    //   setState(() {
-    //     usr = items[0].toString();
-    //     pass = items[1].toString();
-    //   });
-    // } else {
-    //   // Handle the case where 'saveCredential' is not set or doesn't have enough data
-    //   print("No credentials found or incomplete data");
-    // }
+
     setState(() {
       emailController.text = prefsData.getString('email') ?? '';
       passwordController.text = prefsData.getString('password') ?? '';
@@ -175,9 +165,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Enter your password';
-                    } else {
-                      return Validatorclass.validatePassword(value);
                     }
+                    return null;
                   },
                 ),
                 Row(
@@ -193,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                         setState(() {
                           _rememberMe = !_rememberMe;
-                          print('rememberme...$_rememberMe');
+                          debugPrint('rememberme...$_rememberMe');
                         });
                       },
                     ),
@@ -202,20 +191,18 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: GoogleFonts.lato(
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black))),
-                    Container(
-                      child: TextButton(
-                        onPressed: () {
-                          context.push('/forgotPassword');
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => ForgotPassword()));
-                        },
-                        child: Text('Forgot your password?',
-                            style: GoogleFonts.lato(
-                                fontWeight: FontWeight.w700,
-                                color: Colors.green)),
-                      ),
+                    TextButton(
+                      onPressed: () {
+                        context.push('/forgotPassword');
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => ForgotPassword()));
+                      },
+                      child: Text('Forgot your password?',
+                          style: GoogleFonts.lato(
+                              fontWeight: FontWeight.w700,
+                              color: Colors.green)),
                     ),
                   ],
                 ),

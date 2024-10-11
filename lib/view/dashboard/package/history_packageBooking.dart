@@ -70,7 +70,10 @@ class _HistoryPackagebookingState extends State<HistoryPackagebooking> {
                         if (viewData.isLoading1) {
                           print(
                               'object.........updated ${viewData.isLoading1}');
-                          context.push('/packageDetailPage').then((onValue) {
+                          context.push('/packageDetailPage', extra: {
+                            "bookingId": package.packageBookingId.toString(),
+                            "driverId": package.driverId.toString()
+                          }).then((onValue) {
                             print('object.........updated');
                             WidgetsBinding.instance.addPostFrameCallback((_) {
                               Provider.of<DriverPackageViewModel>(context,

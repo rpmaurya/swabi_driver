@@ -4,12 +4,10 @@ import 'package:flutter_driver/res/Custom%20%20Button/custom_btn.dart';
 import 'package:flutter_driver/res/CustomTextFormfield.dart';
 import 'package:flutter_driver/utils/color.dart';
 import 'package:flutter_driver/utils/text_styles.dart';
-import 'package:flutter_driver/view/registration/login_screen.dart';
+
 import 'package:flutter_driver/view_model/driverProfile_view_model.dart';
 import 'package:go_router/go_router.dart';
 
-// ignore: depend_on_referenced_packages
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class ForgotPassword extends StatefulWidget {

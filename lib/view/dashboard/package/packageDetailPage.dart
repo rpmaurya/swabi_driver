@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_driver/model/getIssueByBookingIdModel.dart';
 import 'package:flutter_driver/res/Custom%20%20Button/custom_btn.dart';
 import 'package:flutter_driver/res/Custom%20Page%20Layout/custom_pageLayout.dart';
 import 'package:flutter_driver/utils/color.dart';
 import 'package:flutter_driver/utils/text_styles.dart';
 import 'package:flutter_driver/utils/utils.dart';
 import 'package:flutter_driver/view_model/driver_package_view_model.dart';
+import 'package:flutter_driver/view_model/raiseIssue_view_model.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class Packagedetailpage extends StatefulWidget {
-  const Packagedetailpage({super.key});
+  final String bookingId;
+  final String driverId;
+  const Packagedetailpage(
+      {super.key, required this.bookingId, required this.driverId});
 
   @override
   State<Packagedetailpage> createState() => _PackagedetailpageState();
@@ -25,6 +30,12 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
   @override
   void initState() {
     // TODO: implement initState
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        getIssueBybookingId();
+      },
+    );
+
     super.initState();
     getTimezone();
     final date = DateTime.now();
@@ -32,6 +43,15 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
       dateFormat = DateFormat('dd-MM-yyyy').format(date);
     });
     formattedTodayDate = dateFormat.toString();
+  }
+
+  Future<void> getIssueBybookingId() async {
+    Provider.of<RaiseissueViewModel>(context, listen: false)
+        .getIssueByBookingId(
+            context: context,
+            bookingId: widget.bookingId,
+            userId: widget.driverId,
+            bookingType: 'PACKAGE_BOOKING');
   }
 
   Future<void> getTimezone() async {
@@ -52,6 +72,8 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
 
   @override
   Widget build(BuildContext context) {
+    GetIssueByBookingIdModel? getIssueByBookingId =
+        context.watch<RaiseissueViewModel>().getissueDetail.data;
     return CustomPagelayout(
       appBarTitle: 'Package Details',
       child:
@@ -337,10 +359,12 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                           const SizedBox(
                             height: 5,
                           ),
-                          InfoRow(
-                              label: 'Secondary Contact',
-                              value:
-                                  '+${package?.alternateMobileCountryCode} ${package?.alternateMobile}'),
+                          package?.alternateMobile == ''
+                              ? SizedBox()
+                              : InfoRow(
+                                  label: 'Secondary Contact',
+                                  value:
+                                      '+${package?.alternateMobileCountryCode} ${package?.alternateMobile}'),
                         ],
                       )),
                   Padding(
@@ -421,19 +445,22 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        package?.dayStatus == 'COMPLETED'
-                            ? Container()
-                            : CustomButtonSmall(
+                        (getIssueByBookingId?.data ?? []).isEmpty
+                            ? CustomButtonSmall(
                                 height: 40,
                                 width: 120,
-                                btnHeading: 'Raise help',
+                                btnHeading: 'Create Issue',
                                 onTap: () {
                                   context.push('/rideIssue', extra: {
                                     'bookingId':
                                         package?.packageBookingId ?? '',
                                     'bookingType': 'PACKAGE_BOOKING'
                                   });
-                                }),
+                                })
+                            : CustomButtonSmall(
+                                height: 40,
+                                btnHeading: 'Show IssueDetails',
+                                onTap: () {}),
                         package?.dayStatus == 'PENDING'
                             ? CustomButtonSmall(
                                 width: 170,

@@ -7,6 +7,7 @@ import 'package:flutter_driver/data/app_url.dart';
 import 'package:flutter_driver/model/GetIssueModel.dart';
 import 'package:flutter_driver/model/IssueDetailModel.dart';
 import 'package:flutter_driver/model/RaiseIssueModel.dart';
+import 'package:flutter_driver/model/getIssueByBookingIdModel.dart';
 
 import 'package:flutter_driver/view_model/services/HttpService.dart';
 
@@ -106,5 +107,32 @@ class RaiseissueRepository {
     } catch (e) {
       throw UnauthorisedException(e.toString());
     }
+  }
+
+  Future<GetIssueByBookingIdModel?> getRaiseIssueByBookingIdApi(
+      {required BuildContext context,
+      required Map<String, dynamic> query}) async {
+    var http = HttpService(
+        baseURL: AppUrl.baseUrl,
+        endURL: AppUrl.getIsseBybooking,
+        methodType: HttpMethodType.GET,
+        bodyType: HttpBodyType.JSON,
+        queryParameters: query,
+        isAuthorizeRequest: false);
+    try {
+      Response<dynamic>? response = await http.request<dynamic>();
+      debugPrint('respone of get raise issue${response?.data}');
+      if (response?.statusCode != null &&
+          response!.statusCode! >= 200 &&
+          response.statusCode! < 300) {
+        var resp = GetIssueByBookingIdModel.fromJson(response.data);
+        return resp;
+      } else {
+        throw ApiException('Server returned an error: ${response?.statusCode}');
+      }
+    } catch (dioError) {
+      http.handleErrorResponse(context: context, error: dioError);
+    }
+    return null;
   }
 }

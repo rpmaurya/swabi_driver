@@ -4,6 +4,7 @@ import 'package:flutter_driver/data/response/errorHandler.dart';
 import 'package:flutter_driver/model/GetIssueModel.dart';
 import 'package:flutter_driver/model/IssueDetailModel.dart';
 import 'package:flutter_driver/model/RaiseIssueModel.dart';
+import 'package:flutter_driver/model/getIssueByBookingIdModel.dart';
 import 'package:flutter_driver/model/user_model.dart';
 import 'package:flutter_driver/respository/raiseIssue_repository.dart';
 import 'package:flutter_driver/utils/utils.dart';
@@ -25,6 +26,14 @@ class RaiseissueViewModel with ChangeNotifier {
 
   setDataList(ApiResponse<IssueDetailsModel> response) {
     issueDetail = response;
+    // isloading1 = false;
+    notifyListeners();
+  }
+
+  ApiResponse<GetIssueByBookingIdModel> getissueDetail = ApiResponse.loading();
+
+  setDataList1(ApiResponse<GetIssueByBookingIdModel> response) {
+    getissueDetail = response;
     // isloading1 = false;
     notifyListeners();
   }
@@ -51,6 +60,11 @@ class RaiseissueViewModel with ChangeNotifier {
         _raiseIssueModel = onValue;
         notifyListeners();
         Utils.toastSuccessMessage('Raise requested Successfully');
+        getIssueByBookingId(
+            context: context,
+            bookingId: bookingId,
+            userId: usermodel.userId ?? '',
+            bookingType: bookingType);
       }).onError((error, StackTrace) {
         // ErrorHandler().hanErrorResponse(errorResponse: error);
         ErrorHandler.handleError(error.toString());
@@ -123,6 +137,32 @@ class RaiseissueViewModel with ChangeNotifier {
     } finally {
       isloading1 = false;
       notifyListeners();
+    }
+  }
+
+  Future<void> getIssueByBookingId(
+      {required BuildContext context,
+      required String bookingId,
+      required String userId,
+      required String bookingType}) async {
+    Map<String, dynamic> query = {
+      "bookingId": bookingId,
+      "userId": userId,
+      "userType": "DRIVER",
+      "bookingType": bookingType
+    };
+    try {
+      setDataList1(ApiResponse.loading());
+
+      await _myRepo
+          .getRaiseIssueByBookingIdApi(context: context, query: query)
+          .then((onValue) {
+        if (onValue?.status?.httpCode == '200') {
+          setDataList1(ApiResponse.completed(onValue));
+        }
+      });
+    } catch (e) {
+      setDataList1(ApiResponse.error(e.toString()));
     }
   }
 }

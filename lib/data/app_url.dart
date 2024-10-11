@@ -30,4 +30,5 @@ class AppUrl {
   static var sendOtpsUrl = "/otp_send";
   static var verifyOtpUrl = "/otp_verify";
   static var resetPassordUrl = "/password_update";
+  static var getIsseBybooking = '/booking_issue/get_issue_by_booking_id';
 }

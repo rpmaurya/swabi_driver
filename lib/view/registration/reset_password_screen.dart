@@ -7,6 +7,7 @@ import 'package:flutter_driver/utils/color.dart';
 import 'package:flutter_driver/utils/text_styles.dart';
 import 'package:flutter_driver/view/registration/login_screen.dart';
 import 'package:flutter_driver/view_model/driverProfile_view_model.dart';
+import 'package:go_router/go_router.dart';
 
 // ignore: depend_on_referenced_packages
 import 'package:google_fonts/google_fonts.dart';
@@ -150,26 +151,32 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                     password: password.text);
                               }
                             }),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text('Remember your password?'),
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const LoginScreen()));
-                                },
-                                child: Text(
-                                  'Login',
-                                  style: GoogleFonts.lato(
-                                      fontWeight: FontWeight.w700,
-                                      color: greenColor),
-                                ))
-                          ],
-                        )
+                        const SizedBox(height: 10),
+                        Login_SignUpBtn(
+                          onTap: () => context.push("/login"),
+                          btnHeading: 'Login',
+                          sideHeading: 'Remember your password?',
+                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     const Text('Remember your password?'),
+                        //     TextButton(
+                        //         onPressed: () {
+                        //           Navigator.push(
+                        //               context,
+                        //               MaterialPageRoute(
+                        //                   builder: (context) =>
+                        //                       const LoginScreen()));
+                        //         },
+                        //         child: Text(
+                        //           'Login',
+                        //           style: GoogleFonts.lato(
+                        //               fontWeight: FontWeight.w700,
+                        //               color: greenColor),
+                        //         ))
+                        //   ],
+                        // )
                       ],
                     )),
               ),

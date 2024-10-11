@@ -116,7 +116,7 @@ class _home_screenState extends State<home_screen> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.transparent,
-          toolbarHeight: 200,
+          toolbarHeight: 150,
           title: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -184,71 +184,6 @@ class _home_screenState extends State<home_screen> {
                         ],
                       ),
                     ),
-                    // ListTile(
-                    //   dense: false,
-                    //   leading: Container(
-                    //     height: 50,
-                    //     width: 50,
-                    //     decoration: const BoxDecoration(shape: BoxShape.circle),
-                    //     child: ClipRRect(
-                    //       borderRadius: BorderRadius.circular(50),
-                    //       child: Image.network(
-                    //         '${'https://tse1.mm.bing.net/th?id=OIP.kgD1sf9q75e3KYAajA8FBwHaHa&pid=Api&P=0&h=220'}',
-                    //         fit: BoxFit.fill,
-                    //       ),
-                    //     ),
-                    //   ),
-                    //   title: Text(
-                    //     '${userName} ${userLastName}',
-                    //     style: const TextStyle(color: background, fontSize: 24),
-                    //   ),
-                    //   subtitle: Text(
-                    //     email,
-                    //     style: const TextStyle(color: background, fontSize: 14),
-                    //   ),
-                    // ),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(left: 10),
-                    //   child: Text(
-                    //     '${userName} ${userLastName}',
-                    //     style: TextStyle(color: background, fontSize: 24),
-                    //   ),
-                    // ),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(left: 10),
-                    //   child: Text(
-                    //     '${email} ',
-                    //     style: TextStyle(color: background, fontSize: 14),
-                    //   ),
-                    // ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 10),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
-                      decoration: BoxDecoration(
-                          color: background,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.location_on_rounded,
-                            color: btnColor,
-                          ),
-                          Expanded(
-                            child: Text(
-                              driverAddress,
-                              style: const TextStyle(
-                                  color: btnColor, fontSize: 16),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
                   ],
                 ),
               ),
@@ -259,6 +194,32 @@ class _home_screenState extends State<home_screen> {
                     color: background,
                   ))
             ],
+          ),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(30),
+            child: Container(
+              width: double.infinity,
+              margin: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              decoration: BoxDecoration(
+                  color: background, borderRadius: BorderRadius.circular(10)),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.location_on_rounded,
+                    color: btnColor,
+                  ),
+                  Expanded(
+                    child: Text(
+                      driverAddress,
+                      style: const TextStyle(color: btnColor, fontSize: 16),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
         body: Container(
@@ -293,21 +254,28 @@ class _home_screenState extends State<home_screen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CustomButtonSmall(
-                        width: 150,
-                        height: 45,
-                        btnHeading: 'Rental',
-                        onTap: () {
-                          context
-                              .push("/historyManagement", extra: {"myID": uId});
-                        }),
-                    CustomButtonSmall(
-                        height: 45,
-                        width: 150,
-                        btnHeading: 'Package',
-                        onTap: () {
-                          context.push('/packageBookingManagement');
-                        })
+                    Expanded(
+                      child: CustomButtonSmall(
+                          width: 150,
+                          height: 45,
+                          btnHeading: 'Rental',
+                          onTap: () {
+                            context.push("/historyManagement",
+                                extra: {"myID": uId});
+                          }),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: CustomButtonSmall(
+                          height: 45,
+                          width: 150,
+                          btnHeading: 'Package',
+                          onTap: () {
+                            context.push('/packageBookingManagement');
+                          }),
+                    )
                   ],
                 ),
               ),
