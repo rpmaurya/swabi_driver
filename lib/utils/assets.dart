@@ -19,7 +19,7 @@ const String settingimg = "assets/images/setting.png";
 const String tnc = "assets/images/tnc.png";
 const String rideIssue = "assets/images/ride_issue.webp";
 const String otherIssue = "assets/images/other_issue.png";
-const String privacyPolicy = "assets/images/privacy_policy.png";
+const String privacyPolicy = "assets/images/privacy-policy.png";
 
 const String user = "assets/images/user.png";
 const String phone = "assets/images/telephone.png";

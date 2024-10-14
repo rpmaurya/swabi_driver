@@ -635,9 +635,10 @@ class InfoRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-          flex: 3,
+          flex: 2,
           child: Text(
             '$label',
             style: const TextStyle(
@@ -653,7 +654,7 @@ class InfoRow extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         Expanded(
-          flex: 4,
+          flex: 3,
           child: Text(
             value,
             style: const TextStyle(

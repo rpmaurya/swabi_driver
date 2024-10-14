@@ -3,6 +3,7 @@ import 'package:flutter_driver/res/Custom%20%20Button/custom_btn.dart';
 import 'package:flutter_driver/res/Custom%20Page%20Layout/custom_pageLayout.dart';
 import 'package:flutter_driver/res/custom_ListTile.dart';
 import 'package:flutter_driver/utils/assets.dart';
+import 'package:flutter_driver/utils/color.dart';
 import 'package:flutter_driver/view_model/driverProfile_view_model.dart';
 import 'package:flutter_driver/view_model/user_view_model.dart';
 import 'package:go_router/go_router.dart';
@@ -58,6 +59,7 @@ class _MenuListState extends State<MenuList> {
             const SizedBox(height: 10),
             Custom_ListTile(
               img: profile,
+              iconColor: btnColor,
               heading: "Profile",
               onTap: () {
                 Provider.of<DriverProfileViewModel>(context, listen: false)
@@ -67,6 +69,7 @@ class _MenuListState extends State<MenuList> {
             ),
             Custom_ListTile(
               img: booking,
+              iconColor: btnColor,
               heading: "Rental Management",
               onTap: () => context
                   .push("/historyManagement", extra: {"myID": widget.userId}),
@@ -74,6 +77,7 @@ class _MenuListState extends State<MenuList> {
             ),
             Custom_ListTile(
               img: package,
+              iconColor: btnColor,
               heading: "Package Management",
               onTap: () {
                 // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -134,11 +138,13 @@ class _MenuListState extends State<MenuList> {
             // ),
             Custom_ListTile(
               img: contact,
+              iconColor: btnColor,
               heading: "Help & Support",
               onTap: () => context.push("/help&support"),
             ),
             Custom_ListTile(
               img: faq,
+              iconColor: btnColor,
               heading: "FAQ",
               onTap: () => context.push("/faqPage"),
             ),

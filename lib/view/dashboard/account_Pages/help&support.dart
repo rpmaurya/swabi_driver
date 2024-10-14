@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_driver/res/Custom%20Page%20Layout/custom_pageLayout.dart';
 import 'package:flutter_driver/res/custom_ListTile.dart';
 import 'package:flutter_driver/utils/assets.dart';
+import 'package:flutter_driver/utils/color.dart';
 import 'package:go_router/go_router.dart';
 
 class HelpAndSupport extends StatelessWidget {
@@ -18,26 +19,33 @@ class HelpAndSupport extends StatelessWidget {
             ),
             Custom_ListTile(
               img: rideIssue,
+              iconColor: btnColor,
               heading: "Raised Issue",
               onTap: () => context.push("/getRaiseIssue"),
             ),
             Custom_ListTile(
               img: otherIssue,
+              iconColor: btnColor,
               heading: "Other Issue",
-              onTap: () => context.push("/termCondition"),
+              onTap: () {},
+              // onTap: () => context.push("/termCondition"),
             ),
             Custom_ListTile(
               img: contact,
+              iconColor: btnColor,
               heading: "Contact",
               onTap: () => context.push("/contact"),
             ),
             Custom_ListTile(
               img: privacyPolicy,
+              iconColor: btnColor,
               heading: "Privacy & Policy",
-              onTap: () => context.push("/termCondition"),
+              onTap: () {},
+              // onTap: () => context.push("/termCondition"),
             ),
             Custom_ListTile(
               img: tnc,
+              iconColor: btnColor,
               heading: "Term & Condition",
               onTap: () => context.push("/termCondition"),
             ),
