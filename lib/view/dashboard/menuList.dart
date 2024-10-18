@@ -4,6 +4,7 @@ import 'package:flutter_driver/res/Custom%20Page%20Layout/custom_pageLayout.dart
 import 'package:flutter_driver/res/custom_ListTile.dart';
 import 'package:flutter_driver/utils/assets.dart';
 import 'package:flutter_driver/utils/color.dart';
+import 'package:flutter_driver/utils/text_styles.dart';
 import 'package:flutter_driver/view_model/driverProfile_view_model.dart';
 import 'package:flutter_driver/view_model/user_view_model.dart';
 import 'package:go_router/go_router.dart';
@@ -142,12 +143,12 @@ class _MenuListState extends State<MenuList> {
               heading: "Help & Support",
               onTap: () => context.push("/help&support"),
             ),
-            Custom_ListTile(
-              img: faq,
-              iconColor: btnColor,
-              heading: "FAQ",
-              onTap: () => context.push("/faqPage"),
-            ),
+            // Custom_ListTile(
+            //   img: faq,
+            //   iconColor: btnColor,
+            //   heading: "FAQ",
+            //   onTap: () => context.push("/faqPage"),
+            // ),
             // const SizedBox(
             //   height: 30,
             // ),
@@ -158,9 +159,10 @@ class _MenuListState extends State<MenuList> {
                   img: logout,
                   btnHeading: "Logout",
                   onTap: () {
+                    _confirmLogout();
                     // userViewModel.removeUser(context);
-                    userViewModel.remove(context);
-                    context.go("/login");
+                    // userViewModel.remove(context);
+                    // context.go("/login");
                   }),
             ),
             const SizedBox(
@@ -168,5 +170,79 @@ class _MenuListState extends State<MenuList> {
             )
           ],
         ));
+  }
+
+  void _confirmLogout() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          backgroundColor: background,
+          surfaceTintColor: background,
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              SizedBox(
+                height: 180,
+                child: Column(
+                  children: [
+                    Padding(
+                        padding: const EdgeInsets.only(
+                            top: 50, bottom: 20, left: 20),
+                        child: Text(
+                          'Are you sure want to Logout ?',
+                          style: titleTextStyle,
+                        )),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        CustomButtonSmall(
+                          width: 70,
+                          height: 50,
+                          btnHeading: "NO",
+                          onTap: () {
+                            context.pop();
+                          },
+                        ),
+                        CustomButtonSmall(
+                          width: 70,
+                          height: 50,
+                          btnHeading: "YES",
+                          onTap: () {
+                            userViewModel.remove(context);
+                            context.go("/login");
+                          },
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              Positioned(
+                  top: -60,
+                  left: 0,
+                  right: 0,
+                  child: SizedBox(
+                    // decoration: BoxDecoration(
+                    //   border: Border.all(color: btnColor),
+                    //   borderRadius: BorderRadius.circular(10)
+                    // ),
+                    height: 100,
+                    width: 100,
+                    child: Card(
+                      surfaceTintColor: background,
+                      elevation: 5,
+                      shape: const CircleBorder(),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.asset(question),
+                      ),
+                    ),
+                  ))
+            ],
+          ),
+        );
+      },
+    );
   }
 }

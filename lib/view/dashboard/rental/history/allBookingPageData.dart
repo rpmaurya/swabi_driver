@@ -222,8 +222,8 @@ class HistoryDetailsContainer extends StatelessWidget {
                       CustomButtonSmall(
                           loading: loader,
                           height: 40,
-                          width: 80,
-                          btnHeading: 'View',
+                          width: 120,
+                          btnHeading: 'View Details',
                           onTap: onTapContainer)
                     ],
                   ),

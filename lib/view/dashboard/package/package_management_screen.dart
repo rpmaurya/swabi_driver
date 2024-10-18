@@ -59,7 +59,7 @@ class _PackageManagementScreenState extends State<PackageManagementScreen>
   @override
   Widget build(BuildContext context) {
     return CustomPagelayout(
-      appBarTitle: 'Package',
+      appBarTitle: 'Package Management',
       child: Column(
         children: [
           Container(
@@ -89,9 +89,9 @@ class _PackageManagementScreenState extends State<PackageManagementScreen>
               labelColor: btnColor,
               indicatorColor: Colors.transparent,
               dividerColor: Colors.transparent,
-              indicatorPadding: EdgeInsets.only(left: 10, right: 10),
+              indicatorPadding: const EdgeInsets.only(left: 10, right: 10),
               indicatorSize: TabBarIndicatorSize.tab,
-              tabs: [Tab(text: "UP COMMING"), Tab(text: "HISTORY")],
+              tabs: [Tab(text: "UP COMING"), Tab(text: "HISTORY")],
             ),
           ),
           Expanded(

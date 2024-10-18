@@ -316,7 +316,7 @@ class _BookingDetailsOfDriverState extends State<BookingDetailsOfDriver> {
           Padding(
             padding: const EdgeInsets.only(left: 10, bottom: 10, top: 10),
             child: Text(
-              'Passenger Details',
+              'Traveller Details',
               style: titleTextStyle,
             ),
           ),
@@ -326,7 +326,7 @@ class _BookingDetailsOfDriverState extends State<BookingDetailsOfDriver> {
               Column(
                 children: [
                   InfoRow(
-                      label: 'Passenger Name',
+                      label: 'Traveller Name',
                       value:
                           '${bookingDetails?.user.firstName} ${bookingDetails?.user.lastName}'),
                   const SizedBox(
@@ -363,7 +363,8 @@ class _BookingDetailsOfDriverState extends State<BookingDetailsOfDriver> {
                           })
                       : CustomButtonSmall(
                           height: 45,
-                          btnHeading: 'Show issue details',
+                          width: 120,
+                          btnHeading: 'Show Issue',
                           onTap: () {
                             context.push("/getRaiseIssue");
                           }),
@@ -438,175 +439,6 @@ class _BookingDetailsOfDriverState extends State<BookingDetailsOfDriver> {
         ],
       ),
     );
-
-    // return PageLayout_Curve(
-    //     appHeading: "Booking Details",
-    //     addtionalIconReq: false,
-    //     addtionalIcon: history,
-    //     onTap: () {
-    //       context.pop();
-    //       context.pop();
-    //     },
-    //     iconOnTap: () => context
-    //         .push('/historyManagement', extra: {'myID': widget.driverId}),
-    //     child: SizedBox(
-    //       child: SingleChildScrollView(
-    //         child: Column(
-    //           children: [
-    //             bookingDetailsStatus == 'BOOKED' ||
-    //                     bookingDetailsStatus != "null"
-    //                 ? BookingContainer(
-    //                     carName: bookingDetails.vehicle.carName,
-    //                     pickDate: bookingDetails.date,
-    //                     hour: bookingDetails.totalRentTime,
-    //                     carType: bookingDetails.carType,
-    //                     carColor: bookingDetails.vehicle.color,
-    //                     brand: bookingDetails.vehicle.brandName,
-    //                     model: bookingDetails.vehicle.modelNo,
-    //                     seats: bookingDetails.vehicle.seats,
-    //                     vehicleId: bookingDetails.vehicle.vehicleId,
-    //                     vehicleNo: bookingDetails.vehicle.vehicleNumber,
-    //                     pickTime: bookingDetails.pickupTime,
-    //                     fuelType: bookingDetails.vehicle.fuelType,
-    //                     id: bookingDetails.id,
-    //                     pickUPLocation: bookingDetails.pickupLocation,
-    //                     kilometer: bookingDetails.kilometers,
-    //                     status: bookingDetails.bookingStatus,
-    //                     rentalCharge: bookingDetails.rentalCharge,
-    //                     bookingId: bookingDetails.rentalBookingId,
-    //                     pessName: guestDetails.guestName.isNotEmpty
-    //                         ? guestDetails.guestName
-    //                         : bookingDetails.user.firstName,
-    //                     pessLastName: guestDetails.guestName.isNotEmpty
-    //                         ? ""
-    //                         : bookingDetails.user.lastName,
-    //                     pessContact: guestDetails.guestName.isNotEmpty
-    //                         ? guestDetails.guestMobile
-    //                         : bookingDetails.user.mobile,
-    //                     pessEmail: guestDetails.guestName.isNotEmpty
-    //                         ? ""
-    //                         : bookingDetails.user.email,
-    //                     cancelledReason: bookingDetails.cancellationReason,
-    //                     cancelledBy: bookingDetails.cancelledBy,
-    //                     loader: bookingDetails.bookingStatus == "BOOKED"
-    //                         ? Provider.of<DriverOnRunningViewModel>(context,
-    //                                 listen: true)
-    //                             .loading
-    //                         : Provider.of<DriverCompletedBookingViewModel>(
-    //                                 context,
-    //                                 listen: true)
-    //                             .loading,
-    //                     acceptBtnHeading:
-    //                         bookingDetails.bookingStatus == "BOOKED"
-    //                             ? "Start"
-    //                             : "Complete",
-    //                     confirmTap: () {
-    //                       if (bookingDetails.bookingStatus == "BOOKED") {
-    //                         Provider.of<DriverOnRunningViewModel>(context,
-    //                                 listen: false)
-    //                             .fetchDriverStartRideViewModel({
-    //                           "id": bookingDetails.id.toString(),
-    //                           "bookingStatus": "ON_RUNNING"
-    //                         }, context, bookingDetails.id.toString(),
-    //                                 widget.driverId);
-    //                       } else {
-    //                         Provider.of<DriverCompletedBookingViewModel>(
-    //                                 context,
-    //                                 listen: false)
-    //                             .fetchDriverBookingCompletedViewModel({
-    //                           'id': bookingDetails.id.toString(),
-    //                           'bookingStatus': 'COMPLETED'
-    //                         }, context, widget.driverId);
-    //                       }
-
-    //                       ///Completed swipe bottom sheet btn
-    //                       // if(btnHeading != true){
-    //                       //  setState(() {
-    //                       //    btnHeading = true;
-    //                       //  });
-    //                       //
-    //                       //   debugPrint(btnHeading.toString() + "True Btn Value");
-    //                       // }else if(btnHeading == true){
-    //                       //   setState(() {
-    //                       //     btnHeading = false;
-    //                       //   });
-    //                       //   Map<String, dynamic> data = {
-    //                       //     'id': bookingDetails.id.toString(),
-    //                       //     'bookingStatus':'COMPLETED'
-    //                       //   };
-    //                       //   debugPrint(btnHeading.toString() + "False Btn Value");
-    //                       //   debugPrint(data.toString() + "data Value");
-    //                       //   // Provider.of<DriverCompletedBookingViewModel>(context,listen: false).fetchDriverBookingCompletedViewModel
-    //                       //   //   ({
-    //                       //   //   'id': bookingDetails.id.toString(),
-    //                       //   //   'bookingStatus':'COMPLETED'
-    //                       //   // }, context,widget.driverId);
-    //                       //   // Utils.flushBarSuccessMessage("BtnValue False", context);
-    //                       //
-    //                       //   // showModalBottomSheet(
-    //                       //   //   context: context, builder:(context) {
-    //                       //   //   return Container(
-    //                       //   //     height: 130,
-    //                       //   //     decoration: BoxDecoration(
-    //                       //   //         color: background,
-    //                       //   //         borderRadius: BorderRadius.circular(20)
-    //                       //   //     ),
-    //                       //   //     child: Column(
-    //                       //   //       children: [
-    //                       //   //         Padding(
-    //                       //   //           padding: const EdgeInsets.all(8.0),
-    //                       //   //           child: CustomTextWidget(
-    //                       //   //               content: "Start Your Ride",
-    //                       //   //               fontSize: 20,
-    //                       //   //               fontWeight: FontWeight.w600,
-    //                       //   //               textColor: textColor),
-    //                       //   //         ),
-    //                       //   //         CustomSwipeButton(
-    //                       //   //           onComplete: () {
-    //                       //   //             Provider.of<DriverCompletedBookingViewModel>(context,listen: false).fetchDriverBookingCompletedViewModel
-    //                       //   //               ({
-    //                       //   //               'id':bookingDetails.id,
-    //                       //   //               'bookingStatus':'COMPLETED'
-    //                       //   //             }, context);
-    //                       //   //             context.push('/');
-    //                       //   //           },
-    //                       //   //         ),
-    //                       //   //       ],
-    //                       //   //     ),
-    //                       //   //   );
-    //                       //   // }, );
-    //                       // }
-    //                     },
-    //                     cancelTap: () {
-    //                       showDialog(
-    //                           context: context,
-    //                           builder: (context) => CancelContainerDialog(
-    //                                 controllerCancel: controller[0],
-    //                                 onTap: () {
-    //                                   if (controller[0].text.isEmpty ||
-    //                                       controller[0].text == 'null') {
-    //                                     Utils.flushBarErrorMessage(
-    //                                         "Please enter the reason", context);
-    //                                   } else {
-    //                                     // Provider.of<DriverOnRunningViewModel>(context,listen: false).
-    //                                     // fetchDriverStartRideViewModel({
-    //                                     //   "id": '522',
-    //                                     //   "bookingStatus":"ON_RUNNING"
-    //                                     // },context);
-    //                                   }
-    //                                 },
-    //                               ));
-    //                     },
-    //                   )
-    //                 : const Center(
-    //                     child: Text("No Booking"),
-    //                   ),
-    //             // SizedBox(height: 40),
-    //             // CustomSwipeButton()
-    //           ],
-    //         ),
-    //       ),
-    //     ));
   }
 
   Widget containerItem(
@@ -637,24 +469,22 @@ class InfoRow extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          flex: 2,
-          child: Text(
-            '$label',
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
+        Text(
+          label,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
           ),
         ),
+        const SizedBox(width: 10),
         const Text(
           ':',
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
-        const SizedBox(width: 8),
+        const SizedBox(width: 10),
         Expanded(
-          flex: 3,
+          // flex: 3,
           child: Text(
             value,
             style: const TextStyle(

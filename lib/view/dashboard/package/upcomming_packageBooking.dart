@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_driver/utils/color.dart';
 import 'package:flutter_driver/utils/text_styles.dart';
 
 import 'package:flutter_driver/view/dashboard/package/customPackageViewPage.dart';
@@ -41,10 +42,10 @@ class _UpcommingPackagebookingState extends State<UpcommingPackagebooking> {
           ));
         } else if (viewData.driverPackageBookingListModel == null ||
             viewData.driverPackageBookingListModel!.data.isEmpty) {
-          return Center(
+          return const Center(
               child: Text(
-            'No packages available',
-            style: titleTextStyle,
+            'No Data',
+            style: TextStyle(color: redColor, fontWeight: FontWeight.w600),
           ));
         } else {
           return ListView.builder(

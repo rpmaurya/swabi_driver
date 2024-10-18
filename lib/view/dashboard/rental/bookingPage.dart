@@ -20,34 +20,45 @@ class BookingDetailsPage extends StatefulWidget {
 }
 
 class _BookingDetailsPageState extends State<BookingDetailsPage> {
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      Provider.of<DriverGetBookingListViewModel>(context,listen: false).fetchDriverGetBookingListViewModel(
-          {
-            "driverId": widget.userId,
-            "pageNumber":"0",
-            "pageSize":"10",
-            "bookingStatus":"BOOKED"
-          }, context);
+      Provider.of<DriverGetBookingListViewModel>(context, listen: false)
+          .fetchDriverGetBookingListViewModel({
+        "driverId": widget.userId,
+        "pageNumber": "0",
+        "pageSize": "10",
+        "bookingStatus": "BOOKED"
+      }, context);
     });
   }
+
   ///Loader Condition single index of multiple container
   int selectedIndex = -1;
   bool loaderOntap = false;
   List<Content> contentData = [];
   @override
   Widget build(BuildContext context) {
-    String status = context.watch<DriverGetBookingDetailsViewModel>().DataList.status.toString();
-    String contentStatus = context.watch<DriverGetBookingListViewModel>().DataList.status.toString();
-    if(contentStatus == "Status.completed") {
+    String status = context
+        .watch<DriverGetBookingDetailsViewModel>()
+        .DataList
+        .status
+        .toString();
+    String contentStatus = context
+        .watch<DriverGetBookingListViewModel>()
+        .DataList
+        .status
+        .toString();
+    if (contentStatus == "Status.completed") {
       contentData = context
-          .watch<DriverGetBookingListViewModel>().DataList.data
-          ?.data
-          .content ?? [];
+              .watch<DriverGetBookingListViewModel>()
+              .DataList
+              .data
+              ?.data
+              .content ??
+          [];
     }
     print("${widget.userId}UserIDD");
     print(contentData.length);
@@ -57,68 +68,111 @@ class _BookingDetailsPageState extends State<BookingDetailsPage> {
         heading: 'Booking Details',
       ),
       body: CommonPageLayout(
-        padding: const EdgeInsets.only(top: 5,left: 5,right: 5),
-        onRefresh: () async{
-          await Provider.of<DriverGetBookingListViewModel>(context,listen: false).fetchDriverGetBookingListViewModel(
-              {
-                "driverId": widget.userId,
-                "pageNumber":"0",
-                "pageSize":"10",
-                "bookingStatus":"BOOKED"
-              }, context);
+        padding: const EdgeInsets.only(top: 5, left: 5, right: 5),
+        onRefresh: () async {
+          await Provider.of<DriverGetBookingListViewModel>(context,
+                  listen: false)
+              .fetchDriverGetBookingListViewModel({
+            "driverId": widget.userId,
+            "pageNumber": "0",
+            "pageSize": "10",
+            "bookingStatus": "BOOKED"
+          }, context);
         },
         child: Container(
           // color: background,
           // height: AppDimension.getHeight(context)*.7,
-          child: contentStatus == "Status.completed" ?
-          contentData.isNotEmpty ?
-          ListView.builder(
-            itemCount: contentData.length,
-            itemBuilder: (context, index) {
-              String vehicleData = contentData[index].vehicle.toString();
-              debugPrint("${vehicleData}Vehicle Data");
-              if (contentData[index].bookingStatus == "BOOKED") {
-                return TransContainer(
-                  // carName: contentData[index].vehicle.carName?.toString() ?? "",
-                  carName: contentData[index].vehicle!.carName?.toString() ?? "",
-                  carType: contentData[index].carType.toString() ?? "",
-                  hour: contentData[index].totalRentTime.toString() ?? "",
-                  kilometers: contentData[index].kilometers.toString() ?? "",
-                  pickDate: contentData[index].date.toString() ?? "",
-                  fuelType: contentData[index].vehicle!.fuelType.toString() ?? "",
-                  seat: contentData[index].vehicle!.seats?.toString() ?? "",
-                  brand: contentData[index].vehicle!.brandName?.toString() ?? "",
-                  carColor: contentData[index].vehicle!.color?.toString() ?? "",
-                  paid: contentData[index].paidStatus == "false" ? "No" : "Yes",
-                  pickTime: contentData[index].pickupTime.toString() ?? "",
-                  pickUpLocation: contentData[index].pickupLocation.toString() ?? "",
-                  bookingStatus: contentData[index].bookingStatus.toString() ?? "",
-                  totalPrice: contentData[index].rentalCharge.toString() ?? "",
-                  bookingID: contentData[index].rentalBookingId.toString() ?? "",
-                  loader: status == 'Status.loading' && loaderOntap && selectedIndex == index,
-                  onTap: () {
-                    setState(() {
-                      selectedIndex = index;
-                      loaderOntap = true;
-                    });
-                    Provider.of<DriverGetBookingDetailsViewModel>(context, listen: false)
-                        .fetchDriverGetBookingDetailsViewModel({
-                      "id": contentData[index].id.toString(),
-                    }, context, contentData[index].id.toString(), (widget.userId ?? ""));
-                  },
-                );
-              } else {
-                return Container();
-              }
-            },): Center(
-              child: Text("No Booking",style: GoogleFonts.lato(
-                  fontSize: 15,
-                  color: redColor,
-                  fontWeight: FontWeight.w600
-              ),textAlign: TextAlign.center,)):const Center(
-              child: CircularProgressIndicator(
-                color: Colors.green,
-              )),
+          child: contentStatus == "Status.completed"
+              ? contentData.isNotEmpty
+                  ? ListView.builder(
+                      itemCount: contentData.length,
+                      itemBuilder: (context, index) {
+                        String vehicleData =
+                            contentData[index].vehicle.toString();
+                        debugPrint("${vehicleData}Vehicle Data");
+                        if (contentData[index].bookingStatus == "BOOKED") {
+                          return TransContainer(
+                            // carName: contentData[index].vehicle.carName?.toString() ?? "",
+                            carName: contentData[index]
+                                    .vehicle!
+                                    .carName
+                                    ?.toString() ??
+                                "",
+                            carType:
+                                contentData[index].carType.toString() ?? "",
+                            hour: contentData[index].totalRentTime.toString() ??
+                                "",
+                            kilometers:
+                                contentData[index].kilometers.toString() ?? "",
+                            pickDate: contentData[index].date.toString() ?? "",
+                            fuelType: contentData[index]
+                                    .vehicle!
+                                    .fuelType
+                                    .toString() ??
+                                "",
+                            seat:
+                                contentData[index].vehicle!.seats?.toString() ??
+                                    "",
+                            brand: contentData[index]
+                                    .vehicle!
+                                    .brandName
+                                    ?.toString() ??
+                                "",
+                            carColor:
+                                contentData[index].vehicle!.color?.toString() ??
+                                    "",
+                            paid: contentData[index].paidStatus == "false"
+                                ? "No"
+                                : "Yes",
+                            pickTime:
+                                contentData[index].pickupTime.toString() ?? "",
+                            pickUpLocation:
+                                contentData[index].pickupLocation.toString() ??
+                                    "",
+                            bookingStatus:
+                                contentData[index].bookingStatus.toString() ??
+                                    "",
+                            totalPrice:
+                                contentData[index].rentalCharge.toString() ??
+                                    "",
+                            bookingID:
+                                contentData[index].rentalBookingId.toString() ??
+                                    "",
+                            loader: status == 'Status.loading' &&
+                                loaderOntap &&
+                                selectedIndex == index,
+                            onTap: () {
+                              setState(() {
+                                selectedIndex = index;
+                                loaderOntap = true;
+                              });
+                              Provider.of<DriverGetBookingDetailsViewModel>(
+                                      context,
+                                      listen: false)
+                                  .fetchDriverGetBookingDetailsViewModel({
+                                "id": contentData[index].id.toString(),
+                              }, context, contentData[index].id.toString(),
+                                      (widget.userId ?? ""));
+                            },
+                          );
+                        } else {
+                          return Container();
+                        }
+                      },
+                    )
+                  : Center(
+                      child: Text(
+                      "No Booking",
+                      style: GoogleFonts.lato(
+                          fontSize: 15,
+                          color: redColor,
+                          fontWeight: FontWeight.w600),
+                      textAlign: TextAlign.center,
+                    ))
+              : const Center(
+                  child: CircularProgressIndicator(
+                  color: Colors.green,
+                )),
         ),
       ),
     );
@@ -143,25 +197,25 @@ class TransContainer extends StatelessWidget {
   final bool loader;
   final String pickUpLocation;
   final VoidCallback onTap;
-  const TransContainer({
-    this.carName = "",
-    this.carType = "",
-    this.pickTime = "",
-    this.seat = "",
-    this.pickDate = "",
-    this.fuelType = "",
-    this.hour = "",
-    this.brand = "",
-    this.paid = "",
-    this.bookingID = "",
-    this.carColor = "",
-    this.bookingStatus = "",
-    this.totalPrice = "",
-    this.kilometers = "",
-    this.pickUpLocation = "",
-    required this.onTap,
-    this.loader = false,
-    super.key});
+  const TransContainer(
+      {this.carName = "",
+      this.carType = "",
+      this.pickTime = "",
+      this.seat = "",
+      this.pickDate = "",
+      this.fuelType = "",
+      this.hour = "",
+      this.brand = "",
+      this.paid = "",
+      this.bookingID = "",
+      this.carColor = "",
+      this.bookingStatus = "",
+      this.totalPrice = "",
+      this.kilometers = "",
+      this.pickUpLocation = "",
+      required this.onTap,
+      this.loader = false,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -180,15 +234,14 @@ class TransContainer extends StatelessWidget {
             decoration: BoxDecoration(
                 color: background,
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: naturalGreyColor.withOpacity(0.3))
-            ),
+                border: Border.all(color: naturalGreyColor.withOpacity(0.3))),
             child: Column(
               children: [
                 ///First Line of Design
                 Container(
                     decoration: const BoxDecoration(
-                        border: Border(bottom: BorderSide(color: curvePageColor))
-                    ),
+                        border:
+                            Border(bottom: BorderSide(color: curvePageColor))),
                     child: ListTile(
                       // leading: SizedBox(
                       //   width: 60,
@@ -208,22 +261,25 @@ class TransContainer extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  width: AppDimension.getWidth(context)*.4,
-                                  child: Text("Car : $carName",style: GoogleFonts.lato(
-                                      color: greyColor,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600
-                                  ),
+                                  width: AppDimension.getWidth(context) * .4,
+                                  child: Text(
+                                    "Car : $carName",
+                                    style: GoogleFonts.lato(
+                                        color: greyColor,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600),
                                     maxLines: 2,
                                   ),
                                 ),
                                 SizedBox(
                                   width: 125,
-                                  child: Text("Date : $pickDate",style: GoogleFonts.lato(
-                                      color: greyColor,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600
-                                  ),),
+                                  child: Text(
+                                    "Date : $pickDate",
+                                    style: GoogleFonts.lato(
+                                        color: greyColor,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600),
+                                  ),
                                 ),
                               ],
                             ),
@@ -233,20 +289,23 @@ class TransContainer extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text("Seats : $seat",style: GoogleFonts.lato(
-                                    color: greyColor,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600
-                                ),),
-                                SizedBox(
-                                  width: 125,
-                                  child: Text("Timing : $pickTime",style: GoogleFonts.lato(
+                                Text(
+                                  "Seats : $seat",
+                                  style: GoogleFonts.lato(
                                       color: greyColor,
                                       fontSize: 14,
-                                      fontWeight: FontWeight.w600
-                                  ),),
+                                      fontWeight: FontWeight.w600),
                                 ),
-
+                                SizedBox(
+                                  width: 125,
+                                  child: Text(
+                                    "Timing : $pickTime",
+                                    style: GoogleFonts.lato(
+                                        color: greyColor,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -260,18 +319,22 @@ class TransContainer extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text("Car Color : $carColor",style: GoogleFonts.lato(
-                                    color: greyColor,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600
-                                ),),
-                                SizedBox(
-                                  width: 125,
-                                  child: Text("Rent Hour : $hour Hr",style: GoogleFonts.lato(
+                                Text(
+                                  "Car Color : $carColor",
+                                  style: GoogleFonts.lato(
                                       color: greyColor,
                                       fontSize: 14,
-                                      fontWeight: FontWeight.w600
-                                  ),),
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                SizedBox(
+                                  width: 125,
+                                  child: Text(
+                                    "Rent Hour : $hour Hr",
+                                    style: GoogleFonts.lato(
+                                        color: greyColor,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600),
+                                  ),
                                 ),
                               ],
                             ),
@@ -281,18 +344,22 @@ class TransContainer extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text("CarType : $carType",style: GoogleFonts.lato(
-                                    color: greyColor,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600
-                                ),),
-                                SizedBox(
-                                  width: 125,
-                                  child: Text("Paid : $paid",style: GoogleFonts.lato(
+                                Text(
+                                  "CarType : $carType",
+                                  style: GoogleFonts.lato(
                                       color: greyColor,
                                       fontSize: 14,
-                                      fontWeight: FontWeight.w600
-                                  ),),
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                SizedBox(
+                                  width: 125,
+                                  child: Text(
+                                    "Paid : $paid",
+                                    style: GoogleFonts.lato(
+                                        color: greyColor,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600),
+                                  ),
                                 ),
                               ],
                             ),
@@ -302,11 +369,13 @@ class TransContainer extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text("Brand : $brand",style: GoogleFonts.lato(
-                                    color: greyColor,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600
-                                ),),
+                                Text(
+                                  "Brand : $brand",
+                                  style: GoogleFonts.lato(
+                                      color: greyColor,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600),
+                                ),
                                 // SizedBox(
                                 //   width: 125,
                                 //   child: Text("Paid : $paid",style: GoogleFonts.lato(
@@ -320,14 +389,14 @@ class TransContainer extends StatelessWidget {
                           ),
                         ],
                       ),
-                    )
-                ),
+                    )),
+
                 ///Second Line Design
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   decoration: const BoxDecoration(
-                      border: Border(bottom: BorderSide(color: curvePageColor))
-                  ),
+                      border:
+                          Border(bottom: BorderSide(color: curvePageColor))),
                   child: ListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                     // leading: Container(
@@ -337,7 +406,7 @@ class TransContainer extends StatelessWidget {
                     //       borderRadius: BorderRadius.circular(50),
                     //       child: Image.asset(image,fit: BoxFit.cover,)),
                     // ),
-                    title:  Row(
+                    title: Row(
                       children: [
                         SizedBox(
                           width: 40,
@@ -353,17 +422,23 @@ class TransContainer extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Fuel Type",style: GoogleFonts.lato(
-                                color: greyColor,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700
-                            ),),
-                            const SizedBox(height: 5,),
-                            Text(fuelType,style: GoogleFonts.lato(
-                                color: greyColor,
-                                fontSize: 11,
-                                fontWeight: FontWeight.w700
-                            ),),
+                            Text(
+                              "Fuel Type",
+                              style: GoogleFonts.lato(
+                                  color: greyColor,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              fuelType,
+                              style: GoogleFonts.lato(
+                                  color: greyColor,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w700),
+                            ),
                           ],
                         ),
                       ],
@@ -376,28 +451,34 @@ class TransContainer extends StatelessWidget {
                               width: 40,
                               height: 40,
                               child: Icon(Icons.calendar_month_rounded)
-                            // ClipRRect(
-                            //     borderRadius: BorderRadius.circular(50),
-                            //     child: Padding(
-                            //       padding: const EdgeInsets.all(12.0),
-                            //       child: Image.asset(dollar),
-                            //     )),
-                          ),
+                              // ClipRRect(
+                              //     borderRadius: BorderRadius.circular(50),
+                              //     child: Padding(
+                              //       padding: const EdgeInsets.all(12.0),
+                              //       child: Image.asset(dollar),
+                              //     )),
+                              ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("Booking Status",style: GoogleFonts.lato(
-                                  color: greyColor,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w700
-                              ),),
-                              const SizedBox(height: 5,),
-                              Text(bookingStatus,style: GoogleFonts.lato(
-                                  color: greyColor,
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w700
-                              ),),
+                              Text(
+                                "Booking Status",
+                                style: GoogleFonts.lato(
+                                    color: greyColor,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                bookingStatus,
+                                style: GoogleFonts.lato(
+                                    color: greyColor,
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w700),
+                              ),
                             ],
                           ),
                         ],
@@ -424,7 +505,8 @@ class TransContainer extends StatelessWidget {
                 // ),
                 ///Second Line Design
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -436,13 +518,18 @@ class TransContainer extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text("Kilometers : ",style: titleTextStyle,),
+                              Text(
+                                "Kilometers : ",
+                                style: titleTextStyle,
+                              ),
                               // const SizedBox(height: 5),
-                              Text(kilometers,style: GoogleFonts.lato(
-                                  color: greyColor,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w700
-                              ),),
+                              Text(
+                                kilometers,
+                                style: GoogleFonts.lato(
+                                    color: greyColor,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w700),
+                              ),
                             ],
                           ),
                           // RichText(
@@ -468,15 +555,19 @@ class TransContainer extends StatelessWidget {
                           //     ]
                           // )),
                           // Text("Kilometers",style: titleTextStyle,),
-                          Text("PickUp Location :",style: titleTextStyle,),
+                          Text(
+                            "PickUp Location :",
+                            style: titleTextStyle,
+                          ),
                           const SizedBox(height: 5),
                           SizedBox(
-                            width: AppDimension.getWidth(context)*.3,
-                            child: Text(pickUpLocation.toUpperCase(),style: GoogleFonts.lato(
-                                color: greyColor,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w700
-                            ),
+                            width: AppDimension.getWidth(context) * .3,
+                            child: Text(
+                              pickUpLocation.toUpperCase(),
+                              style: GoogleFonts.lato(
+                                  color: greyColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w700),
                               maxLines: 2,
                             ),
                           ),
@@ -485,14 +576,15 @@ class TransContainer extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text("AED $totalPrice",style: appbarTextStyle),
-                          Text("Inclusive of GST",style: titleTextStyle),
+                          Text("AED $totalPrice", style: appbarTextStyle),
+                          Text("Inclusive of GST", style: titleTextStyle),
                           const SizedBox(height: 5),
                           CustomButtonSmall(
                             loading: loader,
-                            width: AppDimension.getWidth(context)*.28,
-                            btnHeading: "View",
-                            onTap: onTap,),
+                            width: 120,
+                            btnHeading: "View Details",
+                            onTap: onTap,
+                          ),
                         ],
                       )
                     ],

@@ -322,7 +322,7 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                       Column(
                         children: [
                           InfoRow(
-                              label: 'Passenger Name',
+                              label: 'Customer Name',
                               value:
                                   '${package?.user?.firstName} ${package?.user?.lastName}'),
                           const SizedBox(
@@ -343,7 +343,7 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                     padding:
                         const EdgeInsets.only(left: 10, bottom: 10, top: 10),
                     child: Text(
-                      'Passenger Details',
+                      'Traveller Details',
                       style: titleTextStyle,
                     ),
                   ),
@@ -459,8 +459,11 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                                 })
                             : CustomButtonSmall(
                                 height: 40,
-                                btnHeading: 'Show IssueDetails',
-                                onTap: () {}),
+                                width: 120,
+                                btnHeading: 'Show Issue',
+                                onTap: () {
+                                  context.push("/getRaiseIssue");
+                                }),
                         package?.dayStatus == 'PENDING'
                             ? CustomButtonSmall(
                                 width: 170,
@@ -582,24 +585,22 @@ class InfoRow extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          flex: 3,
-          child: Text(
-            '$label',
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
+        Text(
+          label,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
           ),
         ),
+        const SizedBox(width: 10),
         const Text(
           ':',
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
-        const SizedBox(width: 8),
+        const SizedBox(width: 10),
         Expanded(
-          flex: 4,
+          // flex: 3,
           child: Text(
             value,
             style: const TextStyle(

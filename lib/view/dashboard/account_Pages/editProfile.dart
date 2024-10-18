@@ -114,7 +114,7 @@ class _EditProfiePageState extends State<EditProfiePage> {
                   hintText: 'First Name',
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Required first name';
+                      return 'Please enter first name';
                     }
                     return null;
                   },
@@ -135,7 +135,7 @@ class _EditProfiePageState extends State<EditProfiePage> {
                   hintText: 'Last Name',
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Required last name';
+                      return 'Please enter last name';
                     }
                     return null;
                   },
@@ -225,7 +225,7 @@ class _EditProfiePageState extends State<EditProfiePage> {
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Please enter some text';
+                          return 'Please enter your address';
                         }
                         return null;
                       },

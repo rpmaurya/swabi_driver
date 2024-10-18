@@ -163,7 +163,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: 10),
             CommonTextFeild(
-              heading: "EmiratesId",
+              heading: "Emirates Id",
               headingReq: true,
               prefixIcon: true,
               controller: TextEditingController(text: emiId),
@@ -172,7 +172,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: 10),
             CommonTextFeild(
-              heading: "LicenceNumber",
+              heading: "Licence Number",
               headingReq: true,
               prefixIcon: true,
               controller: TextEditingController(text: licenceNo),

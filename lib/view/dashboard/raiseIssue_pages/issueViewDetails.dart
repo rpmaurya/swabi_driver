@@ -35,62 +35,55 @@ class _IssueviewdetailsState extends State<Issueviewdetails> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        itemtile(
-                            lable: 'Issue Id',
-                            vale: issueData?.issueId.toString() ?? ''),
-                        itemtile(
-                            lable: 'Booking Id',
-                            vale: issueData?.bookingId.toString() ?? '')
-                      ],
+                    Expanded(
+                      flex: 2,
+                      child: Text(
+                        "Status",
+                        style: titleTextStyle,
+                      ),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              'Status',
-                              style: titleTextStyle,
-                            ),
-                            const SizedBox(width: 5),
-                            Text(
-                              ':',
-                              style: textTextStyle,
-                            ),
-                            const SizedBox(width: 5),
-                            Container(
-                              height: 30,
-                              // width: 120,
-                              padding:
-                                  const EdgeInsets.only(left: 10, right: 10),
-                              decoration: BoxDecoration(
-                                  color: issueData?.issueStatus == 'OPEN'
-                                      ? redColor
-                                      : Colors.green,
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: Center(
-                                  child: Text(
+                    const SizedBox(width: 5),
+                    Text(
+                      ':',
+                      style: titleTextStyle,
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      flex: 3,
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 30,
+                            // width: 120,
+                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            decoration: BoxDecoration(
+                                color: issueData?.issueStatus == 'OPEN'
+                                    ? redColor
+                                    : Colors.green,
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Center(
+                              child: Text(
                                 issueData?.issueStatus.toString() ==
                                         'IN_PROGRESS'
                                     ? 'INPROGRESS'
                                     : issueData?.issueStatus ?? '',
                                 style: const TextStyle(color: background),
-                              )),
-                            )
-                          ],
-                        ),
-                        itemtile(
-                            lable: 'Driver Id',
-                            vale: issueData?.raisedById.toString() ?? '')
-                      ],
-                    ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    )
                   ],
                 ),
+                itemText(
+                    lable: 'Issue Id',
+                    value: issueData?.issueId.toString() ?? ''),
+                itemText(
+                    lable: 'Booking Id',
+                    value: issueData?.bookingId.toString() ?? ''),
                 itemText(
                     lable: 'Created Date',
                     value: DateFormat('dd-MM-yyyy').format(
@@ -98,7 +91,9 @@ class _IssueviewdetailsState extends State<Issueviewdetails> {
                             issueData?.createdDate ?? 0))),
                 itemText(
                     lable: 'Booking Type',
-                    value: issueData?.bookingType.toString() ?? ''),
+                    value: issueData?.bookingType == "RENTAL_BOOKING"
+                        ? 'Rental Booking'
+                        : "Package Booking"),
                 itemText(
                     lable: 'Issue Description',
                     value: issueData?.issueDescription.toString() ?? ''),
@@ -136,7 +131,7 @@ class _IssueviewdetailsState extends State<Issueviewdetails> {
           ':',
           style: titleTextStyle,
         ),
-        const SizedBox(width: 5),
+        const SizedBox(width: 10),
         Expanded(
           flex: 3,
           child: Text(

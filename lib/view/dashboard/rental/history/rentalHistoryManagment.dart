@@ -108,8 +108,13 @@ class _DriverHistoryManagmentState extends State<DriverHistoryManagment>
   int selectedIndex = -1;
   @override
   Widget build(BuildContext context) {
+    String status = context
+        .watch<DriverGetBookingDetailsViewModel>()
+        .DataList
+        .status
+        .toString();
     return CustomPagelayout(
-        appBarTitle: 'Rental Booking',
+        appBarTitle: 'Rental Management',
         child: Customtabbar(
             controller: _tabController,
             tabs: tabList,
@@ -151,12 +156,11 @@ class _DriverHistoryManagmentState extends State<DriverHistoryManagment>
                         }
                         final item = bookedHistory[index];
                         return HistoryDetailsContainer(
-                          loader:
-                              response.status.toString() == "Status.loading" &&
-                                  selectedIndex == index,
+                          loader: status == "Status.loading" &&
+                              selectedIndex == index,
                           onTapContainer: () {
                             setState(() {
-                              selectedIndex == index;
+                              selectedIndex = index;
                             });
                             Provider.of<DriverGetBookingDetailsViewModel>(
                                     context,

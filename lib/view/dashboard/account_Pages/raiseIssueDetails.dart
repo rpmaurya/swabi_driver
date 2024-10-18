@@ -4,6 +4,7 @@ import 'package:flutter_driver/model/GetIssueModel.dart';
 import 'package:flutter_driver/res/Custom%20Page%20Layout/custom_pageLayout.dart';
 
 import 'package:flutter_driver/res/customTabBar.dart';
+import 'package:flutter_driver/utils/color.dart';
 import 'package:flutter_driver/utils/text_styles.dart';
 import 'package:flutter_driver/view/dashboard/raiseIssue_pages/issue_container.dart';
 import 'package:flutter_driver/view_model/raiseIssue_view_model.dart';
@@ -120,7 +121,7 @@ class _RaiseissuedetailsState extends State<Raiseissuedetails>
     // print('daaa${allRaiseList?.first.bookingId}');
 
     return CustomPagelayout(
-      appBarTitle: 'Raise Issue',
+      appBarTitle: 'Raised Issue',
       child: Customtabbar(
           controller: _tabController,
           onTap: (index) {
@@ -136,7 +137,10 @@ class _RaiseissuedetailsState extends State<Raiseissuedetails>
             return Consumer<RaiseissueViewModel>(
               builder: (context, value, child) {
                 return value.isloading
-                    ? const Center(child: CircularProgressIndicator())
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                        color: greenColor,
+                      ))
                     : allRaiseList.isNotEmpty
                         ? ListView.builder(
                             controller: _scrollController,
@@ -174,12 +178,11 @@ class _RaiseissuedetailsState extends State<Raiseissuedetails>
                                     }),
                               );
                             })
-                        : Center(
-                            child: Container(
-                              child: Text(
-                                'No Raise Available',
-                                style: titleTextStyle,
-                              ),
+                        : const Center(
+                            child: Text(
+                              'No Data',
+                              style: TextStyle(
+                                  color: redColor, fontWeight: FontWeight.w600),
                             ),
                           );
               },

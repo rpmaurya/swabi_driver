@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_driver/utils/color.dart';
 import 'package:flutter_driver/utils/text_styles.dart';
 import 'package:flutter_driver/view/dashboard/package/customPackageViewPage.dart';
 import 'package:flutter_driver/view_model/driver_package_view_model.dart';
@@ -29,13 +30,16 @@ class _HistoryPackagebookingState extends State<HistoryPackagebooking> {
     return Consumer<DriverPackageViewModel>(
       builder: (context, viewData, child) {
         if (viewData.isLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+              child: CircularProgressIndicator(
+            color: greenColor,
+          ));
         } else if (viewData.driverPackageBookingListModel?.data == null ||
             viewData.driverPackageBookingListModel!.data.isEmpty) {
-          return Center(
+          return const Center(
               child: Text(
-            'No packages available',
-            style: titleTextStyle,
+            'No Data',
+            style: TextStyle(color: redColor, fontWeight: FontWeight.w600),
           ));
         } else {
           return ListView.builder(

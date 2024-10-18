@@ -133,10 +133,10 @@ class _CustompackageviewpageState extends State<Custompackageviewpage> {
                 ),
               ),
               CustomButtonSmall(
-                width: AppDimension.getWidth(context) * .25,
+                width: 120,
                 height: 40,
                 loading: widget.loader,
-                btnHeading: "View",
+                btnHeading: "View Details",
                 onTap: widget.onTap,
               ),
             ],

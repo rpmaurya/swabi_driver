@@ -54,7 +54,11 @@ class IssueContainer extends StatelessWidget {
               ),
             ],
           ),
-          itemText(lable: 'Booking Type', value: bookingType),
+          itemText(
+              lable: 'Booking Type',
+              value: bookingType == "RENTAL_BOOKING"
+                  ? "Rental Booking"
+                  : "Package Booking"),
           const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -86,8 +90,8 @@ class IssueContainer extends StatelessWidget {
               CustomButtonSmall(
                   loading: loader,
                   height: 40,
-                  width: 80,
-                  btnHeading: 'View',
+                  width: 120,
+                  btnHeading: 'View Details',
                   onTap: onTap),
             ],
           )

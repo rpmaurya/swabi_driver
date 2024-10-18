@@ -162,8 +162,7 @@ class Login_SignUpBtn extends StatelessWidget {
           child: Text(
             " $btnHeading",
             style: GoogleFonts.lato(
-                fontWeight: FontWeight.w700,
-                color: const Color.fromRGBO(69, 30, 243, 1)),
+                fontWeight: FontWeight.w700, color: greenColor),
           ),
         ),
       ],
