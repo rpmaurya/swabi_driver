@@ -34,7 +34,7 @@ class _CustompackageviewpageState extends State<Custompackageviewpage> {
     print('loader.......${widget.loader}');
     return Container(
       padding: const EdgeInsets.all(10),
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
           border: Border.all(color: Colors.black12),
           // color: bgGreyColor,

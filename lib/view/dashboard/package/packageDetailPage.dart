@@ -408,8 +408,8 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                                   maxLines: 3,
                                   style: const TextStyle(
                                     fontSize: 16,
-                                    fontWeight: FontWeight.w800,
-                                    color: Colors.black,
+                                    fontWeight: FontWeight.w700,
+                                    color: greenColor,
                                   ),
                                 ),
                                 Column(
@@ -449,7 +449,7 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                             ? CustomButtonSmall(
                                 height: 40,
                                 width: 120,
-                                btnHeading: 'Create Issue',
+                                btnHeading: 'Raise Issue',
                                 onTap: () {
                                   context.push('/rideIssue', extra: {
                                     'bookingId':
@@ -460,7 +460,7 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                             : CustomButtonSmall(
                                 height: 40,
                                 width: 120,
-                                btnHeading: 'Show Issue',
+                                btnHeading: 'View Issue',
                                 onTap: () {
                                   context.push("/getRaiseIssue");
                                 }),

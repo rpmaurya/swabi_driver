@@ -45,6 +45,7 @@ const String viewImg = "assets/images/viewImg.png";
 const String dollar = "assets/images/dollar.png";
 const String car3 = "assets/images/car3.png";
 const String fuel = "assets/images/fuel.png";
+const String seatIcon = "assets/images/seat.png";
 const String history = "assets/images/history.png";
 const String idCard = "assets/images/idCard.png";
 const String emiID = "assets/images/emiID.png";
@@ -57,6 +58,8 @@ const String image1 = "assets/images/drivir-homepage.webp";
 const String imagecenter = "assets/images/imagecenter.png";
 const String carImage1 = "assets/images/car1.png";
 const String carImage2 = "assets/images/car2.jpg";
+const String rentalBooking = "assets/images/icons-car-rental.png";
+const String helpSupport = "assets/images/online-support.png";
 
 const String carImage3 = "assets/images/car3.png";
 const String carImage4 = "assets/images/car4.jpg";

@@ -62,9 +62,10 @@ class _PackageManagementScreenState extends State<PackageManagementScreen>
       appBarTitle: 'Package Management',
       child: Column(
         children: [
+          const SizedBox(height: 5),
           Container(
             padding: const EdgeInsets.all(5),
-            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             decoration: BoxDecoration(
                 border: Border.all(color: btnColor),
                 color: Colors.white,

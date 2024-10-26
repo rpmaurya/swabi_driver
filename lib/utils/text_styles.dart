@@ -39,7 +39,8 @@ TextStyle pageSubHeadingTextStyle = GoogleFonts.lato(
 
 TextStyle titleTextStyle = GoogleFonts.lato(
     color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600);
-
+TextStyle termCondition = GoogleFonts.lato(
+    color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500);
 TextStyle textTextStyle = GoogleFonts.lato(
     color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400);
 TextStyle textTextStyle1 = GoogleFonts.lato(

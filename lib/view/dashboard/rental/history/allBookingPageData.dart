@@ -3,6 +3,7 @@ import 'package:flutter_driver/res/Custom%20%20Button/custom_btn.dart';
 import 'package:flutter_driver/utils/assets.dart';
 import 'package:flutter_driver/utils/color.dart';
 import 'package:flutter_driver/utils/dimensions.dart';
+import 'package:flutter_driver/utils/text_styles.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HistoryDetailsContainer extends StatelessWidget {
@@ -61,54 +62,42 @@ class HistoryDetailsContainer extends StatelessWidget {
                                 carImage.isEmpty ? car3 : carImage,
                                 fit: BoxFit.cover)),
                       ),
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      title: Text(
+                        carName,
+                        style: GoogleFonts.lato(
+                            color: greyColor,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      subtitle: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.calendar_month_outlined, size: 18),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              date,
+                              style: GoogleFonts.lato(
+                                  color: greyColor1,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ],
+                        ),
+                      ),
+                      trailing: Column(
                         children: [
                           Text(
-                            carName,
+                            "Charges",
                             style: GoogleFonts.lato(
-                                color: greyColor,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          Text(
-                            "⭐ 4.8",
-                            style: GoogleFonts.lato(
-                                color: greyColor,
-                                fontSize: 11,
+                                color: greyColor1,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w700),
                           ),
-                        ],
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: Row(
-                              children: [
-                                const Icon(Icons.calendar_month_outlined,
-                                    size: 18),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  date,
-                                  style: GoogleFonts.lato(
-                                      color: greyColor1,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Text(
-                            "$seat Seats",
-                            style: GoogleFonts.lato(
-                                color: greyColor,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600),
-                          ),
+                          const SizedBox(height: 5),
+                          Text("AED $rentalCharge", style: titleTextStyle),
                         ],
                       ),
                     )),
@@ -118,77 +107,74 @@ class HistoryDetailsContainer extends StatelessWidget {
                   decoration: const BoxDecoration(
                       border:
                           Border(bottom: BorderSide(color: curvePageColor))),
-                  child: ListTile(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-                    leading: SizedBox(
-                      width: 40,
-                      height: 40,
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.asset(fuel),
-                          )),
-                    ),
-                    title: Text(
-                      "Fuel Type",
-                      style: GoogleFonts.lato(
-                          color: greyColor1,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700),
-                    ),
-                    subtitle: Row(
-                      children: [
-                        Text(
-                          fuelType,
-                          style: GoogleFonts.lato(
-                              color: greyColor,
-                              fontSize: 11,
-                              fontWeight: FontWeight.w700),
-                        ),
-                        const Spacer(),
-                      ],
-                    ),
-                    trailing: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 10),
-                      width: 80,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          // SizedBox(
-                          //   width: 40,
-                          //   height: 40,
-                          //   child: ClipRRect(
-                          //       borderRadius: BorderRadius.circular(50),
-                          //       child: Padding(
-                          //         padding: const EdgeInsets.all(10.0),
-                          //         child: Image.asset(dollar),
-                          //       )),
-                          // ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Charges",
-                                style: GoogleFonts.lato(
-                                    color: greyColor1,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(
-                                "AED $rentalCharge",
-                                style: GoogleFonts.lato(
-                                    color: greyColor,
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                            ],
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: ListTile(
+                          dense: true,
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 10),
+                          horizontalTitleGap: 5,
+                          leading: SizedBox(
+                            width: 40,
+                            height: 40,
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(50),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Image.asset(fuel),
+                                )),
                           ),
-                        ],
+                          title: Text(
+                            "Fuel Type",
+                            style: GoogleFonts.lato(
+                                color: greyColor1,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700),
+                          ),
+                          subtitle: Text(
+                            fuelType,
+                            style: GoogleFonts.lato(
+                                color: greyColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ),
                       ),
-                    ),
+                      Expanded(
+                        child: ListTile(
+                          dense: true,
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 50),
+                          horizontalTitleGap: 5,
+                          leading: SizedBox(
+                            width: 40,
+                            height: 40,
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(50),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Image.asset(seatIcon),
+                                )),
+                          ),
+                          title: Text(
+                            "Seats",
+                            style: GoogleFonts.lato(
+                                color: greyColor1,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700),
+                          ),
+                          subtitle: Text(
+                            seat,
+                            style: GoogleFonts.lato(
+                                color: greyColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
 
@@ -204,7 +190,7 @@ class HistoryDetailsContainer extends StatelessWidget {
                               color: status == "CANCELLED"
                                   ? redColor.withOpacity(.1)
                                   : greenColor.withOpacity(.1),
-                              borderRadius: BorderRadius.circular(10)),
+                              borderRadius: BorderRadius.circular(5)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

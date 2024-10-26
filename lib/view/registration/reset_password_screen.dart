@@ -58,9 +58,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text.rich(TextSpan(children: [
-                          TextSpan(
-                              text: 'Enter new password',
-                              style: titleTextStyle),
+                          TextSpan(text: 'New password', style: titleTextStyle),
                           const TextSpan(
                               text: ' *', style: TextStyle(color: redColor))
                         ])),
@@ -70,7 +68,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         Customtextformfield(
                           fillColor: background,
                           obscureText: obscurePassword,
-                          obscuringCharacter: '*',
+                          // obscuringCharacter: '*',
+                          enableInteractiveSelection: false,
                           controller: password,
                           hintText: 'New password',
                           suffixIcons: IconButton(
@@ -87,7 +86,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Enter your new password';
+                              return 'Please enter new password';
                             } else {
                               return Validatorclass.validatePassword(value);
                             }
@@ -98,8 +97,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         ),
                         Text.rich(TextSpan(children: [
                           TextSpan(
-                              text: 'Enter confirm password',
-                              style: titleTextStyle),
+                              text: 'Confirm password', style: titleTextStyle),
                           const TextSpan(
                               text: ' *', style: TextStyle(color: redColor))
                         ])),
@@ -109,7 +107,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         Customtextformfield(
                           fillColor: background,
                           obscureText: obscureConfirmPassword,
-                          obscuringCharacter: '*',
+                          // obscuringCharacter: '*',
+                          enableInteractiveSelection: false,
                           controller: confirmpass,
                           hintText: 'Confirm password',
                           suffixIcons: IconButton(
@@ -127,9 +126,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Enter your Confirm password';
+                              return 'Please enter confirm password';
                             } else if (value != password.text) {
-                              return "password not matched";
+                              return "Password not matched";
                             } else {
                               return Validatorclass.validatePassword(value);
                             }
@@ -154,8 +153,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         const SizedBox(height: 10),
                         Login_SignUpBtn(
                           onTap: () => context.push("/login"),
-                          btnHeading: 'Login',
-                          sideHeading: 'Remember your password?',
+                          btnHeading: 'Sign In',
+                          sideHeading: 'Back to',
                         ),
                         // Row(
                         //   mainAxisAlignment: MainAxisAlignment.center,

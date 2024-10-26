@@ -44,13 +44,12 @@ class DriverPackageViewModel with ChangeNotifier {
 
       if (value?.status.httpCode == '200') {
         driverPackageBookingListModel = value;
+        isLoading = false;
+        notifyListeners();
         print("Driver Booking Details Success");
       } else {
         print("Failed to fetch booking details");
       }
-
-      isLoading = false;
-      notifyListeners();
     } catch (e) {
       isLoading = false;
       notifyListeners();

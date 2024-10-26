@@ -127,7 +127,7 @@ class DriverGetBookingDetailsViewModel with ChangeNotifier {
           "driverId": myIdDriver,
           "pageNumber": "0",
           "pageSize": "10",
-          "bookingStatus": "BOOKED"
+          "bookingStatus": "ALL"
         }, context);
       });
       // Utils.toastMessage("Driver Booking Details Successful");

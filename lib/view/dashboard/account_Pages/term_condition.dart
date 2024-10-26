@@ -35,30 +35,30 @@ class TermCondition extends StatelessWidget {
                     "ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. "
                     "Aliquam in hendrerit urna. Pellentesque sit amet sapien "
                     "fringilla, mattis ligula consectetur, ultrices.",
-                    style: pageSubHeadingTextStyle,
+                    style: termCondition,
                     textAlign: TextAlign.left),
               ),
-              const SizedBox(
-                height: 25,
-              ),
-              Text("CONTACT US - CUSTOMER SERVICE",
-                  style: pageHeadingTextStyle, textAlign: TextAlign.left),
-              const SizedBox(
-                height: 10,
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                decoration: BoxDecoration(
-                    color: curvePageColor,
-                    borderRadius: BorderRadius.circular(5)),
-                width: AppDimension.getHeight(context) * .9,
-                child: Text(
-                    "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et "
-                    "massa mi. Aliquam in hendrerit urna. Pellentesque sit amet "
-                    "sapien fringilla, mattis ligula consectetur, ultrices.",
-                    style: pageSubHeadingTextStyle,
-                    textAlign: TextAlign.left),
-              ),
+              // const SizedBox(
+              //   height: 25,
+              // ),
+              // Text("CONTACT US - CUSTOMER SERVICE",
+              //     style: pageHeadingTextStyle, textAlign: TextAlign.left),
+              // const SizedBox(
+              //   height: 10,
+              // ),
+              // Container(
+              //   padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              //   decoration: BoxDecoration(
+              //       color: curvePageColor,
+              //       borderRadius: BorderRadius.circular(5)),
+              //   width: AppDimension.getHeight(context) * .9,
+              //   child: Text(
+              //       "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et "
+              //       "massa mi. Aliquam in hendrerit urna. Pellentesque sit amet "
+              //       "sapien fringilla, mattis ligula consectetur, ultrices.",
+              //       style: pageSubHeadingTextStyle,
+              //       textAlign: TextAlign.left),
+              // ),
             ],
           ),
         ));

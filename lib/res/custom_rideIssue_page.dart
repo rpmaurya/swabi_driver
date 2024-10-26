@@ -32,24 +32,24 @@ class _CustomRideissuePageState extends State<CustomRideissuePage> {
   @override
   Widget build(BuildContext context) {
     return CustomPagelayout(
-      appBarTitle: 'Ride Issue',
+      appBarTitle: 'Raise Issue',
       child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 5),
-                child: Text("Raise Help", style: titleTextStyle),
-              ),
-              const Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 14,
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(bottom: 5),
+              //   child: Text("Raise Help", style: titleTextStyle),
+              // ),
+              // const Text(
+              //   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+              //   style: TextStyle(
+              //     color: Colors.grey,
+              //     fontSize: 14,
+              //   ),
+              // ),
               const SizedBox(height: 10),
               Text(
                 'Please Select Raise Issue',
@@ -62,6 +62,9 @@ class _CustomRideissuePageState extends State<CustomRideissuePage> {
                   return RadioListTile<String>(
                     contentPadding: EdgeInsets.zero,
                     activeColor: btnColor,
+                    dense: true,
+                    visualDensity:
+                        const VisualDensity(horizontal: -2, vertical: -2),
                     title: Text(issue),
                     value: issue,
                     groupValue: _selectedIssue,
@@ -98,7 +101,8 @@ class _CustomRideissuePageState extends State<CustomRideissuePage> {
                     ],
                   ),
                 ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
+              // Spacer(),
               CustomButtonSmall(
                   height: 45,
                   width: double.infinity,

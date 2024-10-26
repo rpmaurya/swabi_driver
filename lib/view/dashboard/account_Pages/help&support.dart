@@ -30,25 +30,26 @@ class HelpAndSupport extends StatelessWidget {
             //   onTap: () {},
             //   // onTap: () => context.push("/termCondition"),
             // ),
-            // Custom_ListTile(
-            //   img: contact,
-            //   iconColor: btnColor,
-            //   heading: "Contact",
-            //   onTap: () => context.push("/contact"),
-            // ),
-            // Custom_ListTile(
-            //   img: privacyPolicy,
-            //   iconColor: btnColor,
-            //   heading: "Privacy & Policy",
-            //   onTap: () {},
-            //   // onTap: () => context.push("/termCondition"),
-            // ),
-            // Custom_ListTile(
-            //   img: tnc,
-            //   iconColor: btnColor,
-            //   heading: "Term & Condition",
-            //   onTap: () => context.push("/termCondition"),
-            // ),
+            Custom_ListTile(
+                img: contact,
+                iconColor: btnColor,
+                heading: "Contact",
+                onTap: () {
+                  // context.push("/contact");
+                }),
+            Custom_ListTile(
+              img: privacyPolicy,
+              iconColor: btnColor,
+              heading: "Privacy & Policy",
+              onTap: () {},
+              // onTap: () => context.push("/termCondition"),
+            ),
+            Custom_ListTile(
+              img: tnc,
+              iconColor: btnColor,
+              heading: "Term & Condition",
+              onTap: () => context.push("/termCondition"),
+            ),
           ],
         ));
   }

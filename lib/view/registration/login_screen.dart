@@ -207,7 +207,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 CustomButtonBig(
-                  btnHeading: "LOGIN",
+                  btnHeading: "Sign In",
                   loading: authViewMode.loading,
                   onTap: () {
                     if (_formKey.currentState!.validate()) {

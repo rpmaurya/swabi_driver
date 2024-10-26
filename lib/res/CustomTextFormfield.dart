@@ -18,6 +18,7 @@ class Customtextformfield extends StatefulWidget {
   final String? obscuringCharacter;
   final TextInputType? keyboardType;
   final TextAlignVertical? textAlignVertical;
+  final bool? enableInteractiveSelection;
   final bool? enabled;
   final Widget? suffixIcons;
   final Color? fillColor;
@@ -36,6 +37,7 @@ class Customtextformfield extends StatefulWidget {
       this.textLength,
       this.obscuringCharacter,
       this.textAlignVertical,
+      this.enableInteractiveSelection,
       this.keyboardType,
       this.suffixIcons,
       this.fillColor,
@@ -62,6 +64,7 @@ class _CustomtextformfieldState extends State<Customtextformfield> {
       child: TextFormField(
         autovalidateMode: AutovalidateMode.onUserInteraction,
         focusNode: widget.focusNode,
+        enableInteractiveSelection: widget.enableInteractiveSelection,
         obscureText: widget.obscureText ?? false,
         obscuringCharacter: widget.obscuringCharacter ?? '•',
         controller: widget.controller,
@@ -75,6 +78,7 @@ class _CustomtextformfieldState extends State<Customtextformfield> {
         enabled: widget.enabled,
         decoration: InputDecoration(
             errorText: widget.errorText,
+            errorMaxLines: 2,
             suffixIcon: widget.suffixIcons,
             fillColor: widget.fillColor,
             filled: widget.fillColor != null,

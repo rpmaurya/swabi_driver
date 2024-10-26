@@ -96,8 +96,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       const SizedBox(height: 10),
                       Login_SignUpBtn(
                         onTap: () => context.push("/login"),
-                        btnHeading: 'Login',
-                        sideHeading: 'Remember your password?',
+                        btnHeading: 'Sign In',
+                        sideHeading: 'Back to',
                       ),
                       // Row(
                       //   mainAxisAlignment: MainAxisAlignment.center,

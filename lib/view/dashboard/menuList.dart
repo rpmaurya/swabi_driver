@@ -5,7 +5,9 @@ import 'package:flutter_driver/res/custom_ListTile.dart';
 import 'package:flutter_driver/utils/assets.dart';
 import 'package:flutter_driver/utils/color.dart';
 import 'package:flutter_driver/utils/text_styles.dart';
+import 'package:flutter_driver/view_model/driverBooking_view_model.dart';
 import 'package:flutter_driver/view_model/driverProfile_view_model.dart';
+import 'package:flutter_driver/view_model/driver_package_view_model.dart';
 import 'package:flutter_driver/view_model/user_view_model.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -69,11 +71,22 @@ class _MenuListState extends State<MenuList> {
               },
             ),
             Custom_ListTile(
-              img: booking,
+              img: rentalBooking,
               iconColor: btnColor,
               heading: "Rental Management",
-              onTap: () => context
-                  .push("/historyManagement", extra: {"myID": widget.userId}),
+              onTap: () => context.push("/historyManagement",
+                  extra: {"myID": widget.userId}).then((value) {
+                Provider.of<DriverGetBookingListViewModel>(context,
+                        listen: false)
+                    .fetchDriverGetBookingListViewModel({
+                  "driverId": widget.userId,
+                  "pageNumber": "0",
+                  "pageSize": "5",
+                  "bookingStatus": "ALL"
+                }, context);
+                Provider.of<DriverPackageViewModel>(context, listen: false)
+                    .getPackageBookingHistoryList(context: context);
+              }),
               // context.push("/booking")
             ),
             Custom_ListTile(
@@ -90,7 +103,18 @@ class _MenuListState extends State<MenuList> {
                 //           widget.userId,
                 //           'historyList');
                 // });
-                context.push('/packageBookingManagement');
+                context.push('/packageBookingManagement').then((value) {
+                  Provider.of<DriverGetBookingListViewModel>(context,
+                          listen: false)
+                      .fetchDriverGetBookingListViewModel({
+                    "driverId": widget.userId,
+                    "pageNumber": "0",
+                    "pageSize": "5",
+                    "bookingStatus": "ALL"
+                  }, context);
+                  Provider.of<DriverPackageViewModel>(context, listen: false)
+                      .getPackageBookingHistoryList(context: context);
+                });
               },
               // context.push("/booking")
             ),
@@ -138,7 +162,7 @@ class _MenuListState extends State<MenuList> {
             //   onTap: () => context.push("/contact"),
             // ),
             Custom_ListTile(
-              img: contact,
+              img: helpSupport,
               iconColor: btnColor,
               heading: "Help & Support",
               onTap: () => context.push("/help&support"),
@@ -197,17 +221,17 @@ class _MenuListState extends State<MenuList> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         CustomButtonSmall(
-                          width: 70,
+                          width: 100,
                           height: 50,
-                          btnHeading: "NO",
+                          btnHeading: "Cancel",
                           onTap: () {
                             context.pop();
                           },
                         ),
                         CustomButtonSmall(
-                          width: 70,
+                          width: 100,
                           height: 50,
-                          btnHeading: "YES",
+                          btnHeading: "Logout",
                           onTap: () {
                             userViewModel.remove(context);
                             context.go("/login");

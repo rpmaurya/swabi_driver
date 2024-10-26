@@ -354,7 +354,7 @@ class _BookingDetailsOfDriverState extends State<BookingDetailsOfDriver> {
                       ? CustomButtonSmall(
                           width: 120,
                           height: 45,
-                          btnHeading: 'Create Issue',
+                          btnHeading: 'Raise Issue',
                           onTap: () {
                             context.push('/rideIssue', extra: {
                               'bookingId': bookingDetails?.id ?? '',
@@ -364,7 +364,7 @@ class _BookingDetailsOfDriverState extends State<BookingDetailsOfDriver> {
                       : CustomButtonSmall(
                           height: 45,
                           width: 120,
-                          btnHeading: 'Show Issue',
+                          btnHeading: 'View Issue',
                           onTap: () {
                             context.push("/getRaiseIssue");
                           }),
