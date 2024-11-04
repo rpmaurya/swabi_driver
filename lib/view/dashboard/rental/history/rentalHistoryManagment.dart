@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_driver/model/driverBookingModel.dart';
 import 'package:flutter_driver/res/Custom%20Page%20Layout/custom_pageLayout.dart';
 import 'package:flutter_driver/res/customTabBar.dart';
+import 'package:flutter_driver/utils/color.dart';
 import 'package:flutter_driver/view/dashboard/rental/history/allBookingPageData.dart';
 import 'package:flutter_driver/view_model/driverBooking_view_model.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -124,9 +125,17 @@ class _DriverHistoryManagmentState extends State<DriverHistoryManagment>
                   final response = viewModel.DataList;
 
                   if (response.status.toString() == "Status.loading") {
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(
+                        child: CircularProgressIndicator(
+                      color: greenColor,
+                    ));
                   } else if (response.status.toString() == "Status.error") {
-                    return Center(child: Text('Error: ${response.message}'));
+                    return const Center(
+                        child: Text(
+                      'No Data',
+                      style: TextStyle(
+                          color: redColor, fontWeight: FontWeight.w500),
+                    ));
                   } else if (response.status.toString() == "Status.completed") {
                     final data = response.data?.data.content ?? [];
 

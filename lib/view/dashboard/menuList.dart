@@ -113,7 +113,7 @@ class _MenuListState extends State<MenuList> {
                     "bookingStatus": "ALL"
                   }, context);
                   Provider.of<DriverPackageViewModel>(context, listen: false)
-                      .getPackageBookingHistoryList(context: context);
+                      .getPackageBookingList(context: context);
                 });
               },
               // context.push("/booking")
@@ -203,69 +203,73 @@ class _MenuListState extends State<MenuList> {
         return Dialog(
           backgroundColor: background,
           surfaceTintColor: background,
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              SizedBox(
-                height: 180,
-                child: Column(
-                  children: [
-                    Padding(
-                        padding: const EdgeInsets.only(
-                            top: 50, bottom: 20, left: 20),
-                        child: Text(
-                          'Are you sure want to Logout ?',
-                          style: titleTextStyle,
-                        )),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        CustomButtonSmall(
-                          width: 100,
-                          height: 50,
-                          btnHeading: "Cancel",
-                          onTap: () {
-                            context.pop();
-                          },
-                        ),
-                        CustomButtonSmall(
-                          width: 100,
-                          height: 50,
-                          btnHeading: "Logout",
-                          onTap: () {
-                            userViewModel.remove(context);
-                            context.go("/login");
-                          },
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              Positioned(
-                  top: -60,
-                  left: 0,
-                  right: 0,
-                  child: SizedBox(
-                    // decoration: BoxDecoration(
-                    //   border: Border.all(color: btnColor),
-                    //   borderRadius: BorderRadius.circular(10)
-                    // ),
-                    height: 100,
-                    width: 100,
-                    child: Card(
-                      surfaceTintColor: background,
-                      elevation: 5,
-                      shape: const CircleBorder(),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.asset(question),
+          // child: Stack(
+          //   clipBehavior: Clip.none,
+          //   children: [
+          //     SizedBox(
+          //       height: 180,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                children: [
+                  Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: Text(
+                        'Are you sure want to Logout ?',
+                        style: titleTextStyle,
+                      )),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      CustomButtonSmall(
+                        width: 90,
+                        height: 40,
+                        btnHeading: "Cancel",
+                        onTap: () {
+                          context.pop();
+                        },
                       ),
-                    ),
-                  ))
-            ],
+                      CustomButtonSmall(
+                        width: 90,
+                        height: 40,
+                        btnHeading: "Logout",
+                        onTap: () {
+                          userViewModel.remove(context);
+                          context.go("/login");
+                        },
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
           ),
         );
+        //     Positioned(
+        //         top: -60,
+        //         left: 0,
+        //         right: 0,
+        //         child: SizedBox(
+        //           // decoration: BoxDecoration(
+        //           //   border: Border.all(color: btnColor),
+        //           //   borderRadius: BorderRadius.circular(10)
+        //           // ),
+        //           height: 100,
+        //           width: 100,
+        //           child: Card(
+        //             surfaceTintColor: background,
+        //             elevation: 5,
+        //             shape: const CircleBorder(),
+        //             child: Padding(
+        //               padding: const EdgeInsets.all(8.0),
+        //               child: Image.asset(question),
+        //             ),
+        //           ),
+        //         ))
+        //   ],
+        // ),
+        // );
       },
     );
   }

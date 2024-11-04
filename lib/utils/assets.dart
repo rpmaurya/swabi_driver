@@ -60,7 +60,7 @@ const String carImage1 = "assets/images/car1.png";
 const String carImage2 = "assets/images/car2.jpg";
 const String rentalBooking = "assets/images/icons-car-rental.png";
 const String helpSupport = "assets/images/online-support.png";
-
+const String holidays = "assets/images/holidays.png";
 const String carImage3 = "assets/images/car3.png";
 const String carImage4 = "assets/images/car4.jpg";
 const String carImage5 = "assets/images/car5.jpg";

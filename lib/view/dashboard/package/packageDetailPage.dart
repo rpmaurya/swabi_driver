@@ -343,7 +343,7 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                     padding:
                         const EdgeInsets.only(left: 10, bottom: 10, top: 10),
                     child: Text(
-                      'Traveller Details',
+                      'Traveller Contacts',
                       style: titleTextStyle,
                     ),
                   ),

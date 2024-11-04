@@ -38,7 +38,8 @@ class _EditProfiePageState extends State<EditProfiePage> {
   final TextEditingController locationController = TextEditingController();
   final TextEditingController genderController = TextEditingController();
 
-  final String _googleApiKey = 'AIzaSyADRdiTbSYUR8oc6-ryM1F1NDNjkHDr0Yo';
+  final String _googleApiKey = 'AIzaSyDhKIUQ4QBoDuOsooDfNY_EjCG0MB7Ami8';
+  // 'AIzaSyADRdiTbSYUR8oc6-ryM1F1NDNjkHDr0Yo';
   String? gengerName;
   FocusNode focusNode1 = FocusNode();
   FocusNode focusNode2 = FocusNode();

@@ -145,8 +145,7 @@ class HistoryDetailsContainer extends StatelessWidget {
                       Expanded(
                         child: ListTile(
                           dense: true,
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 50),
+                          contentPadding: const EdgeInsets.only(left: 50),
                           horizontalTitleGap: 5,
                           leading: SizedBox(
                             width: 40,
