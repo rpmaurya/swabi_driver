@@ -4,6 +4,7 @@ import 'package:flutter_driver/model/getIssueByBookingIdModel.dart';
 import 'package:flutter_driver/res/Custom%20%20Button/custom_btn.dart';
 import 'package:flutter_driver/res/Custom%20Page%20Layout/custom_pageLayout.dart';
 import 'package:flutter_driver/res/customTextWidget.dart';
+import 'package:flutter_driver/utils/assets.dart';
 import 'package:flutter_driver/utils/color.dart';
 import 'package:flutter_driver/utils/dimensions.dart';
 import 'package:flutter_driver/utils/text_styles.dart';
@@ -133,12 +134,17 @@ class _BookingDetailsOfDriverState extends State<BookingDetailsOfDriver> {
                   height: 80,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      (bookingDetails?.vehicle.images ?? []).isEmpty
-                          ? 'https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small/no-image-available-icon-vector.jpg'
-                          : bookingDetails?.vehicle.images[0],
-                      fit: BoxFit.fill,
-                    ),
+                    child: (bookingDetails?.vehicle.images ?? []).isEmpty
+                        ? Image.asset(
+                            car3,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.network(
+                            (bookingDetails?.vehicle.images ?? []).isEmpty
+                                ? 'https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small/no-image-available-icon-vector.jpg'
+                                : bookingDetails?.vehicle.images[0],
+                            fit: BoxFit.fill,
+                          ),
                   ),
                 ),
                 const SizedBox(
@@ -186,17 +192,17 @@ class _BookingDetailsOfDriverState extends State<BookingDetailsOfDriver> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
-                        "⭐ 4.8",
-                        style: GoogleFonts.lato(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700),
-                      ),
+                      // Text(
+                      //   "⭐ 4.8",
+                      //   style: GoogleFonts.lato(
+                      //       color: Colors.black,
+                      //       fontSize: 14,
+                      //       fontWeight: FontWeight.w700),
+                      // ),
                       Text(
                         'AED ${bookingDetails?.rentalCharge ?? ''}',
                         style: const TextStyle(
-                            fontSize: 12, fontWeight: FontWeight.w600),
+                            fontSize: 13, fontWeight: FontWeight.w600),
                       )
                     ],
                   ),

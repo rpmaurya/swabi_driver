@@ -67,7 +67,7 @@ class _PackageManagementScreenState extends State<PackageManagementScreen>
             padding: const EdgeInsets.all(5),
             margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             decoration: BoxDecoration(
-                border: Border.all(color: btnColor),
+                border: Border.all(color: naturalGreyColor.withOpacity(0.3)),
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10)),
             child: TabBar(

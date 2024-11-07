@@ -153,7 +153,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: 10),
             CommonTextFeild(
-              heading: "Mobile",
+              heading: "Contact",
               headingReq: true,
               prefixIcon: true,
               controller:

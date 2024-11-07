@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_driver/res/Custom%20Page%20Layout/custom_pageLayout.dart';
 import 'package:flutter_driver/res/Custom%20Page%20Layout/pageLayout_curve.dart';
 import 'package:flutter_driver/utils/assets.dart';
 import 'package:flutter_driver/utils/color.dart';
@@ -10,9 +11,12 @@ class NotificationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const PageLayout_Curve(appHeading: "Notification",
+    // return const PageLayout_Curve(appHeading: "Notification",
+    return const CustomPagelayout(
+        appBarTitle: 'Notification',
         child: Column(
           children: [
+            SizedBox(height: 10),
             NotificationContainer(),
             NotificationContainer(),
             NotificationContainer(),
@@ -35,20 +39,17 @@ class NotificationContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
-          onTap: () {
-
-          },
+          onTap: () {},
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
-            height: 70,
-            width: AppDimension.getWidth(context)*.9,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: curvePageColor,)
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+              height: 70,
+              width: AppDimension.getWidth(context) * .9,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: curvePageColor,
+                  )),
+              child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 const Stack(
                   children: [
                     SizedBox(
@@ -61,12 +62,13 @@ class NotificationContainer extends StatelessWidget {
                     Positioned(
                         top: 0,
                         left: 10,
-                        child:  SizedBox(
+                        child: SizedBox(
                           width: 15,
-                          height:15,
+                          height: 15,
                           child: CircleAvatar(
                             backgroundColor: Colors.blue,
-                          ),))
+                          ),
+                        ))
                   ],
                 ),
                 Padding(
@@ -78,24 +80,25 @@ class NotificationContainer extends StatelessWidget {
                       SizedBox(
                           height: 20,
                           width: 120,
-                          child: Text("Good Burger",
+                          child: Text(
+                            "Good Burger",
                             style: GoogleFonts.lato(
-                              color: textColor,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600
-                            ),
-                            overflow: TextOverflow.ellipsis,)),
+                                color: textColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600),
+                            overflow: TextOverflow.ellipsis,
+                          )),
                       const SizedBox(height: 5),
                       SizedBox(
                           height: 20,
                           width: 200,
-                          child:  Text("Lorem Ipsum is simply dummy ",
+                          child: Text(
+                            "Lorem Ipsum is simply dummy ",
                             style: GoogleFonts.lato(
                                 color: greyColor,
                                 fontSize: 12,
-                                fontWeight: FontWeight.w600
-                            ),
-                          overflow: TextOverflow.ellipsis,
+                                fontWeight: FontWeight.w600),
+                            overflow: TextOverflow.ellipsis,
                           )),
                     ],
                   ),
@@ -103,13 +106,14 @@ class NotificationContainer extends StatelessWidget {
                 const Spacer(),
                 Align(
                     alignment: Alignment.bottomRight,
-                    child: Text("3.12 pm",style: GoogleFonts.lato(
-                        color: greyColor,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600
-                    ),)),
-              ])
-          ),
+                    child: Text(
+                      "3.12 pm",
+                      style: GoogleFonts.lato(
+                          color: greyColor,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600),
+                    )),
+              ])),
         ),
       ),
     );

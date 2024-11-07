@@ -79,6 +79,6 @@ class UserViewModel with ChangeNotifier {
     sp.remove('baseUrl');
     // sp.clear();
     print("token dismis");
-    Utils.toastSuccessMessage("Logout Successful");
+    Utils.toastSuccessMessage("Logout Successfully");
   }
 }

@@ -179,6 +179,7 @@ class _DriverHistoryManagmentState extends State<DriverHistoryManagment>
                             }, context, item.id.toString(), widget.myID).then(
                                     (value) {});
                           },
+                          carImage: item.vehicle?.images ?? [],
                           seat: item.vehicle?.seats?.toString() ?? "",
                           fuelType: item.vehicle?.fuelType?.toString() ?? "",
                           carName: item.carType?.toString() ?? "",

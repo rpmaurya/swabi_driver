@@ -228,7 +228,9 @@ class _home_screenState extends State<home_screen> {
                     ),
                   ),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        // context.push('/notification');
+                      },
                       icon: const Icon(
                         Icons.notifications_on_sharp,
                         color: background,
@@ -510,6 +512,7 @@ class _home_screenState extends State<home_screen> {
                                                   item.id.toString(),
                                                   uId ?? '').then((value) {});
                                         },
+                                        carImage: item.vehicle?.images ?? [],
                                         seat: item.vehicle?.seats?.toString() ??
                                             "",
                                         fuelType: item.vehicle?.fuelType

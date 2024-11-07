@@ -11,7 +11,7 @@ class HistoryDetailsContainer extends StatelessWidget {
   final String date;
   final String rentalCharge;
   final String status;
-  final String carImage;
+  final List carImage;
   final String fuelType;
   final String seat;
   final VoidCallback? onTapContainer;
@@ -22,7 +22,7 @@ class HistoryDetailsContainer extends StatelessWidget {
       required this.carName,
       required this.date,
       required this.rentalCharge,
-      this.carImage = '',
+      this.carImage = const [],
       required this.status,
       required this.fuelType,
       required this.loader,
@@ -58,9 +58,12 @@ class HistoryDetailsContainer extends StatelessWidget {
                         height: 60,
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
-                            child: Image.asset(
-                                carImage.isEmpty ? car3 : carImage,
-                                fit: BoxFit.cover)),
+                            child: carImage.isEmpty
+                                ? Image.asset(car3, fit: BoxFit.cover)
+                                : Image.network(
+                                    carImage[0],
+                                    fit: BoxFit.fill,
+                                  )),
                       ),
                       title: Text(
                         carName,

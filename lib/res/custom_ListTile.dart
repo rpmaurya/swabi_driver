@@ -6,6 +6,7 @@ import 'package:flutter_driver/utils/text_styles.dart';
 class Custom_ListTile extends StatelessWidget {
   final String img;
   final Color? iconColor;
+  final bool disableColor;
   final String headingTitle;
   final bool headingTitleReq;
   final VoidCallback onTap;
@@ -13,6 +14,7 @@ class Custom_ListTile extends StatelessWidget {
   const Custom_ListTile(
       {this.img = "",
       this.iconColor,
+      this.disableColor = false,
       this.headingTitle = "",
       this.headingTitleReq = false,
       this.heading = "",
@@ -30,7 +32,7 @@ class Custom_ListTile extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 10, top: 5),
           child: Material(
-            color: background,
+            color: disableColor ? Colors.red[50] : background,
             borderRadius: BorderRadius.circular(10),
             child: InkWell(
               borderRadius: BorderRadius.circular(10),

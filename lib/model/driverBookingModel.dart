@@ -547,6 +547,9 @@ class Vehicle {
         createdDate: json["createdDate"]?.toString() ?? "",
         modifiedDate: json["modifiedDate"]?.toString() ?? "",
         images: List<String>.from(json["images"].map((x) => x)),
+        // images: json["images"] != null && json["images"].isNotEmpty
+        //     ? List<String>.from(json["images"].map((x) => x))
+        //     : [],
         vehicleStatus: json["vehicleStatus"]?.toString() ?? "",
         unavailableDates: json["unavailableDates"]?.toString() ?? "",
       );

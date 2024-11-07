@@ -285,8 +285,8 @@ class DetailsContainer extends StatelessWidget {
       children: [
         packagedayStatus == 'COMPLETED'
             ? Container(
-                margin: EdgeInsets.only(bottom: 10),
-                padding: EdgeInsets.all(10),
+                margin: const EdgeInsets.only(bottom: 10),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                     color: Colors.green,
                     // border: Border.all(color: Colors.green),

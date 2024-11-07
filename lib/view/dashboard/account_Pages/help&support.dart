@@ -32,12 +32,14 @@ class HelpAndSupport extends StatelessWidget {
             // ),
             Custom_ListTile(
                 img: contact,
+                disableColor: true,
                 iconColor: btnColor,
                 heading: "Contact",
                 onTap: () {
                   // context.push("/contact");
                 }),
             Custom_ListTile(
+              disableColor: true,
               img: privacyPolicy,
               iconColor: btnColor,
               heading: "Privacy & Policy",

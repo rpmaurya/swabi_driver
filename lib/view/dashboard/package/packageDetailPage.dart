@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_driver/model/getIssueByBookingIdModel.dart';
 import 'package:flutter_driver/res/Custom%20%20Button/custom_btn.dart';
 import 'package:flutter_driver/res/Custom%20Page%20Layout/custom_pageLayout.dart';
+import 'package:flutter_driver/utils/assets.dart';
 import 'package:flutter_driver/utils/color.dart';
 import 'package:flutter_driver/utils/text_styles.dart';
 import 'package:flutter_driver/utils/utils.dart';
@@ -109,12 +110,17 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                           height: 80,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
-                            child: Image.network(
-                              (package?.vehicle?.images ?? []).isEmpty
-                                  ? 'https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small/no-image-available-icon-vector.jpg'
-                                  : package?.vehicle?.images?[0] ?? '',
-                              fit: BoxFit.fill,
-                            ),
+                            child: (package?.vehicle?.images ?? []).isEmpty
+                                ? Image.asset(
+                                    car3,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.network(
+                                    (package?.vehicle?.images ?? []).isEmpty
+                                        ? 'https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small/no-image-available-icon-vector.jpg'
+                                        : package?.vehicle?.images?[0] ?? '',
+                                    fit: BoxFit.fill,
+                                  ),
                           ),
                         ),
                         const SizedBox(
