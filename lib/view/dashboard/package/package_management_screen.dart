@@ -92,7 +92,7 @@ class _PackageManagementScreenState extends State<PackageManagementScreen>
               dividerColor: Colors.transparent,
               indicatorPadding: const EdgeInsets.only(left: 10, right: 10),
               indicatorSize: TabBarIndicatorSize.tab,
-              tabs: [Tab(text: "UP COMING"), Tab(text: "HISTORY")],
+              tabs: const [Tab(text: "UP COMING"), Tab(text: "HISTORY")],
             ),
           ),
           Expanded(

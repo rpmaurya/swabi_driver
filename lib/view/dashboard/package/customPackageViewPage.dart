@@ -121,13 +121,14 @@ class _CustompackageviewpageState extends State<Custompackageviewpage> {
                         : widget.daySatus == 'ONGOING'
                             ? Colors.blue
                             : widget.daySatus == 'PENDING'
-                                ? Colors.yellow
+                                ? Colors.orange
                                 : null,
                     borderRadius: BorderRadius.circular(5)),
                 child: Center(
                   child: Text(
                     widget.daySatus,
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w600),
                     textAlign: TextAlign.center,
                   ),
                 ),

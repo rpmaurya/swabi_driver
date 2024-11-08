@@ -157,84 +157,101 @@ class _home_screenState extends State<home_screen> {
               automaticallyImplyLeading: false,
               backgroundColor: Colors.transparent,
               toolbarHeight: 150,
-              title: Row(
+              title: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    // crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      IconButton(
+                          onPressed: () =>
+                              context.push("/menuPage", extra: {'id': uId}),
+                          icon: const Icon(
+                            Icons.notes_rounded,
+                            size: 26,
+                            color: Colors.white,
+                          )),
+                      const Text(
+                        'Hi,',
+                        style: TextStyle(color: background),
+                      ),
+                      Spacer(),
+                      IconButton(
+                          onPressed: () {
+                            // context.push('/notification');
+                          },
+                          icon: const Icon(
+                            Icons.notifications_on_sharp,
+                            color: background,
+                          )),
+                      InkWell(
+                        onTap: () {
+                          Scrollable.ensureVisible(
+                            _rentalKey.currentContext!,
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeInOut,
+                            alignment: 0.5,
+                          );
+                        },
+                        child: Container(
+                            decoration: BoxDecoration(
+                                // color: background,
+                                borderRadius: BorderRadius.circular(20)),
+                            height: 35,
+                            // width: 25,
+                            // padding: const EdgeInsets.symmetric(
+                            //     vertical: 5, horizontal: 5),
+                            child: Image.asset(
+                              appIcon,
+                              // appLogo1,
+                              fit: BoxFit.cover,
+                            )),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10, bottom: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      // crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                        Column(
                           children: [
-                            IconButton(
-                                onPressed: () => context
-                                    .push("/menuPage", extra: {'id': uId}),
-                                icon: const Icon(
-                                  Icons.notes_rounded,
-                                  size: 26,
-                                  color: Colors.white,
-                                )),
-                            const Text(
-                              'Hi,',
-                              style: TextStyle(color: background),
+                            Container(
+                              height: 45,
+                              width: 45,
+                              decoration:
+                                  const BoxDecoration(shape: BoxShape.circle),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(50),
+                                child: Image.network(
+                                  'https://tse1.mm.bing.net/th?id=OIP.kgD1sf9q75e3KYAajA8FBwHaHa&pid=Api&P=0&h=220',
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
                             ),
                           ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, bottom: 5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            // crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                children: [
-                                  Container(
-                                    height: 45,
-                                    width: 45,
-                                    decoration: const BoxDecoration(
-                                        shape: BoxShape.circle),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(50),
-                                      child: Image.network(
-                                        'https://tse1.mm.bing.net/th?id=OIP.kgD1sf9q75e3KYAajA8FBwHaHa&pid=Api&P=0&h=220',
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(width: 10),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '$userName $userLastName',
-                                    style: const TextStyle(
-                                        color: background, fontSize: 24),
-                                  ),
-                                  Text(
-                                    email,
-                                    style: const TextStyle(
-                                        color: background, fontSize: 14),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
+                        const SizedBox(width: 10),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '$userName $userLastName',
+                              style: const TextStyle(
+                                  color: background, fontSize: 24),
+                            ),
+                            Text(
+                              email,
+                              style: const TextStyle(
+                                  color: background, fontSize: 14),
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ),
-                  IconButton(
-                      onPressed: () {
-                        // context.push('/notification');
-                      },
-                      icon: const Icon(
-                        Icons.notifications_on_sharp,
-                        color: background,
-                      ))
                 ],
               ),
               bottom: PreferredSize(
@@ -312,9 +329,10 @@ class _home_screenState extends State<home_screen> {
                                     alignment: 0.5,
                                   );
                                 },
-                                icon: const Icon(
-                                  Icons.car_rental_outlined,
-                                  size: 30,
+                                icon: Image.asset(
+                                  carRental,
+                                  height: 24,
+                                  // color: bgGreyColor,
                                 )),
                             IconButton(
                                 onPressed: () {
@@ -338,6 +356,7 @@ class _home_screenState extends State<home_screen> {
                                 icon: Image.asset(
                                   holidays,
                                   height: 24,
+                                  // color: bgGreyColor,
                                 ))
                           ],
                         )
@@ -790,68 +809,49 @@ class _home_screenState extends State<home_screen> {
     );
   }
 
-  ///Exit Container Alert Box
+  ///Exit Container Dialog Box
   Widget exitContainer() {
-    return SizedBox(
-      width: AppDimension.getWidth(context) * .7,
-      height: AppDimension.getHeight(context) * .5,
-      child: Dialog(
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.transparent,
-        child: Stack(clipBehavior: Clip.none, children: [
-          SizedBox(
-            width: AppDimension.getWidth(context) * .7,
-            height: AppDimension.getHeight(context) * .25,
-            child: Column(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(top: 50, bottom: 20),
-                  child: CustomTextWidget(
-                      content: "Are you sure want to exit ?",
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      textColor: textColor),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    CustomButtonSmall(
-                      width: 70,
-                      btnHeading: "NO",
-                      onTap: () {
-                        context.pop();
-                      },
-                    ),
-                    CustomButtonSmall(
-                      width: 70,
-                      btnHeading: "YES",
-                      onTap: () {
-                        exit(0);
-                      },
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-          Positioned(
-              top: -60,
-              left: 0,
-              right: 0,
-              child: SizedBox(
-                height: 100,
-                width: 100,
-                child: Card(
-                  surfaceTintColor: background,
-                  elevation: 5,
-                  shape: const CircleBorder(),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Image.asset(question),
+    return Dialog(
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.transparent,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15),
+          child: Column(
+            children: [
+              Text(
+                'Are you sure want to exit ?',
+                style: pageHeadingTextStyle,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomButtonSmall(
+                    width: 70,
+                    height: 40,
+                    btnHeading: "NO",
+                    onTap: () {
+                      context.pop();
+                    },
                   ),
-                ),
-              ))
-        ]),
+                  const SizedBox(
+                    width: 25,
+                  ),
+                  CustomButtonSmall(
+                    width: 70,
+                    height: 40,
+                    btnHeading: "YES",
+                    onTap: () {
+                      exit(0);
+                    },
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

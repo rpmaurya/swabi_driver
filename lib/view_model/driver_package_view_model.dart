@@ -3,6 +3,7 @@ import 'package:flutter_driver/model/driverPackageModel.dart';
 import 'package:flutter_driver/model/driverpackageHistoryModel.dart';
 import 'package:flutter_driver/respository/driverPackageService_repository.dart';
 import 'package:flutter_driver/utils/utils.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DriverPackageViewModel with ChangeNotifier {
@@ -100,23 +101,26 @@ class DriverPackageViewModel with ChangeNotifier {
       "zoneId": zoneId
     };
     try {
+      // return null;
       isLoading = true;
       notifyListeners();
 
-      var value = await driverpackageserviceRepository.startActivityApi(
-          query: query, context: context);
+      await driverpackageserviceRepository
+          .startActivityApi(query: query, context: context)
+          .then((value) {
+        if (value?.status.httpCode == '200') {
+          // driverPackageDetailModel = value;
+          // ignore: use_build_context_synchronously
+          Utils.toastSuccessMessage('Activity Started');
+          context.pop();
+          debugPrint("Driver activity started");
+        } else {
+          debugPrint("Failed to fetch booking details");
+        }
 
-      if (value?.status.httpCode == '200') {
-        // driverPackageDetailModel = value;
-        // ignore: use_build_context_synchronously
-        Utils.toastSuccessMessage('Activity Started');
-        debugPrint("Driver activity started");
-      } else {
-        debugPrint("Failed to fetch booking details");
-      }
-
-      isLoading = false;
-      notifyListeners();
+        isLoading = false;
+        notifyListeners();
+      });
     } catch (e) {
       isLoading = false;
       notifyListeners();
@@ -139,22 +143,23 @@ class DriverPackageViewModel with ChangeNotifier {
       isLoading = true;
       notifyListeners();
 
-      var value = await driverpackageserviceRepository.completeActivityApi(
-          query: query, context: context);
+      await driverpackageserviceRepository
+          .completeActivityApi(query: query, context: context)
+          .then((value) {
+        if (value?.status.httpCode == '200') {
+          // driverPackageDetailModel = value;
+          updateDayStatus('COMPLETED');
+          // ignore: use_build_context_synchronously
+          Utils.toastSuccessMessage('Activity Completed');
+          // context.pop();
+          debugPrint("Driver Activity completed");
+        } else {
+          debugPrint("Failed to fetch booking details");
+        }
 
-      if (value?.status.httpCode == '200') {
-        // driverPackageDetailModel = value;
-        updateDayStatus('COMPLETED');
-        // ignore: use_build_context_synchronously
-        Utils.toastSuccessMessage('Activity Completed');
-
-        debugPrint("Driver Activity completed");
-      } else {
-        debugPrint("Failed to fetch booking details");
-      }
-
-      isLoading = false;
-      notifyListeners();
+        isLoading = false;
+        notifyListeners();
+      });
     } catch (e) {
       isLoading = false;
       notifyListeners();

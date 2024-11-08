@@ -121,27 +121,32 @@ class _PageViewDetailsState extends State<PageViewDetails> {
                         onTap: btn != true
                             ? null
                             : () {
-                                Map<String, dynamic> data = {
-                                  "packageBookingId":
-                                      packageDetails.packageBookingId,
-                                  "date": packageDetails.date,
-                                  // 'date': '22-7-2024',
-                                  "zoneId": _timeZone
-                                };
-                                Provider.of<DriverActivityStartViewModel>(
-                                        context,
-                                        listen: false)
-                                    .fetchDriverActivityStartViewModel(
-                                        data, context)
-                                    .then((onValue) {
-                                  Provider.of<DriverPackageDetailViewModel>(
-                                          context,
-                                          listen: false)
-                                      .updateDayStatus('ONGOING');
+                                showActivityDailog(
+                                    context: context,
+                                    title: 'Start',
+                                    onTap: () {
+                                      Map<String, dynamic> data = {
+                                        "packageBookingId":
+                                            packageDetails.packageBookingId,
+                                        "date": packageDetails.date,
+                                        // 'date': '22-7-2024',
+                                        "zoneId": _timeZone
+                                      };
+                                      Provider.of<DriverActivityStartViewModel>(
+                                              context,
+                                              listen: false)
+                                          .fetchDriverActivityStartViewModel(
+                                              data, context)
+                                          .then((onValue) {
+                                        Provider.of<DriverPackageDetailViewModel>(
+                                                context,
+                                                listen: false)
+                                            .updateDayStatus('ONGOING');
 
-                                  print(
-                                      'package status day    ....${packageDetails.dayStatus}');
-                                });
+                                        print(
+                                            'package status day    ....${packageDetails.dayStatus}');
+                                      });
+                                    });
 
                                 // print(
                                 //     'packege booking id${packageDetails.packageBookingId}');
@@ -160,29 +165,34 @@ class _PageViewDetailsState extends State<PageViewDetails> {
                         onTap: btn != true
                             ? null
                             : () {
-                                Map<String, dynamic> data = {
-                                  "packageBookingId":
-                                      packageDetails.packageBookingId,
-                                  "date": packageDetails.date,
-                                  // 'date': '22-7-2024',
-                                  "zoneId": _timeZone
-                                };
+                                showActivityDailog(
+                                    context: context,
+                                    title: 'Complete',
+                                    onTap: () {
+                                      Map<String, dynamic> data = {
+                                        "packageBookingId":
+                                            packageDetails.packageBookingId,
+                                        "date": packageDetails.date,
+                                        // 'date': '22-7-2024',
+                                        "zoneId": _timeZone
+                                      };
 
-                                Provider.of<DriverActivityCompleteViewModel>(
-                                        context,
-                                        listen: false)
-                                    .fetchDriverActivityCompleteViewModel(
-                                        data, context)
-                                    .then((response) {
-                                  // setState(() {
-                                  Provider.of<DriverPackageDetailViewModel>(
-                                          context,
-                                          listen: false)
-                                      .updateDayStatus('COMPLETED');
-                                  // hideBtn = false;
-                                  // });
-                                });
-                                context.pop('update');
+                                      Provider.of<DriverActivityCompleteViewModel>(
+                                              context,
+                                              listen: false)
+                                          .fetchDriverActivityCompleteViewModel(
+                                              data, context)
+                                          .then((response) {
+                                        // setState(() {
+                                        Provider.of<DriverPackageDetailViewModel>(
+                                                context,
+                                                listen: false)
+                                            .updateDayStatus('COMPLETED');
+                                        // hideBtn = false;
+                                        // });
+                                      });
+                                      context.pop('update');
+                                    });
                               },
                       )
                     : const SizedBox()
@@ -219,6 +229,29 @@ class _PageViewDetailsState extends State<PageViewDetails> {
                 }),
           ),
         ));
+  }
+
+  void showActivityDailog(
+      {required BuildContext context,
+      required String title,
+      required void Function()? onTap}) {
+    showDialog(
+        context: context,
+        barrierDismissible:
+            false, // Prevents closing the modal by tapping outside
+        builder: (BuildContext dialogContext) {
+          return AlertDialog(
+            content: Text('Are you sure you want to $title this activity?'),
+            actions: <Widget>[
+              CustomButtonSmall(
+                  btnHeading: 'No',
+                  onTap: () {
+                    dialogContext.pop();
+                  }),
+              CustomButtonSmall(btnHeading: 'Yes', onTap: onTap)
+            ],
+          );
+        });
   }
 }
 

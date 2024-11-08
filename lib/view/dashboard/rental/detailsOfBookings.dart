@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_driver/model/driverBookingModel.dart';
 import 'package:flutter_driver/model/getIssueByBookingIdModel.dart';
 import 'package:flutter_driver/res/Custom%20%20Button/custom_btn.dart';
@@ -402,38 +403,51 @@ class _BookingDetailsOfDriverState extends State<BookingDetailsOfDriver> {
                                   ? null
                                   : () {
                                       if (bookingDetailsStatus == "BOOKED") {
-                                        Provider.of<DriverOnRunningViewModel>(
-                                                context,
-                                                listen: false)
-                                            .fetchDriverStartRideViewModel(
-                                                {
-                                              "id":
-                                                  bookingDetails?.id.toString(),
-                                              "bookingStatus": "ON_RUNNING"
-                                            },
-                                                context,
-                                                bookingDetails?.id.toString() ??
-                                                    '',
-                                                widget
-                                                    .driverId).then((onValue) {
-                                          Provider.of<DriverGetBookingDetailsViewModel>(
-                                                  context,
-                                                  listen: false)
-                                              .updateBookingStatus(
-                                                  "ON_RUNNING");
-                                        });
+                                        showConfirmation(
+                                            context: context,
+                                            title: 'Start',
+                                            onTap: () {
+                                              Provider.of<DriverOnRunningViewModel>(
+                                                      context,
+                                                      listen: false)
+                                                  .fetchDriverStartRideViewModel(
+                                                      {
+                                                    "id": bookingDetails?.id
+                                                        .toString(),
+                                                    "bookingStatus":
+                                                        "ON_RUNNING"
+                                                  },
+                                                      context,
+                                                      bookingDetails?.id
+                                                              .toString() ??
+                                                          '',
+                                                      widget
+                                                          .driverId).then(
+                                                      (onValue) {
+                                                Provider.of<DriverGetBookingDetailsViewModel>(
+                                                        context,
+                                                        listen: false)
+                                                    .updateBookingStatus(
+                                                        "ON_RUNNING");
+                                              });
+                                            });
                                       } else {
-                                        Provider.of<DriverCompletedBookingViewModel>(
-                                                context,
-                                                listen: false)
-                                            .fetchDriverBookingCompletedViewModel(
-                                                {
-                                              'id':
-                                                  bookingDetails?.id.toString(),
-                                              'bookingStatus': 'COMPLETED'
-                                            },
-                                                context,
-                                                widget.driverId);
+                                        showConfirmation(
+                                            context: context,
+                                            title: 'Complete',
+                                            onTap: () {
+                                              Provider.of<DriverCompletedBookingViewModel>(
+                                                      context,
+                                                      listen: false)
+                                                  .fetchDriverBookingCompletedViewModel(
+                                                      {
+                                                    'id': bookingDetails?.id
+                                                        .toString(),
+                                                    'bookingStatus': 'COMPLETED'
+                                                  },
+                                                      context,
+                                                      widget.driverId);
+                                            });
                                       }
                                     }),
                         )
@@ -455,12 +469,91 @@ class _BookingDetailsOfDriverState extends State<BookingDetailsOfDriver> {
     return Container(
       width: double.infinity,
       height: height,
-      padding: EdgeInsets.all(12),
-      margin: EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.all(12),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
           color: bgGreyColor, borderRadius: BorderRadius.circular(10)),
       child: child,
     );
+  }
+
+  void showConfirmation(
+      {required BuildContext context,
+      required String title,
+      required void Function()? onTap}) {
+    showDialog(
+        context: context,
+        barrierDismissible:
+            false, // Prevents closing the modal by tapping outside
+        builder: (BuildContext dialogContext) {
+          return AlertDialog(
+            actionsAlignment: MainAxisAlignment.center,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            backgroundColor: background,
+            contentPadding: const EdgeInsets.symmetric(vertical: 0),
+            actionsPadding: const EdgeInsets.symmetric(vertical: 0),
+            content: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Are you sure you want to $title this booking?',
+                textAlign: TextAlign.center,
+                style: titleTextStyle,
+              ),
+            ),
+            actions: <Widget>[
+              IconButton(
+                  onPressed: () {
+                    dialogContext.pop();
+                  },
+                  icon: Material(
+                    elevation: 2,
+                    color: background,
+                    borderRadius: BorderRadius.circular(5),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          border: Border.all(
+                            color: naturalGreyColor,
+                          ),
+                          borderRadius: BorderRadius.circular(5)),
+                      child: const Icon(
+                        Icons.close,
+                        size: 25,
+                        color: btnColor,
+                      ),
+                    ),
+                  )),
+              IconButton(
+                  onPressed: onTap,
+                  icon: Material(
+                    elevation: 2,
+                    color: background,
+                    borderRadius: BorderRadius.circular(5),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          border: Border.all(
+                            color: naturalGreyColor,
+                          ),
+                          borderRadius: BorderRadius.circular(5)),
+                      child: const Icon(
+                        Icons.check,
+                        size: 25,
+                        color: greenColor,
+                      ),
+                    ),
+                  ))
+              // CustomButtonSmall(
+              //     width: 80,
+              //     btnHeading: 'No',
+              //     onTap: () {
+              //       dialogContext.pop();
+              //     }),
+              // CustomButtonSmall(width: 80, btnHeading: 'Yes', onTap: onTap)
+            ],
+          );
+        });
   }
 }
 

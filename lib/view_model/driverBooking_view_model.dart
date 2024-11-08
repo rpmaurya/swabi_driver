@@ -159,12 +159,13 @@ class DriverOnRunningViewModel with ChangeNotifier {
   Future fetchDriverStartRideViewModel(
       data, BuildContext context, String bookId, String drvID) async {
     setLoading(true);
+
     setDataList(ApiResponse.loading());
     _myRepo.driverOnRunningRepositoryApi(data).then((value) {
       setLoading(false);
       setDataList(ApiResponse.completed(value));
       print("Driver On Going Success");
-
+      context.pop();
       // Provider.of<DriverOnRunningViewModel>(context,listen: false).
       // fetchDriverStartRideViewModel({
       //   "id": bookId,
@@ -173,7 +174,7 @@ class DriverOnRunningViewModel with ChangeNotifier {
       // context.replace('/bookingDetails',extra: {'bookId': bookId,'myDriverId':drvID});
       // context.replace('/onRunning_DetailsPage',
       //     extra: {'bookId': bookId, 'driverID': drvID});
-      Utils.toastSuccessMessage("Driver Ongoing Successful");
+      Utils.toastSuccessMessage("Driver Ongoing Successfully");
     }).onError((error, stackTrace) {
       setLoading(false);
       setDataList(ApiResponse.error(error.toString()));
@@ -204,10 +205,12 @@ class DriverCompletedBookingViewModel with ChangeNotifier {
   Future fetchDriverBookingCompletedViewModel(
       data, BuildContext context, String driverId) async {
     setLoading(true);
+
     setDataList(ApiResponse.loading());
     _myRepo.driverDriverBookingCompletedRepositoryApi(data).then((value) {
       setLoading(false);
       setDataList(ApiResponse.completed(value));
+      context.pop();
       print("Driver Booking Completed Successfully");
       Provider.of<DriverGetBookingListViewModel>(context, listen: false)
           .fetchDriverGetBookingListViewModel({

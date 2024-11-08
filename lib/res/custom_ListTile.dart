@@ -32,7 +32,8 @@ class Custom_ListTile extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 10, top: 5),
           child: Material(
-            color: disableColor ? Colors.red[50] : background,
+            color:
+                disableColor ? naturalGreyColor.withOpacity(0.2) : background,
             borderRadius: BorderRadius.circular(10),
             child: InkWell(
               borderRadius: BorderRadius.circular(10),
@@ -43,7 +44,9 @@ class Custom_ListTile extends StatelessWidget {
                   horizontal: 15,
                 ),
                 decoration: BoxDecoration(
-                    color: background,
+                    color: disableColor
+                        ? naturalGreyColor.withOpacity(0.2)
+                        : background,
                     borderRadius: BorderRadius.circular(10),
                     border:
                         Border.all(color: naturalGreyColor.withOpacity(0.3))),

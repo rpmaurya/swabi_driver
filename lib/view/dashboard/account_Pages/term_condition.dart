@@ -21,11 +21,11 @@ class TermCondition extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Text("TERMS AND CONDITIONS",
-                  style: pageHeadingTextStyle, textAlign: TextAlign.left),
-              const SizedBox(
-                height: 10,
-              ),
+              // Text("TERMS AND CONDITIONS",
+              //     style: pageHeadingTextStyle, textAlign: TextAlign.left),
+              // const SizedBox(
+              //   height: 10,
+              // ),
               SizedBox(
                 width: AppDimension.getHeight(context) * .9,
                 child: Text(

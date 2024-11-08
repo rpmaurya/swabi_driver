@@ -366,7 +366,7 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                             height: 5,
                           ),
                           package?.alternateMobile == ''
-                              ? SizedBox()
+                              ? const SizedBox()
                               : InfoRow(
                                   label: 'Secondary Contact',
                                   value:
@@ -481,29 +481,36 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                                 onTap: btn != true
                                     ? null
                                     : () {
-                                        if (package?.pickupLocation == null) {
-                                          Utils.toastMessage(
-                                              'Pickup location is empty');
-                                        } else {
-                                          setState(() {
-                                            viewData.isLoading = true;
-                                          });
-                                          viewData.activityStart(
-                                              context: context,
-                                              packageBookingId:
-                                                  package?.packageBookingId,
-                                              date: package?.date,
-                                              zoneId: _timeZone);
-                                          setState(() {
-                                            viewData.isLoading = false;
-                                          });
-                                          if (!viewData.isLoading) {
-                                            Provider.of<DriverPackageViewModel>(
-                                                    context,
-                                                    listen: false)
-                                                .updateDayStatus('ONGOING');
-                                          }
-                                        }
+                                        showConfirmation(
+                                            context: context,
+                                            title: "Start",
+                                            onTap: () {
+                                              if (package?.pickupLocation ==
+                                                  null) {
+                                                Utils.toastMessage(
+                                                    'Pickup location is required to start the ride');
+                                              } else {
+                                                setState(() {
+                                                  viewData.isLoading = true;
+                                                });
+                                                viewData.activityStart(
+                                                    context: context,
+                                                    packageBookingId: package
+                                                        ?.packageBookingId,
+                                                    date: package?.date,
+                                                    zoneId: _timeZone);
+                                                setState(() {
+                                                  viewData.isLoading = false;
+                                                });
+                                                if (!viewData.isLoading) {
+                                                  Provider.of<DriverPackageViewModel>(
+                                                          context,
+                                                          listen: false)
+                                                      .updateDayStatus(
+                                                          'ONGOING');
+                                                }
+                                              }
+                                            });
                                       })
                             : package?.dayStatus == 'ONGOING'
                                 ? CustomButtonSmall(
@@ -517,28 +524,34 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                                     onTap: btn != true
                                         ? null
                                         : () {
-                                            setState(() {
-                                              viewData.isLoading = true;
-                                            });
-                                            Provider.of<DriverPackageViewModel>(
-                                                    context,
-                                                    listen: false)
-                                                .activityComplete(
-                                                    context: context,
-                                                    packageBookingId: package
-                                                        ?.packageBookingId,
-                                                    date: package?.date,
-                                                    zoneId: _timeZone);
-                                            setState(() {
-                                              viewData.isLoading = false;
-                                            });
-                                            if (!viewData.isLoading) {
-                                              Provider.of<DriverPackageViewModel>(
-                                                      context,
-                                                      listen: false)
-                                                  .updateDayStatus('COMPLETED');
-                                              context.pop('update');
-                                            }
+                                            showConfirmation(
+                                                context: context,
+                                                title: 'Complete',
+                                                onTap: () {
+                                                  setState(() {
+                                                    viewData.isLoading = true;
+                                                  });
+                                                  Provider.of<DriverPackageViewModel>(
+                                                          context,
+                                                          listen: false)
+                                                      .activityComplete(
+                                                          context: context,
+                                                          packageBookingId: package
+                                                              ?.packageBookingId,
+                                                          date: package?.date,
+                                                          zoneId: _timeZone);
+                                                  setState(() {
+                                                    viewData.isLoading = false;
+                                                  });
+                                                  if (!viewData.isLoading) {
+                                                    Provider.of<DriverPackageViewModel>(
+                                                            context,
+                                                            listen: false)
+                                                        .updateDayStatus(
+                                                            'COMPLETED');
+                                                    context.pop('update');
+                                                  }
+                                                });
                                           })
                                 : Container()
                       ],
@@ -577,6 +590,85 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
           color: bgGreyColor, borderRadius: BorderRadius.circular(10)),
       child: child,
     );
+  }
+
+  void showConfirmation(
+      {required BuildContext context,
+      required String title,
+      required void Function()? onTap}) {
+    showDialog(
+        context: context,
+        barrierDismissible:
+            false, // Prevents closing the modal by tapping outside
+        builder: (BuildContext dialogContext) {
+          return AlertDialog(
+            actionsAlignment: MainAxisAlignment.center,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            backgroundColor: background,
+            contentPadding: const EdgeInsets.symmetric(vertical: 0),
+            actionsPadding: const EdgeInsets.symmetric(vertical: 0),
+            content: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Are you sure you want to $title this activity?',
+                textAlign: TextAlign.center,
+                style: titleTextStyle,
+              ),
+            ),
+            actions: <Widget>[
+              IconButton(
+                  onPressed: () {
+                    dialogContext.pop();
+                  },
+                  icon: Material(
+                    elevation: 2,
+                    color: background,
+                    borderRadius: BorderRadius.circular(5),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          border: Border.all(
+                            color: naturalGreyColor,
+                          ),
+                          borderRadius: BorderRadius.circular(5)),
+                      child: const Icon(
+                        Icons.close,
+                        size: 25,
+                        color: btnColor,
+                      ),
+                    ),
+                  )),
+              IconButton(
+                  onPressed: onTap,
+                  icon: Material(
+                    elevation: 2,
+                    color: background,
+                    borderRadius: BorderRadius.circular(5),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          border: Border.all(
+                            color: naturalGreyColor,
+                          ),
+                          borderRadius: BorderRadius.circular(5)),
+                      child: const Icon(
+                        Icons.check,
+                        size: 25,
+                        color: greenColor,
+                      ),
+                    ),
+                  ))
+              // CustomButtonSmall(
+              //     width: 80,
+              //     btnHeading: 'No',
+              //     onTap: () {
+              //       dialogContext.pop();
+              //     }),
+              // CustomButtonSmall(width: 80, btnHeading: 'Yes', onTap: onTap)
+            ],
+          );
+        });
   }
 }
 

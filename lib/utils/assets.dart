@@ -10,6 +10,7 @@ const String pass = "assets/images/password.png";
 const String email = "assets/images/email.png";
 const String backArrowIcon = "assets/images/leftarrowbox_icon.png";
 const String appLogo = "assets/images/kCb-logo.png";
+const String appIcon = "assets/images/App-icon1.png";
 const String appLogo1 = "assets/images/Asset 233000 1.png";
 const String filter = "assets/images/filter.png";
 const String ride = "assets/images/ride_kCab.png";
@@ -20,7 +21,7 @@ const String tnc = "assets/images/tnc.png";
 const String rideIssue = "assets/images/ride_issue.webp";
 const String otherIssue = "assets/images/other_issue.png";
 const String privacyPolicy = "assets/images/privacy-policy.png";
-
+const String carRental = "assets/images/car-rental.png";
 const String user = "assets/images/user.png";
 const String phone = "assets/images/telephone.png";
 const String gender = "assets/images/gender.png";
