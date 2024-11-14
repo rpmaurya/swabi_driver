@@ -114,14 +114,14 @@ class _CustompackageviewpageState extends State<Custompackageviewpage> {
             children: [
               Container(
                 height: 35,
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                     color: widget.daySatus == 'COMPLETED'
-                        ? Colors.green
+                        ? greenColor
                         : widget.daySatus == 'ONGOING'
-                            ? Colors.blue
+                            ? Colors.orange
                             : widget.daySatus == 'PENDING'
-                                ? Colors.orange
+                                ? redColor
                                 : null,
                     borderRadius: BorderRadius.circular(5)),
                 child: Center(

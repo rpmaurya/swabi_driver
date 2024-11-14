@@ -201,12 +201,12 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                   ),
                   containerItem(
                       context,
-                      180,
+                      null,
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(
-                            height: 165,
+                            height: 160,
                             child: VerticalDivider(
                               width: 3,
                               thickness: 3,
@@ -229,9 +229,27 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       left: 15, bottom: 10),
-                                  child: Text(
-                                    'Status : ${package?.dayStatus}',
-                                    style: textTextStyle1,
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Status :  ',
+                                        style: titleTextStyle,
+                                      ),
+                                      Text(
+                                        '${package?.dayStatus}',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color:
+                                                package?.dayStatus == 'PENDING'
+                                                    ? redColor
+                                                    : package?.dayStatus ==
+                                                            'ONGOING'
+                                                        ? Colors.orange
+                                                        : greenColor),
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 Container(
@@ -274,7 +292,7 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                                         child: Text(
                                           '${package?.pickupLocation ?? 'N/A'}',
                                           overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
+                                          maxLines: 2,
                                           style: textTextStyle1,
                                         ),
                                       ),
@@ -335,33 +353,14 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                             height: 5,
                           ),
                           InfoRow(
-                              label: 'Contact No',
-                              value:
-                                  '+${package?.user?.countryCode} ${package?.user?.mobile}'),
+                              label: 'Email', value: '${package?.user?.email}'),
                           const SizedBox(
                             height: 5,
                           ),
                           InfoRow(
-                              label: 'Email', value: '${package?.user?.email}'),
-                        ],
-                      )),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 10, bottom: 10, top: 10),
-                    child: Text(
-                      'Traveller Contacts',
-                      style: titleTextStyle,
-                    ),
-                  ),
-                  containerItem(
-                      context,
-                      null,
-                      Column(
-                        children: [
-                          InfoRow(
                               label: 'Primary Contact',
                               value:
-                                  '+${package?.countryCode} ${package?.mobile}'),
+                                  '+${package?.user?.countryCode} ${package?.user?.mobile}'),
                           const SizedBox(
                             height: 5,
                           ),
@@ -373,6 +372,29 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                                       '+${package?.alternateMobileCountryCode} ${package?.alternateMobile}'),
                         ],
                       )),
+                  // Padding(
+                  //   padding:
+                  //       const EdgeInsets.only(left: 10, bottom: 10, top: 10),
+                  //   child: Text(
+                  //     'Traveller Contacts',
+                  //     style: titleTextStyle,
+                  //   ),
+                  // ),
+                  // containerItem(
+                  //     context,
+                  //     null,
+                  //     Column(
+                  //       children: [
+                  //         InfoRow(
+                  //             label: 'Primary Contact',
+                  //             value:
+                  //                 '+${package?.countryCode} ${package?.mobile}'),
+                  //         const SizedBox(
+                  //           height: 5,
+                  //         ),
+
+                  //       ],
+                  //     )),
                   Padding(
                     padding:
                         const EdgeInsets.only(left: 10, bottom: 10, top: 10),
@@ -446,117 +468,131 @@ class _PackagedetailpageState extends State<Packagedetailpage> {
                           ),
                         );
                       }),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        (getIssueByBookingId?.data ?? []).isEmpty
-                            ? CustomButtonSmall(
-                                height: 40,
-                                width: 120,
-                                btnHeading: 'Raise Issue',
-                                onTap: () {
-                                  context.push('/rideIssue', extra: {
-                                    'bookingId':
-                                        package?.packageBookingId ?? '',
-                                    'bookingType': 'PACKAGE_BOOKING'
-                                  });
-                                })
-                            : CustomButtonSmall(
-                                height: 40,
-                                width: 120,
-                                btnHeading: 'View Issue',
-                                onTap: () {
-                                  context.push("/getRaiseIssue");
-                                }),
-                        package?.dayStatus == 'PENDING'
-                            ? CustomButtonSmall(
-                                width: 170,
-                                height: 40,
-                                btnHeading: 'Activity Start',
-                                isEnabled: formattedTodayDate == package?.date
-                                    ? btn = true
-                                    : false,
-                                onTap: btn != true
-                                    ? null
-                                    : () {
-                                        showConfirmation(
-                                            context: context,
-                                            title: "Start",
-                                            onTap: () {
-                                              if (package?.pickupLocation ==
-                                                  null) {
-                                                Utils.toastMessage(
-                                                    'Pickup location is required to start the ride');
-                                              } else {
-                                                setState(() {
-                                                  viewData.isLoading = true;
-                                                });
-                                                viewData.activityStart(
-                                                    context: context,
-                                                    packageBookingId: package
-                                                        ?.packageBookingId,
-                                                    date: package?.date,
-                                                    zoneId: _timeZone);
-                                                setState(() {
-                                                  viewData.isLoading = false;
-                                                });
-                                                if (!viewData.isLoading) {
-                                                  Provider.of<DriverPackageViewModel>(
-                                                          context,
-                                                          listen: false)
-                                                      .updateDayStatus(
-                                                          'ONGOING');
-                                                }
-                                              }
-                                            });
+                  (package?.dayStatus == 'COMPLETED' ||
+                          package?.dayStatus == 'CANCELLED')
+                      ? const SizedBox.shrink()
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              (getIssueByBookingId?.data ?? []).isEmpty
+                                  ? CustomButtonSmall(
+                                      height: 40,
+                                      width: 120,
+                                      btnHeading: 'Raise Issue',
+                                      onTap: () {
+                                        context.push('/rideIssue', extra: {
+                                          'bookingId':
+                                              package?.packageBookingId ?? '',
+                                          'bookingType': 'PACKAGE_BOOKING'
+                                        });
                                       })
-                            : package?.dayStatus == 'ONGOING'
-                                ? CustomButtonSmall(
-                                    width: 170,
-                                    height: 40,
-                                    btnHeading: 'Activity Complete',
-                                    isEnabled:
-                                        formattedTodayDate == package?.date
-                                            ? btn = true
-                                            : false,
-                                    onTap: btn != true
-                                        ? null
-                                        : () {
-                                            showConfirmation(
-                                                context: context,
-                                                title: 'Complete',
-                                                onTap: () {
-                                                  setState(() {
-                                                    viewData.isLoading = true;
-                                                  });
-                                                  Provider.of<DriverPackageViewModel>(
-                                                          context,
-                                                          listen: false)
-                                                      .activityComplete(
+                                  : CustomButtonSmall(
+                                      height: 40,
+                                      width: 120,
+                                      btnHeading: 'View Issue',
+                                      onTap: () {
+                                        context.push("/getRaiseIssue");
+                                      }),
+                              package?.dayStatus == 'PENDING'
+                                  ? CustomButtonSmall(
+                                      width: 170,
+                                      height: 40,
+                                      btnHeading: 'Activity Start',
+                                      isEnabled:
+                                          formattedTodayDate == package?.date
+                                              ? btn = true
+                                              : false,
+                                      onTap: btn != true
+                                          ? null
+                                          : () {
+                                              showConfirmation(
+                                                  context: context,
+                                                  title: "Start",
+                                                  onTap: () {
+                                                    if (package
+                                                            ?.pickupLocation ==
+                                                        null) {
+                                                      Utils.toastMessage(
+                                                          'Pickup location is required to start the ride');
+                                                    } else {
+                                                      setState(() {
+                                                        viewData.isLoading =
+                                                            true;
+                                                      });
+                                                      viewData.activityStart(
                                                           context: context,
                                                           packageBookingId: package
                                                               ?.packageBookingId,
                                                           date: package?.date,
                                                           zoneId: _timeZone);
-                                                  setState(() {
-                                                    viewData.isLoading = false;
+                                                      setState(() {
+                                                        viewData.isLoading =
+                                                            false;
+                                                      });
+                                                      if (!viewData.isLoading) {
+                                                        Provider.of<DriverPackageViewModel>(
+                                                                context,
+                                                                listen: false)
+                                                            .updateDayStatus(
+                                                                'ONGOING');
+                                                      }
+                                                    }
                                                   });
-                                                  if (!viewData.isLoading) {
-                                                    Provider.of<DriverPackageViewModel>(
-                                                            context,
-                                                            listen: false)
-                                                        .updateDayStatus(
-                                                            'COMPLETED');
-                                                    context.pop('update');
-                                                  }
-                                                });
-                                          })
-                                : Container()
-                      ],
-                    ),
-                  )
+                                            })
+                                  : package?.dayStatus == 'ONGOING'
+                                      ? CustomButtonSmall(
+                                          width: 170,
+                                          height: 40,
+                                          btnHeading: 'Activity Complete',
+                                          isEnabled: formattedTodayDate ==
+                                                  package?.date
+                                              ? btn = true
+                                              : false,
+                                          onTap: btn != true
+                                              ? null
+                                              : () {
+                                                  showConfirmation(
+                                                      context: context,
+                                                      title: 'Complete',
+                                                      onTap: () {
+                                                        setState(() {
+                                                          viewData.isLoading =
+                                                              true;
+                                                        });
+                                                        Provider.of<DriverPackageViewModel>(
+                                                                context,
+                                                                listen: false)
+                                                            .activityComplete(
+                                                                context:
+                                                                    context,
+                                                                packageBookingId:
+                                                                    package
+                                                                        ?.packageBookingId,
+                                                                date: package
+                                                                    ?.date,
+                                                                zoneId:
+                                                                    _timeZone);
+                                                        setState(() {
+                                                          viewData.isLoading =
+                                                              false;
+                                                        });
+                                                        if (!viewData
+                                                            .isLoading) {
+                                                          Provider.of<DriverPackageViewModel>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .updateDayStatus(
+                                                                  'COMPLETED');
+                                                          context.pop('update');
+                                                        }
+                                                      });
+                                                })
+                                      : Container()
+                            ],
+                          ),
+                        )
                 ],
               ),
             ),

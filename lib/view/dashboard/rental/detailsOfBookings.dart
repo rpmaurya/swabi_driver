@@ -213,12 +213,12 @@ class _BookingDetailsOfDriverState extends State<BookingDetailsOfDriver> {
           ),
           containerItem(
               context,
-              180,
+              null,
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(
-                    height: 165,
+                    height: 160,
                     child: VerticalDivider(
                       width: 3,
                       thickness: 3,
@@ -239,9 +239,25 @@ class _BookingDetailsOfDriverState extends State<BookingDetailsOfDriver> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 15, bottom: 10),
-                          child: Text(
-                            'Status : ${bookingDetails?.bookingStatus == 'ON_RUNNING' ? 'ONGOING' : bookingDetails?.bookingStatus}',
-                            style: textTextStyle1,
+                          child: Row(
+                            children: [
+                              Text(
+                                'Status : ',
+                                style: textTextStyle1,
+                              ),
+                              Text(
+                                ' ${bookingDetails?.bookingStatus == 'ON_RUNNING' ? 'ONGOING' : bookingDetails?.bookingStatus}',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: bookingDetails?.bookingStatus ==
+                                            'CANCELLED'
+                                        ? redColor
+                                        : bookingDetails?.bookingStatus ==
+                                                'ON_RUNNING'
+                                            ? Colors.orange
+                                            : greenColor),
+                              ),
+                            ],
                           ),
                         ),
                         Container(
@@ -280,7 +296,7 @@ class _BookingDetailsOfDriverState extends State<BookingDetailsOfDriver> {
                                 child: Text(
                                   bookingDetails?.pickupLocation ?? 'N/A',
                                   overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
+                                  maxLines: 2,
                                   style: textTextStyle1,
                                 ),
                               ),
@@ -351,111 +367,118 @@ class _BookingDetailsOfDriverState extends State<BookingDetailsOfDriver> {
                 ],
               )),
           const Spacer(),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  (getIssueByBookingId?.data ?? []).isEmpty
-                      ? CustomButtonSmall(
-                          width: 120,
-                          height: 45,
-                          btnHeading: 'Raise Issue',
-                          onTap: () {
-                            context.push('/rideIssue', extra: {
-                              'bookingId': bookingDetails?.id ?? '',
-                              'bookingType': 'RENTAL_BOOKING'
-                            });
-                          })
-                      : CustomButtonSmall(
-                          height: 45,
-                          width: 120,
-                          btnHeading: 'View Issue',
-                          onTap: () {
-                            context.push("/getRaiseIssue");
-                          }),
-                  bookingDetailsStatus == "BOOKED" ||
-                          bookingDetailsStatus == "ON_RUNNING"
-                      ? Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: CustomButtonSmall(
-                              height: 45,
-                              loading: bookingDetailsStatus == "BOOKED"
-                                  ? Provider.of<DriverOnRunningViewModel>(
-                                          context,
-                                          listen: true)
-                                      .loading
-                                  : Provider.of<
-                                              DriverCompletedBookingViewModel>(
-                                          context,
-                                          listen: true)
-                                      .loading,
-                              width: 120,
-                              btnHeading: bookingDetailsStatus == "BOOKED"
-                                  ? "Start"
-                                  : "Complete",
-                              isEnabled:
-                                  formattedTodayDate == bookingDetails?.date
-                                      ? btnEnable = true
-                                      : false,
-                              onTap: btnEnable != true
-                                  ? null
-                                  : () {
-                                      if (bookingDetailsStatus == "BOOKED") {
-                                        showConfirmation(
-                                            context: context,
-                                            title: 'Start',
-                                            onTap: () {
-                                              Provider.of<DriverOnRunningViewModel>(
-                                                      context,
-                                                      listen: false)
-                                                  .fetchDriverStartRideViewModel(
-                                                      {
-                                                    "id": bookingDetails?.id
-                                                        .toString(),
-                                                    "bookingStatus":
-                                                        "ON_RUNNING"
-                                                  },
-                                                      context,
-                                                      bookingDetails?.id
-                                                              .toString() ??
-                                                          '',
-                                                      widget
-                                                          .driverId).then(
-                                                      (onValue) {
-                                                Provider.of<DriverGetBookingDetailsViewModel>(
-                                                        context,
-                                                        listen: false)
-                                                    .updateBookingStatus(
-                                                        "ON_RUNNING");
-                                              });
-                                            });
-                                      } else {
-                                        showConfirmation(
-                                            context: context,
-                                            title: 'Complete',
-                                            onTap: () {
-                                              Provider.of<DriverCompletedBookingViewModel>(
-                                                      context,
-                                                      listen: false)
-                                                  .fetchDriverBookingCompletedViewModel(
-                                                      {
-                                                    'id': bookingDetails?.id
-                                                        .toString(),
-                                                    'bookingStatus': 'COMPLETED'
-                                                  },
-                                                      context,
-                                                      widget.driverId);
-                                            });
-                                      }
-                                    }),
-                        )
-                      : const SizedBox(),
-                ],
-              ),
-            ),
-          )
+          bookingDetailsStatus == "COMPLETED"
+              ? const SizedBox.shrink()
+              : Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        (getIssueByBookingId?.data ?? []).isEmpty
+                            ? CustomButtonSmall(
+                                width: 120,
+                                height: 45,
+                                btnHeading: 'Raise Issue',
+                                onTap: () {
+                                  context.push('/rideIssue', extra: {
+                                    'bookingId': bookingDetails?.id ?? '',
+                                    'bookingType': 'RENTAL_BOOKING'
+                                  });
+                                })
+                            : CustomButtonSmall(
+                                height: 45,
+                                width: 120,
+                                btnHeading: 'View Issue',
+                                onTap: () {
+                                  context.push("/getRaiseIssue");
+                                }),
+                        bookingDetailsStatus == "BOOKED" ||
+                                bookingDetailsStatus == "ON_RUNNING"
+                            ? Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: CustomButtonSmall(
+                                    height: 45,
+                                    loading: bookingDetailsStatus == "BOOKED"
+                                        ? Provider.of<DriverOnRunningViewModel>(
+                                                context,
+                                                listen: true)
+                                            .loading
+                                        : Provider.of<
+                                                    DriverCompletedBookingViewModel>(
+                                                context,
+                                                listen: true)
+                                            .loading,
+                                    width: 120,
+                                    btnHeading: bookingDetailsStatus == "BOOKED"
+                                        ? "Start"
+                                        : "Complete",
+                                    isEnabled: formattedTodayDate ==
+                                            bookingDetails?.date
+                                        ? btnEnable = true
+                                        : false,
+                                    onTap: btnEnable != true
+                                        ? null
+                                        : () {
+                                            if (bookingDetailsStatus ==
+                                                "BOOKED") {
+                                              showConfirmation(
+                                                  context: context,
+                                                  title: 'Start',
+                                                  onTap: () {
+                                                    Provider.of<DriverOnRunningViewModel>(
+                                                            context,
+                                                            listen: false)
+                                                        .fetchDriverStartRideViewModel(
+                                                            {
+                                                          "id": bookingDetails
+                                                              ?.id
+                                                              .toString(),
+                                                          "bookingStatus":
+                                                              "ON_RUNNING"
+                                                        },
+                                                            context,
+                                                            bookingDetails?.id
+                                                                    .toString() ??
+                                                                '',
+                                                            widget
+                                                                .driverId).then(
+                                                            (onValue) {
+                                                      Provider.of<DriverGetBookingDetailsViewModel>(
+                                                              context,
+                                                              listen: false)
+                                                          .updateBookingStatus(
+                                                              "ON_RUNNING");
+                                                    });
+                                                  });
+                                            } else {
+                                              showConfirmation(
+                                                  context: context,
+                                                  title: 'Complete',
+                                                  onTap: () {
+                                                    Provider.of<DriverCompletedBookingViewModel>(
+                                                            context,
+                                                            listen: false)
+                                                        .fetchDriverBookingCompletedViewModel(
+                                                            {
+                                                          'id': bookingDetails
+                                                              ?.id
+                                                              .toString(),
+                                                          'bookingStatus':
+                                                              'COMPLETED'
+                                                        },
+                                                            context,
+                                                            widget.driverId);
+                                                  });
+                                            }
+                                          }),
+                              )
+                            : const SizedBox(),
+                      ],
+                    ),
+                  ),
+                )
         ],
       ),
     );

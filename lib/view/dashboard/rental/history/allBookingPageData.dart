@@ -9,6 +9,8 @@ import 'package:google_fonts/google_fonts.dart';
 class HistoryDetailsContainer extends StatelessWidget {
   final String carName;
   final String date;
+  final String bookingId;
+
   final String rentalCharge;
   final String status;
   final List carImage;
@@ -21,6 +23,7 @@ class HistoryDetailsContainer extends StatelessWidget {
       this.onTapContainer,
       required this.carName,
       required this.date,
+      required this.bookingId,
       required this.rentalCharge,
       this.carImage = const [],
       required this.status,
@@ -74,19 +77,29 @@ class HistoryDetailsContainer extends StatelessWidget {
                       ),
                       subtitle: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: Row(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Icon(Icons.calendar_month_outlined, size: 18),
-                            const SizedBox(
-                              width: 5,
+                            Row(
+                              children: [
+                                const Icon(Icons.calendar_month_outlined,
+                                    size: 18),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  date,
+                                  style: GoogleFonts.lato(
+                                      color: greyColor1,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ],
                             ),
                             Text(
-                              date,
-                              style: GoogleFonts.lato(
-                                  color: greyColor1,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600),
-                            ),
+                              'Booking Id : $bookingId',
+                              style: textTextStyle,
+                            )
                           ],
                         ),
                       ),
@@ -191,7 +204,9 @@ class HistoryDetailsContainer extends StatelessWidget {
                           decoration: BoxDecoration(
                               color: status == "CANCELLED"
                                   ? redColor.withOpacity(.1)
-                                  : greenColor.withOpacity(.1),
+                                  : status == "ONGOING"
+                                      ? Colors.orange.withOpacity(0.1)
+                                      : greenColor.withOpacity(.1),
                               borderRadius: BorderRadius.circular(5)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -201,7 +216,9 @@ class HistoryDetailsContainer extends StatelessWidget {
                                 style: GoogleFonts.lato(
                                     color: status == "CANCELLED"
                                         ? redColor
-                                        : greenColor,
+                                        : status == "ONGOING"
+                                            ? Colors.orange
+                                            : greenColor,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600),
                               ),

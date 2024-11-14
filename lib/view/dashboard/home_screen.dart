@@ -176,7 +176,7 @@ class _home_screenState extends State<home_screen> {
                         'Hi,',
                         style: TextStyle(color: background),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       IconButton(
                           onPressed: () {
                             // context.push('/notification');
@@ -216,24 +216,24 @@ class _home_screenState extends State<home_screen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       // crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
-                          children: [
-                            Container(
-                              height: 45,
-                              width: 45,
-                              decoration:
-                                  const BoxDecoration(shape: BoxShape.circle),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(50),
-                                child: Image.network(
-                                  'https://tse1.mm.bing.net/th?id=OIP.kgD1sf9q75e3KYAajA8FBwHaHa&pid=Api&P=0&h=220',
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(width: 10),
+                        // Column(
+                        //   children: [
+                        //     // Container(
+                        //     //   height: 45,
+                        //     //   width: 45,
+                        //     //   decoration:
+                        //     //       const BoxDecoration(shape: BoxShape.circle),
+                        //     //   child: ClipRRect(
+                        //     //     borderRadius: BorderRadius.circular(50),
+                        //     //     child: Image.network(
+                        //     //       'https://tse1.mm.bing.net/th?id=OIP.kgD1sf9q75e3KYAajA8FBwHaHa&pid=Api&P=0&h=220',
+                        //     //       fit: BoxFit.fill,
+                        //     //     ),
+                        //     //   ),
+                        //     // ),
+                        //   ],
+                        // ),
+                        // const SizedBox(width: 10),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -531,13 +531,16 @@ class _home_screenState extends State<home_screen> {
                                                   item.id.toString(),
                                                   uId ?? '').then((value) {});
                                         },
+                                        bookingId: item.id ?? '',
                                         carImage: item.vehicle?.images ?? [],
                                         seat: item.vehicle?.seats?.toString() ??
                                             "",
                                         fuelType: item.vehicle?.fuelType
                                                 ?.toString() ??
                                             "",
-                                        carName: item.carType?.toString() ?? "",
+                                        carName:
+                                            item.vehicle?.carName.toString() ??
+                                                "",
                                         status:
                                             item.bookingStatus == 'ON_RUNNING'
                                                 ? 'ONGOING'
@@ -690,7 +693,7 @@ class _home_screenState extends State<home_screen> {
                                     var activity = package.activityList
                                         .map((e) => e.activityName)
                                         .toList();
-                                    print(
+                                    debugPrint(
                                         'activityname...${package.activityList.length}');
                                     return Custompackageviewpage(
                                       driverAssignId:
@@ -731,7 +734,7 @@ class _home_screenState extends State<home_screen> {
                                                           .driverId
                                                           .toString()
                                                     }).then((onValue) {
-                                                  print(
+                                                  debugPrint(
                                                       'object.........updated');
                                                   WidgetsBinding.instance
                                                       .addPostFrameCallback(

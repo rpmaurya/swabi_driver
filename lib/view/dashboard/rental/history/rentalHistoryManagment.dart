@@ -177,12 +177,15 @@ class _DriverHistoryManagmentState extends State<DriverHistoryManagment>
                                 .fetchDriverGetBookingDetailsViewModel({
                               "id": item.id.toString(),
                             }, context, item.id.toString(), widget.myID).then(
-                                    (value) {});
+                                    (value) {
+                              getPackageBooking();
+                            });
                           },
+                          bookingId: item.id ?? '',
                           carImage: item.vehicle?.images ?? [],
                           seat: item.vehicle?.seats?.toString() ?? "",
                           fuelType: item.vehicle?.fuelType?.toString() ?? "",
-                          carName: item.carType?.toString() ?? "",
+                          carName: item.vehicle?.carName ?? "",
                           status: item.bookingStatus == 'ON_RUNNING'
                               ? 'ONGOING'
                               : item.bookingStatus.toString(),
@@ -199,61 +202,61 @@ class _DriverHistoryManagmentState extends State<DriverHistoryManagment>
             })));
   }
 
-  Widget buildTabView(BuildContext context, String status, List<dynamic> data,
-      String currentStatus) {
-    if (currentStatus == status) {
-      if (data.isNotEmpty) {
-        return ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          itemCount: data.length,
-          itemBuilder: (context, index) {
-            // Safeguard to ensure index is within bounds
-            if (index < 0 || index >= data.length) {
-              return const SizedBox
-                  .shrink(); // Return an empty widget if the index is out of bounds
-            }
-            final item = data[index];
-            return HistoryDetailsContainer(
-              loader: status == "Status.loading",
-              onTapContainer: () {
-                Provider.of<DriverGetBookingDetailsViewModel>(context,
-                        listen: false)
-                    .fetchDriverGetBookingDetailsViewModel({
-                  "id": item.id.toString(),
-                }, context, item.id.toString(), widget.myID).then((value) {});
-              },
-              seat: item.vehicle?.seats?.toString() ?? "",
-              fuelType: item.vehicle?.fuelType?.toString() ?? "",
-              carName: item.carType?.toString() ?? "",
-              status: item.bookingStatus == 'ON_RUNNING'
-                  ? 'ONGOING'
-                  : item.bookingStatus.toString(),
-              date: item.date?.toString() ?? "",
-              rentalCharge: item.rentalCharge?.toString() ?? "",
-            );
-          },
-        );
-      } else {
-        return Center(
-          child: Container(
-            decoration: const BoxDecoration(),
-            child: Text(
-              "No Data",
-              style: GoogleFonts.lato(
-                fontSize: 15,
-                color: Colors.red,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-        );
-      }
-    } else {
-      return const Center(
-        child: CircularProgressIndicator(
-          color: Colors.green,
-        ),
-      );
-    }
-  }
+//   Widget buildTabView(BuildContext context, String status, List<dynamic> data,
+//       String currentStatus) {
+//     if (currentStatus == status) {
+//       if (data.isNotEmpty) {
+//         return ListView.builder(
+//           physics: const BouncingScrollPhysics(),
+//           itemCount: data.length,
+//           itemBuilder: (context, index) {
+//             // Safeguard to ensure index is within bounds
+//             if (index < 0 || index >= data.length) {
+//               return const SizedBox
+//                   .shrink(); // Return an empty widget if the index is out of bounds
+//             }
+//             final item = data[index];
+//             return HistoryDetailsContainer(
+//               loader: status == "Status.loading",
+//               onTapContainer: () {
+//                 Provider.of<DriverGetBookingDetailsViewModel>(context,
+//                         listen: false)
+//                     .fetchDriverGetBookingDetailsViewModel({
+//                   "id": item.id.toString(),
+//                 }, context, item.id.toString(), widget.myID).then((value) {});
+//               },
+//               seat: item.vehicle?.seats?.toString() ?? "",
+//               fuelType: item.vehicle?.fuelType?.toString() ?? "",
+//               carName: item.carType?.toString() ?? "",
+//               status: item.bookingStatus == 'ON_RUNNING'
+//                   ? 'ONGOING'
+//                   : item.bookingStatus.toString(),
+//               date: item.date?.toString() ?? "",
+//               rentalCharge: item.rentalCharge?.toString() ?? "",
+//             );
+//           },
+//         );
+//       } else {
+//         return Center(
+//           child: Container(
+//             decoration: const BoxDecoration(),
+//             child: Text(
+//               "No Data",
+//               style: GoogleFonts.lato(
+//                 fontSize: 15,
+//                 color: Colors.red,
+//                 fontWeight: FontWeight.w600,
+//               ),
+//             ),
+//           ),
+//         );
+//       }
+//     } else {
+//       return const Center(
+//         child: CircularProgressIndicator(
+//           color: Colors.green,
+//         ),
+//       );
+//     }
+//   }
 }

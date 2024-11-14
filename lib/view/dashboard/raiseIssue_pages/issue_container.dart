@@ -36,24 +36,14 @@ class IssueContainer extends StatelessWidget {
       child: Column(
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  itemtile(lable: 'Issue Id', vale: issueId),
-                  itemtile(lable: 'Booking Id', vale: bookingId)
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  itemtile(lable: 'Driver Id', vale: userId),
-                  itemtile(lable: 'Issue Date', vale: issueDate),
-                ],
-              ),
+              itemtile(lable: 'Issue Id', vale: issueId),
+              itemtile(lable: 'Booking Id', vale: bookingId)
             ],
           ),
+          itemtile(lable: 'Issue Date', vale: issueDate),
           itemText(
               lable: 'Booking Type',
               value: bookingType == "RENTAL_BOOKING"
@@ -77,7 +67,11 @@ class IssueContainer extends StatelessWidget {
                     // width: 120,
                     padding: EdgeInsets.only(left: 10, right: 10),
                     decoration: BoxDecoration(
-                        color: status == 'OPEN' ? redColor : Colors.green,
+                        color: status == 'OPEN'
+                            ? redColor
+                            : status == 'IN_PROGRESS'
+                                ? Colors.orange
+                                : Colors.green,
                         borderRadius: BorderRadius.circular(5)),
                     child: Center(
                         child: Text(
