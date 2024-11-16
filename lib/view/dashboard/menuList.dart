@@ -82,10 +82,10 @@ class _MenuListState extends State<MenuList> {
                   "driverId": widget.userId,
                   "pageNumber": "0",
                   "pageSize": "5",
-                  "bookingStatus": "ALL"
+                  "bookingStatus": "BOOKED"
                 }, context);
                 Provider.of<DriverPackageViewModel>(context, listen: false)
-                    .getPackageBookingHistoryList(context: context);
+                    .getPackageBookingList(context: context);
               }),
               // context.push("/booking")
             ),
@@ -110,7 +110,7 @@ class _MenuListState extends State<MenuList> {
                     "driverId": widget.userId,
                     "pageNumber": "0",
                     "pageSize": "5",
-                    "bookingStatus": "ALL"
+                    "bookingStatus": "BOOKED"
                   }, context);
                   Provider.of<DriverPackageViewModel>(context, listen: false)
                       .getPackageBookingList(context: context);

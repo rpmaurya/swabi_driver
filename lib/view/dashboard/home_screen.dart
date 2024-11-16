@@ -96,7 +96,7 @@ class _home_screenState extends State<home_screen> {
         "driverId": uId,
         "pageNumber": "0",
         "pageSize": "5",
-        "bookingStatus": "ALL"
+        "bookingStatus": "BOOKED"
       }, context);
       Provider.of<DriverPackageViewModel>(context, listen: false)
           .getPackageBookingList(
@@ -445,7 +445,7 @@ class _home_screenState extends State<home_screen> {
                                               "driverId": uId,
                                               "pageNumber": "0",
                                               "pageSize": "5",
-                                              "bookingStatus": "ALL"
+                                              "bookingStatus": "BOOKED"
                                             },
                                                 context);
                                         Provider.of<DriverPackageViewModel>(
@@ -628,7 +628,7 @@ class _home_screenState extends State<home_screen> {
                                               "driverId": uId,
                                               "pageNumber": "0",
                                               "pageSize": "5",
-                                              "bookingStatus": "ALL"
+                                              "bookingStatus": "BOOKED"
                                             },
                                                 context);
                                         Provider.of<DriverPackageViewModel>(
