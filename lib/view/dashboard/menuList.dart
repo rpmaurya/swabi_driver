@@ -66,19 +66,7 @@ class _MenuListState extends State<MenuList> {
     debugPrint('${widget.userId} menu user id');
     DriverProfileData? driverData =
         context.watch<DriverProfileViewModel>().DataList.data?.data;
-    // return PageLayout_Curve(
-    //     appHeading: "Account",
-    //     leadingAppImage: package,
-    //     child:
-    //     );
-
-    // return CustomPagelayout(
-    //     appBarTitle: 'Account',
-    //     onTap: () {
-    //       getNotification();
-    //       context.pop();
-    //     },
-    //     child:
+   
     return SafeArea(
       child: Column(
         // padding: const EdgeInsets.symmetric(horizontal: 10),
