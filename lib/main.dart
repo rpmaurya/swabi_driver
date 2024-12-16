@@ -6,10 +6,10 @@ import 'package:flutter_driver/firebase_options.dart';
 import 'package:flutter_driver/service_locator.dart';
 import 'package:flutter_driver/utils/routes/route.dart';
 import 'package:flutter_driver/view_model/auth_view_model.dart';
-import 'package:flutter_driver/view_model/driverBooking_view_model.dart';
-import 'package:flutter_driver/view_model/driverPackage_view_model.dart';
+import 'package:flutter_driver/view_model/driver_rental_booking_view_model.dart';
 import 'package:flutter_driver/view_model/driverProfile_view_model.dart';
 import 'package:flutter_driver/view_model/driver_package_view_model.dart';
+import 'package:flutter_driver/view_model/notification_view_model.dart';
 import 'package:flutter_driver/view_model/raiseIssue_view_model.dart';
 import 'package:flutter_driver/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
@@ -38,23 +38,21 @@ Future<void> main() async {
             create: (context) => DriverGetBookingDetailsViewModel()),
         ChangeNotifierProvider(create: (context) => DriverProfileViewModel()),
         ChangeNotifierProvider(
+            create: (context) => ChangePasswordViewModel()),
+        ChangeNotifierProvider(
             create: (context) => DriverProfileUpdateViewModel()),
         ChangeNotifierProvider(create: (context) => DriverOnRunningViewModel()),
         ChangeNotifierProvider(
             create: (context) => DriverCompletedBookingViewModel()),
-        ChangeNotifierProvider(
-            create: (context) => DriverPackageBookingListViewModel()),
-        ChangeNotifierProvider(
-            create: (context) => DriverPackageDetailViewModel()),
-        ChangeNotifierProvider(
-            create: (context) => DriverActivityStartViewModel()),
-        ChangeNotifierProvider(
-            create: (context) => DriverActivityCompleteViewModel()),
-        ChangeNotifierProvider(
-            create: (context) => DriverPackageBookingHistoryListViewModel()),
+    
         ChangeNotifierProvider(create: (context) => DriverPackageViewModel()),
         ChangeNotifierProvider(create: (context) => RaiseissueViewModel()),
         ChangeNotifierProvider(create: (context) => ResetPasswordViewModel()),
+        ChangeNotifierProvider(create: (context) => NotificationViewModel()),
+        ChangeNotifierProvider(
+            create: (context) => UploadProfilePicViewModel()),
+        ChangeNotifierProvider(
+            create: (context) => GetCountryStateListViewModel()),
       ],
       child: const MyApp(),
     ));

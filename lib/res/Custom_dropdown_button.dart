@@ -93,8 +93,8 @@ class _CustomDropdownState extends State<CustomDropdown> {
                 enabled: true,
                 hintStyle: textStyle,
                 suffixIcon: isOpen
-                    ? Icon(Icons.keyboard_arrow_up)
-                    : Icon(Icons.keyboard_arrow_down)),
+                    ? const Icon(Icons.keyboard_arrow_up)
+                    : const Icon(Icons.keyboard_arrow_down)),
             // validator: widget.validator,
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -116,7 +116,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
         Visibility(
           visible: isOpen,
           child: Container(
-            constraints: BoxConstraints(maxHeight: 250),
+            constraints: const BoxConstraints(maxHeight: 250),
             decoration: BoxDecoration(
                 color: widget.fillColor,
                 border: Border.all(color: Colors.black),
@@ -139,14 +139,14 @@ class _CustomDropdownState extends State<CustomDropdown> {
                           });
                         },
                         child: Container(
-                          margin: EdgeInsets.all(2),
+                          margin: const EdgeInsets.all(2),
                           decoration: widget.controller.text == e
                               ? BoxDecoration(
                                   border: Border.all(
                                       color: widget.selectedBorderColor ??
                                           Colors.black),
                                   borderRadius: BorderRadius.circular(10))
-                              : BoxDecoration(),
+                              : const BoxDecoration(),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
@@ -159,7 +159,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
                                   ),
                                 ),
                                 if (widget.controller.text == e)
-                                  Icon(Icons.check)
+                                  const Icon(Icons.check)
                               ],
                             ),
                           ),

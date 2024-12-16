@@ -38,7 +38,9 @@ class DriverProfileData {
   String vendorId;
   // List<UnavailableDate> unavailableDates;
   String driverStatus;
-
+  String lastLogin;
+  String country;
+  String state;
   DriverProfileData({
     required this.driverId,
     required this.firstName,
@@ -57,6 +59,9 @@ class DriverProfileData {
     required this.vendorId,
     // required this.unavailableDates,
     required this.driverStatus,
+    required this.lastLogin,
+    required this.country,
+    required this.state,
   });
 
   factory DriverProfileData.fromJson(Map<String, dynamic> json) =>
@@ -78,6 +83,9 @@ class DriverProfileData {
         vendorId: json["vendorId"].toString(),
         // unavailableDates: List<UnavailableDate>.from(json["unavailableDates"].map((x) => UnavailableDate.fromJson(x))),
         driverStatus: json["driverStatus"] ?? '',
+        lastLogin: json['lastLogin']?.toString() ?? '',
+        country: json["country"]?.toString() ?? '',
+        state: json["state"]?.toString() ?? '',
       );
 
   Map<String, dynamic> toJson() => {
@@ -98,44 +106,13 @@ class DriverProfileData {
         "vendorId": vendorId,
         // "unavailableDates": List<dynamic>.from(unavailableDates.map((x) => x.toJson())),
         "driverStatus": driverStatus,
+        "lastLogin": lastLogin,
+        "country": country,
+        "state": state
       };
 }
 
-// class DriverProfileDataUnavailableDate {
-//   String driverUnavailableId;
-//   String date;
-//   String driverUnavailableReason;
-//   String createdDate;
-//   String modifiedDate;
-//   String isCancelled;
-//
-//   DriverProfileDataUnavailableDate({
-//     required this.driverUnavailableId,
-//     required this.date,
-//     required this.driverUnavailableReason,
-//     required this.createdDate,
-//     required this.modifiedDate,
-//     required this.isCancelled,
-//   });
-//
-//   factory DriverProfileDataUnavailableDate.fromJson(Map<String, dynamic> json) => DriverProfileDataUnavailableDate(
-//     driverUnavailableId: json["driverUnavailableId"].toString(),
-//     date: json["date"] ?? '',
-//     driverUnavailableReason: json["driverUnavailableReason"] ?? '',
-//     createdDate: json["createdDate"] ?? '',
-//     modifiedDate: json["modifiedDate"] ?? '',
-//     isCancelled: json["isCancelled"].toString(),
-//   );
-//
-//   Map<String, dynamic> toJson() => {
-//     "driverUnavailableId": driverUnavailableId,
-//     "date": date,
-//     "driverUnavailableReason": driverUnavailableReason,
-//     "createdDate": createdDate,
-//     "modifiedDate": modifiedDate,
-//     "isCancelled": isCancelled,
-//   };
-// }
+
 
 class DriverProfileStatus {
   String httpCode;

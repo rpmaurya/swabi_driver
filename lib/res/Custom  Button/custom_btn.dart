@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_driver/utils/color.dart';
 import 'package:flutter_driver/utils/dimensions.dart';
 import 'package:flutter_driver/utils/text_styles.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomButtonBig extends StatelessWidget {
@@ -29,7 +30,12 @@ class CustomButtonBig extends StatelessWidget {
           width: widht ?? AppDimension.getWidth(context) * .95,
           child: Center(
               child: loading
-                  ? const CircularProgressIndicator(
+                  // ? const CircularProgressIndicator(
+                  //     color: background,
+                  //   )
+                  ? const SpinKitWave(
+                      size: 15,
+                      duration: Duration(milliseconds: 500),
                       color: background,
                     )
                   : Text(
@@ -121,7 +127,12 @@ class CustomButtonSmall extends StatelessWidget {
           width: width ?? MediaQuery.of(context).size.width * .5,
           child: Center(
             child: loading
-                ? const CircularProgressIndicator(color: background)
+                // ? const CircularProgressIndicator(color: background)
+                ? const SpinKitWave(
+                    size: 15,
+                    duration: Duration(milliseconds: 500),
+                    color: background,
+                  )
                 : Text(btnHeading,
                     style: GoogleFonts.lato(
                         color: isEnabled

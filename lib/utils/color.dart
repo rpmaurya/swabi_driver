@@ -8,6 +8,7 @@ const naturalTextColor = Color(0xff39404A);
 const curvePageColor = Color(0xffEAE9E2);
 const lightBrownColor = Color(0xffBAA78E);
 const btnColor = Color(0xff81001E);
+const buttonColor = Color(0xff7B1E34);
 const appBarbgcolor = Color(0xff81001E);
 const background = Colors.white;
 const greyColor = Color(0xff130F26);

@@ -2,8 +2,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_driver/data/validatorclass.dart';
 import 'package:flutter_driver/res/Custom%20%20Button/custom_btn.dart';
-import 'package:flutter_driver/res/CustomTextFormfield.dart';
-import 'package:flutter_driver/res/customTextWidget.dart';
+import 'package:flutter_driver/res/custom_text_form_field.dart';
+import 'package:flutter_driver/res/custom_text_widget.dart';
 
 import 'package:flutter_driver/utils/assets.dart';
 import 'package:flutter_driver/utils/color.dart';

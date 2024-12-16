@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_driver/res/Custom%20Page%20Layout/custom_pageLayout.dart';
 import 'package:flutter_driver/utils/color.dart';
-import 'package:flutter_driver/view/dashboard/package/history_packageBooking.dart';
-import 'package:flutter_driver/view/dashboard/package/upcomming_packageBooking.dart';
+import 'package:flutter_driver/view/dashboard/package/history_package_booking_screen.dart';
+import 'package:flutter_driver/view/dashboard/package/upcoming_package_booking_screen.dart';
 import 'package:flutter_driver/view_model/driver_package_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -79,20 +79,28 @@ class _PackageManagementScreenState extends State<PackageManagementScreen>
                 getPackageList();
                 print({"valueIndex": intialIndex});
               },
-              indicator: const BoxDecoration(
-                  color: Colors.transparent,
-                  border: Border(bottom: BorderSide(width: 5, color: btnColor)),
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(15),
-                      bottomRight: Radius.circular(15))),
-              splashBorderRadius: BorderRadius.circular(20),
+            
               unselectedLabelColor: Colors.black87,
-              labelColor: btnColor,
-              indicatorColor: Colors.transparent,
+              labelColor: Colors.black,
+              indicatorWeight: 2.5,
+              indicatorColor: buttonColor,
               dividerColor: Colors.transparent,
               indicatorPadding: const EdgeInsets.only(left: 10, right: 10),
               indicatorSize: TabBarIndicatorSize.tab,
-              tabs: const [Tab(text: "UP COMING"), Tab(text: "HISTORY")],
+              tabs: const [
+                Tab(
+                  child: Text(
+                    'UP COMING',
+                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+                  ),
+                ),
+                Tab(
+                  child: Text(
+                    'HISTORY',
+                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+                  ),
+                )
+              ],
             ),
           ),
           Expanded(

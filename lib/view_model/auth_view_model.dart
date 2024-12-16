@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_driver/view_model/user_view_model.dart';
 import 'package:go_router/go_router.dart';
@@ -28,31 +28,7 @@ class AuthViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  // Future<void> loginApi(dynamic data, BuildContext context) async {
-  //   setLoading(true);
-  //   _myRepo.loginApi(data).then((value) async {
-  //     print(value);
-  //     setLoading(false);
-  //     String token = value['token'].toString();
-  //     final userPreference = Provider.of<UserViewModel>(context, listen: false);
-  //     userPreference.saveToken(UserModel(token: token.toString()));
-  //     print("Data of user ${value['data'].toString()}");
-  //     // userPreference.saveUserEmail(value['email'].toString());
-  //     print(value['token']);
-  //     print("Data of user ${value['data'].toString(),''}");
-  //     Utils.toastMessage('Login Successfully',Colors.green);
-  //     print("Login Successfully token ${value.toString()}");
-  //     /// navigate to dashbaord
-  //     context.go('/');
-  //   }).onError((error, stackTrace) {
-  //     setLoading(false);
-  //     Utils.flushBarErrorMessage(error.toString(), context,Colors.red);
-  //     if (kDebugMode) {
-  //       print(error.toString());
-  //     }
-  //   });
-  // }
-
+  
   Future<void> loginApi(
       {required BuildContext context,
       required String email,
@@ -67,14 +43,14 @@ class AuthViewModel with ChangeNotifier {
     };
     setLoading(true);
     {
-      _myRepo.loginApi(data).then((value) async {
-        print(value);
+      _myRepo.loginApi(context: context, body: data).then((value) async {
+        
 
         final userPreference =
             Provider.of<UserViewModel>(context, listen: false);
-        print("save token");
-        // userPreference.saveEmail(value['user']);
-        print(value['data']['userId'].toString());
+        debugPrint("save token $value");
+
+        debugPrint(value['data']['userId'].toString());
         String userID = value['data']['userId'].toString();
         String token1 = value['data']['token'].toString();
         userPreference.saveToken(UserModel(token: token1));
@@ -82,18 +58,17 @@ class AuthViewModel with ChangeNotifier {
         rememberMe
             ? userPreference.saveRememberMe(email, password, rememberMe)
             : userPreference.clearRememberMe();
-        print('userId: $userID');
-        print('token: ${token1.toString()}');
+        debugPrint('userId: $userID');
+        debugPrint('token: ${token1.toString()}');
         Utils.toastSuccessMessage("Login Successfully");
         context.go('/');
         setLoading(false);
       }).onError((error, stackTrace) {
         setLoading(false);
-        Utils.toastMessage(error.toString());
+        // Utils.toastMessage(error.toString());
         FocusScope.of(context).unfocus();
-        if (kDebugMode) {
-          print(error.toString());
-        }
+        debugPrint(error.toString());
+        
       });
     }
   }

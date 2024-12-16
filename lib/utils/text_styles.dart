@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_driver/utils/color.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 const headerStyle = TextStyle(fontSize: 35, fontWeight: FontWeight.w900);
@@ -43,6 +44,8 @@ TextStyle termCondition = GoogleFonts.lato(
     color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500);
 TextStyle textTextStyle = GoogleFonts.lato(
     color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400);
+TextStyle textTextStyle2 = GoogleFonts.lato(
+    color: Colors.black, fontSize: 16, fontWeight: FontWeight.w400);
 TextStyle textTextStyle1 = GoogleFonts.lato(
     color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600);
 
@@ -65,3 +68,5 @@ TextStyle detailstextTextStyle = GoogleFonts.lato(
 
 TextStyle hintTextStyle = GoogleFonts.lato(
     color: Colors.grey, fontSize: 16, fontWeight: FontWeight.w400);
+TextStyle buttonText = GoogleFonts.lato(
+    color: btnColor, fontSize: 17, fontWeight: FontWeight.w600);

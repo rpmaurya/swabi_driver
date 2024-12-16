@@ -1,30 +1,25 @@
 // routes.dart
 
 import 'package:flutter/material.dart';
-import 'package:flutter_driver/res/custom_rideIssue_page.dart';
-import 'package:flutter_driver/view/dashboard/account_Pages/cardPage.dart';
-import 'package:flutter_driver/view/dashboard/account_Pages/changePassword.dart';
-import 'package:flutter_driver/view/dashboard/account_Pages/contact.dart';
-import 'package:flutter_driver/view/dashboard/account_Pages/faqPage.dart';
+import 'package:flutter_driver/res/custom_ride_issue_page.dart';
+import 'package:flutter_driver/view/dashboard/account_Pages/change_password_screen.dart';
+import 'package:flutter_driver/view/dashboard/account_Pages/contact_screen.dart';
+import 'package:flutter_driver/view/dashboard/account_Pages/faq_page_screen.dart';
 import 'package:flutter_driver/view/dashboard/account_Pages/help&support.dart';
 import 'package:flutter_driver/view/dashboard/account_Pages/notification.dart';
-import 'package:flutter_driver/view/dashboard/account_Pages/profilePage.dart';
-import 'package:flutter_driver/view/dashboard/account_Pages/raiseIssueDetails.dart';
+import 'package:flutter_driver/view/dashboard/account_Pages/profile_screen.dart';
+import 'package:flutter_driver/view/dashboard/account_Pages/raise_issue_details.dart';
 import 'package:flutter_driver/view/dashboard/account_Pages/term_condition.dart';
 import 'package:flutter_driver/view/dashboard/account_Pages/transaction.dart';
-import 'package:flutter_driver/view/dashboard/account_Pages/verifyPassword.dart';
+import 'package:flutter_driver/view/dashboard/account_Pages/verify_password.dart';
 import 'package:flutter_driver/view/dashboard/home_screen.dart';
 import 'package:flutter_driver/view/dashboard/menuList.dart';
-import 'package:flutter_driver/view/dashboard/account_Pages/editProfile.dart';
-import 'package:flutter_driver/view/dashboard/package/packageBookingList.dart';
-import 'package:flutter_driver/view/dashboard/package/packageDetailPage.dart';
+import 'package:flutter_driver/view/dashboard/account_Pages/edit_profile_screen.dart';
+import 'package:flutter_driver/view/dashboard/package/package_detail_screen.dart';
 import 'package:flutter_driver/view/dashboard/package/package_management_screen.dart';
-import 'package:flutter_driver/view/dashboard/package/pageViewDetails.dart';
-import 'package:flutter_driver/view/dashboard/raiseIssue_pages/issueViewDetails.dart';
-import 'package:flutter_driver/view/dashboard/rental/bookingPage.dart';
-import 'package:flutter_driver/view/dashboard/rental/detailsOfBookings.dart';
-import 'package:flutter_driver/view/dashboard/rental/history/rentalHistoryManagment.dart';
-import 'package:flutter_driver/view/dashboard/rental/onRunning_DetailsPage.dart';
+import 'package:flutter_driver/view/dashboard/raiseIssue_pages/issue_view_details.dart';
+import 'package:flutter_driver/view/dashboard/rental/rental_view_detail_screen.dart';
+import 'package:flutter_driver/view/dashboard/rental/history/rental_history_managment.dart';
 import 'package:flutter_driver/view/registration/forgot_screen.dart';
 import 'package:flutter_driver/view/registration/login_screen.dart';
 import 'package:flutter_driver/view/registration/otp_verification_screen.dart';
@@ -40,64 +35,7 @@ final GoRouter myRouter = GoRouter(
   initialLocation: '/splash',
   navigatorKey: _rootNavigatorKey,
   routes: <RouteBase>[
-    ///For Bottom Navigation Regarding
-    // ShellRoute(
-    //   navigatorKey: _shellNavigatorKey,
-    //   builder: (BuildContext context, GoRouterState state, Widget child) {
-    //     return CustomBottomNavigationBar(
-    //         child: child, currentRoute: state.uri.toString());
-    //   },
-    //   routes: [
-    //     GoRoute(
-    //       path: '/',
-    //       parentNavigatorKey: _shellNavigatorKey,
-    //       pageBuilder: (context, state) {
-    //         return const NoTransitionPage(child:
-    //         VendorProfileScreen()
-    //         );
-    //       },
-    //     ),
-    //     GoRoute(
-    //         path: '/vendor',
-    //         parentNavigatorKey: _shellNavigatorKey,
-    //         pageBuilder: (context, state) {
-    //           return const NoTransitionPage(child: VendorProfileScreen());
-    //         },
-    //         routes: [
-    //           GoRoute(
-    //             path: 'vendor',
-    //             parentNavigatorKey: _rootNavigatorKey,
-    //             pageBuilder: (context, state) {
-    //               return const NoTransitionPage(child: VendorProfileScreen());
-    //             },
-    //           ),
-    //           GoRoute(
-    //             path: 'vendor',
-    //             parentNavigatorKey: _rootNavigatorKey,
-    //             pageBuilder: (context, state) {
-    //               final title = state.extra as Map<String, dynamic>;
-    //               final color = state.extra as Map<String, dynamic>;
-    //               return NoTransitionPage(
-    //                   child:VendorProfileScreen());
-    //             },
-    //           ),
-    //         ]),
-    //     GoRoute(
-    //         path: '/vendor',
-    //         parentNavigatorKey: _shellNavigatorKey,
-    //         pageBuilder: (context, state) {
-    //           return const NoTransitionPage(child: VendorProfileScreen());
-    //         },
-    //         routes: []),
-    //     GoRoute(
-    //       path: '/vendor',
-    //       parentNavigatorKey: _shellNavigatorKey,
-    //       pageBuilder: (context, state) {
-    //         return const NoTransitionPage(child: VendorProfileScreen());
-    //       },
-    //     ),
-    //   ],
-    // ),
+  
     GoRoute(
         path: '/splash',
         builder: (BuildContext context, GoRouterState state) {
@@ -119,19 +57,14 @@ final GoRouter myRouter = GoRouter(
             );
       },
     ),
-    GoRoute(
-      path: '/homePageBookingList',
-      builder: (BuildContext context, GoRouterState state) {
-        var data = state.extra as Map<String, dynamic>;
-        return BookingDetailsPage(
-          userId: data['userID'],
-        );
-      },
-    ),
+   
     GoRoute(
       path: '/notification',
       builder: (BuildContext context, GoRouterState state) {
-        return const NotificationPage();
+        var data = state.extra as Map<String, dynamic>;
+        return NotificationPage(
+          userId: data['userId'],
+        );
       },
     ),
     //
@@ -188,27 +121,7 @@ final GoRouter myRouter = GoRouter(
         ));
       },
     ),
-    GoRoute(
-      path: '/packageBookingList',
-      pageBuilder: (BuildContext context, GoRouterState state) {
-        var data = state.extra as Map<String, dynamic>;
-        return NoTransitionPage(
-            child: PackageBookingList(
-          myId: data['myId'],
-          historylist: data['historyList'],
-        ));
-      },
-    ),
-    GoRoute(
-      path: '/pageViewDetails',
-      pageBuilder: (BuildContext context, GoRouterState state) {
-        var data = state.extra as Map<String, dynamic>;
-        return NoTransitionPage(
-            child: PageViewDetails(
-          driverAss: data['driverAss'],
-        ));
-      },
-    ),
+   
     GoRoute(
       path: '/packageBookingManagement',
       // parentNavigatorKey: _rootNavigatorKey,
@@ -242,7 +155,10 @@ final GoRouter myRouter = GoRouter(
       path: '/changePassword',
       parentNavigatorKey: _rootNavigatorKey,
       builder: (BuildContext context, GoRouterState state) {
-        return const ChangePassword();
+        var driverId = state.extra as Map<String, dynamic>;
+        return ChangePassword(
+          driverId: driverId['driverId'],
+        );
       },
     ),
     GoRoute(
@@ -334,13 +250,7 @@ final GoRouter myRouter = GoRouter(
         return const Issueviewdetails();
       },
     ),
-    GoRoute(
-      path: '/myCards',
-      parentNavigatorKey: _rootNavigatorKey,
-      builder: (BuildContext context, GoRouterState state) {
-        return const CardPage();
-      },
-    ),
+   
     GoRoute(
       path: '/myTransaction',
       parentNavigatorKey: _rootNavigatorKey,
@@ -348,24 +258,7 @@ final GoRouter myRouter = GoRouter(
         return const MyTransaction();
       },
     ),
-    // GoRoute(
-    //   path: '/bookingDetails',
-    //   parentNavigatorKey: _rootNavigatorKey,
-    //   builder: (BuildContext context, GoRouterState state) {
-    //     print('state.extra: ${state.extra}'); // Debug print
-    //
-    //     if (state.extra == null || state.extra is! Map<String, dynamic>) {
-    //       return Scaffold(body: Center(child: Text("ERROR"),),); // Replace with an appropriate error handling widget
-    //     }
-    //
-    //     var data = state.extra as Map<String, dynamic>;
-    //
-    //     return BookingDetailsOfDriver(
-    //       bookingId: data['bookId'],
-    //       driverId: data['myDriverId'],
-    //     );
-    //   },
-    // ),
+    
     GoRoute(
       path: '/bookingDetails',
       parentNavigatorKey: _rootNavigatorKey,
@@ -378,41 +271,6 @@ final GoRouter myRouter = GoRouter(
         );
       },
     ),
-    GoRoute(
-      path: '/onRunning_DetailsPage',
-      parentNavigatorKey: _rootNavigatorKey,
-      builder: (BuildContext context, GoRouterState state) {
-        var bookingID = state.extra as Map<String, dynamic>;
-        var dID = state.extra as Map<String, dynamic>;
-        return OnRunning_DetailsPage(
-          bookingId: bookingID['bookId'],
-          dvrID: dID['driverID'],
-        );
-      },
-    ),
-    //       GoRoute(
-    //           path: 'selectItem',
-    //           parentNavigatorKey: _rootNavigatorKey,
-    //           pageBuilder: (context, state) {
-    //             var data = state.extra as Map<String, dynamic>;
-    //             return NoTransitionPage(
-    //                 child: SelectItem(
-    //               selectedItems: data["notifier"],
-    //               customer: data["customer"],
-    //             ));
-    //           }),
+   
   ],
 );
-//
-// extension GoRouterEx on GoRouter {
-//   void popUntilPath(BuildContext context, String routePath) {
-//     final router = GoRouterState.of(context);
-//     while (router.uri.toString() != routePath) {
-//       if (!router.canPop()) {
-//         return;
-//       }
-//       debugPrint('Popping ${router.location}');
-//       router.pop();
-//     }
-//   }
-// }

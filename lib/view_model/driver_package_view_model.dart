@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_driver/model/driverPackageModel.dart';
-import 'package:flutter_driver/model/driverpackageHistoryModel.dart';
-import 'package:flutter_driver/respository/driverPackageService_repository.dart';
+import 'package:flutter_driver/model/driver_package_model.dart';
+import 'package:flutter_driver/model/driver_package_history_model.dart';
+import 'package:flutter_driver/respository/driver_packages_repository.dart';
 import 'package:flutter_driver/utils/utils.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';

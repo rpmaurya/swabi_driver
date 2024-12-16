@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_driver/model/driver_profile_model.dart';
 import 'package:flutter_driver/res/Custom%20%20Button/custom_btn.dart';
 import 'package:flutter_driver/res/Custom%20Page%20Layout/custom_pageLayout.dart';
-import 'package:flutter_driver/res/custom_ListTile.dart';
+import 'package:flutter_driver/res/custom_list_tile.dart';
 import 'package:flutter_driver/utils/assets.dart';
 import 'package:flutter_driver/utils/color.dart';
 import 'package:flutter_driver/utils/text_styles.dart';
-import 'package:flutter_driver/view_model/driverBooking_view_model.dart';
+import 'package:flutter_driver/view_model/driver_rental_booking_view_model.dart';
 import 'package:flutter_driver/view_model/driverProfile_view_model.dart';
 import 'package:flutter_driver/view_model/driver_package_view_model.dart';
+import 'package:flutter_driver/view_model/notification_view_model.dart';
 import 'package:flutter_driver/view_model/user_view_model.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +32,9 @@ class _MenuListState extends State<MenuList> {
   void initState() {
     super.initState();
     _loadNotiValue();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      getNotification();
+    });
   }
 
   Future<void> _loadNotiValue() async {
@@ -44,52 +49,156 @@ class _MenuListState extends State<MenuList> {
     await prefs.setBool('noti', value);
   }
 
+  void getNotification() {
+    Provider.of<NotificationViewModel>(context, listen: false)
+        .getAllNotificationList(
+            context: context,
+            userId: widget.userId,
+            pageNumber: 0,
+            pageSize: 100,
+            readStatus: 'FALSE');
+  }
+
+  int isSelectedindex = 0;
   @override
   Widget build(BuildContext context) {
     debugPrint("${noti}Value Data");
     debugPrint('${widget.userId} menu user id');
+    DriverProfileData? driverData =
+        context.watch<DriverProfileViewModel>().DataList.data?.data;
     // return PageLayout_Curve(
     //     appHeading: "Account",
     //     leadingAppImage: package,
     //     child:
     //     );
 
-    return CustomPagelayout(
-        appBarTitle: 'Account',
-        child: Column(
-          // padding: const EdgeInsets.symmetric(horizontal: 10),
-          children: [
-            const SizedBox(height: 10),
-            Custom_ListTile(
+    // return CustomPagelayout(
+    //     appBarTitle: 'Account',
+    //     onTap: () {
+    //       getNotification();
+    //       context.pop();
+    //     },
+    //     child:
+    return SafeArea(
+      child: Column(
+        // padding: const EdgeInsets.symmetric(horizontal: 10),
+        children: [
+          DrawerHeader(
+            // decoration: BoxDecoration(color: background),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 25),
+                Image.asset(
+                  appLogo1,
+                  height: 65,
+                  width: double.infinity,
+                ),
+                const SizedBox(height: 15),
+                Text(
+                  'Last sync : ${driverData?.lastLogin.replaceAll(RegExp(r':\d{2} [A-Z]{3}$'), '') ?? ''}',
+                  style: textTextStyle,
+                )
+              ],
+            ),
+          ),
+          // ListTile(
+          //   selected: isSelectedindex == 0,
+          //   selectedColor: background,
+          //   selectedTileColor: btnColor,
+          //   leading: Image.asset(
+          //     user,
+          //     height: 20,
+          //     color: background,
+          //   ),
+          //   shape: RoundedRectangleBorder(
+          //       borderRadius: BorderRadius.circular(8),
+          //       side: BorderSide(color: greyColor1)),
+          //   title: Text('data'),
+          //   onTap: () {
+          //     setState(() {
+          //       isSelectedindex = 0;
+          //     });
+          //     context.pop();
+          //   },
+          // ),
+          const SizedBox(height: 20),
+          // CustomListtile(
+          //     userIcon: user,
+          //     title: 'hfsdjkfhkjsdhfkj',
+          //     selected: isSelectedindex == 0,
+          //     onTap: () {
+          //       setState(() {
+          //         isSelectedindex = 0;
+          //       });
+          //       Navigator.pop(context);
+          //     }),
+          // CustomListtile(
+          //     userIcon: user,
+          //     title: 'hfsdjkfhkjsdhfkj',
+          //     selected: isSelectedindex == 1,
+          //     onTap: () {
+          //       setState(() {
+          //         isSelectedindex = 1;
+          //         debugPrint('cvvcnvncvn....... $isSelectedindex');
+          //       });
+          //       Navigator.pop(context);
+          //     }),
+          // CustomListtile(
+          //     userIcon: user,
+          //     title: 'hfsdjkfhkjsdhfkj',
+          //     selected: isSelectedindex == 2,
+          //     onTap: () {
+          //       setState(() {
+          //         isSelectedindex = 2;
+          //       });
+          //       Navigator.pop(context);
+          //     }),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Custom_ListTile(
               img: profile,
               iconColor: btnColor,
               heading: "Profile",
               onTap: () {
-                Provider.of<DriverProfileViewModel>(context, listen: false)
-                    .fetchDriverProfileViewModelApi(
-                        context, {"driverId": widget.userId}, widget.userId);
+                // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                //   Provider.of<DriverProfileViewModel>(context, listen: false)
+                //       .fetchDriverProfileViewModelApi(
+                //           context, {"driverId": widget.userId}, widget.userId);
+                // });
+                context.push("/profilePage", extra: {"userId": widget.userId});
+                Navigator.pop(context);
               },
             ),
-            Custom_ListTile(
-              img: rentalBooking,
-              iconColor: btnColor,
-              heading: "Rental Management",
-              onTap: () => context.push("/historyManagement",
-                  extra: {"myID": widget.userId}).then((value) {
-                Provider.of<DriverGetBookingListViewModel>(context,
-                        listen: false)
-                    .fetchDriverGetBookingListViewModel({
-                  "driverId": widget.userId,
-                  "pageNumber": "0",
-                  "pageSize": "5",
-                  "bookingStatus": "BOOKED"
-                }, context);
-                Provider.of<DriverPackageViewModel>(context, listen: false)
-                    .getPackageBookingList(context: context);
-              }),
-              // context.push("/booking")
-            ),
-            Custom_ListTile(
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Custom_ListTile(
+                img: rentalBooking,
+                iconColor: btnColor,
+                heading: "Rental Management",
+                onTap: () {
+                  context.push("/historyManagement",
+                      extra: {"myID": widget.userId}).then((value) {
+                    Provider.of<DriverGetBookingListViewModel>(context,
+                            listen: false)
+                        .fetchDriverGetBookingListViewModel({
+                      "driverId": widget.userId,
+                      "pageNumber": "0",
+                      "pageSize": "5",
+                      "bookingStatus": "BOOKED"
+                    }, context);
+                    Provider.of<DriverPackageViewModel>(context, listen: false)
+                        .getPackageBookingList(context: context);
+                  });
+                  Navigator.pop(context);
+                  // context.push("/booking")
+                }),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Custom_ListTile(
               img: package,
               iconColor: btnColor,
               heading: "Package Management",
@@ -115,85 +224,57 @@ class _MenuListState extends State<MenuList> {
                   Provider.of<DriverPackageViewModel>(context, listen: false)
                       .getPackageBookingList(context: context);
                 });
+                Navigator.pop(context);
               },
               // context.push("/booking")
             ),
-            // Custom_ListTile(
-            //   img: card,
-            //   heading: "Cards Details",
-            //   onTap: () => context.push("/myCards"),
-            // ),
-            // Custom_ListTile(
-            //   img: transaction,
-            //   heading: "Transaction",
-            //   onTap: () => context.push("/myTransaction"),
-            // ),
-            // Custom_ListTile(
-            //   img: settingimg,
-            //   heading: "Settings",
-            //   onTap: () => context.push("/setting"),
-            // ),
-            // Custom_ListTileSwitch(
-            //   img: notification,
-            //   heading: "Notification",
-            //   notification: FlutterSwitch(
-            //     width: 55,
-            //     height: 30,
-            //     activeColor: Colors.green,
-            //     toggleSize: 20,
-            //     value: noti,
-            //     inactiveColor: naturalGreyColor.withOpacity(0.3),
-            //     onToggle: (value) {
-            //       setState(() {
-            //         noti = value;
-            //       });
-            //       _saveNotiValue(value);
-            //     },
-            //   ),
-            // ),
-            // Custom_ListTile(
-            //   img: tnc,
-            //   heading: "Term & Condition",
-            //   onTap: () => context.push("/termCondition"),
-            // ),
-            // Custom_ListTile(
-            //   img: contact,
-            //   heading: "Contact",
-            //   onTap: () => context.push("/contact"),
-            // ),
-            Custom_ListTile(
-              img: helpSupport,
-              iconColor: btnColor,
-              heading: "Help & Support",
-              onTap: () => context.push("/help&support"),
-            ),
-            // Custom_ListTile(
-            //   img: faq,
-            //   iconColor: btnColor,
-            //   heading: "FAQ",
-            //   onTap: () => context.push("/faqPage"),
-            // ),
-            // const SizedBox(
-            //   height: 30,
-            // ),
-            const Spacer(),
-            Align(
-              alignment: Alignment.bottomCenter,
+          ),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Custom_ListTile(
+                img: helpSupport,
+                iconColor: btnColor,
+                heading: "Help & Support",
+                onTap: () {
+                  context.push("/help&support");
+                  context.pop();
+                }),
+          ),
+          // Custom_ListTile(
+          //   img: faq,
+          //   iconColor: btnColor,
+          //   heading: "FAQ",
+          //   onTap: () => context.push("/faqPage"),
+          // ),
+          // const SizedBox(
+          //   height: 30,
+          // ),
+          const Spacer(),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               child: CustomButtonLogout(
                   img: logout,
                   btnHeading: "Logout",
                   onTap: () {
+                    Navigator.pop(context);
                     _confirmLogout();
+
                     // userViewModel.removeUser(context);
                     // userViewModel.remove(context);
                     // context.go("/login");
                   }),
             ),
-            const SizedBox(
-              height: 10,
-            )
-          ],
-        ));
+          ),
+          const SizedBox(
+            height: 10,
+          )
+        ],
+      ),
+    );
+    // );
   }
 
   void _confirmLogout() {
